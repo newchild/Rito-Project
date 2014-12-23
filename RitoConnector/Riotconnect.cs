@@ -13,7 +13,7 @@ namespace RitoConnector
     {
         private SummonerDTO User;
         private string CleanSummonerJSON;
-        Riotconnect(string username, string Region,string key = "64becc79-cc38-40e1-afdf-a92b95b4c836")
+        public Riotconnect(string username, string Region,string key)
         {
             string JSONRAW;
             string URI = "https://" + Region + ".api.pvp.net/api/lol/" + Region + "/v1.4/summoner/by-name/" + username + "?api_key=" + key;

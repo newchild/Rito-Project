@@ -18,8 +18,8 @@
             <TabItem Header="Profile">
                 <Grid>
                     <Image Name="ProfileIcon" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="10,10,0,0"/>
-                    <TextBlock Name="UsernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="115,10,0,0" Width="91"/>
-                    <TextBlock Name="LevelLabel" HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="68"/>
+                    <TextBlock Visibility ="Hidden" Name="UsernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="115,10,0,0" Width="91"/>
+                    <TextBlock Visibility ="Hidden" Name="LevelLabel" HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="68"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Match History">

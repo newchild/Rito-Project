@@ -27,8 +27,9 @@ namespace RitoConnector
                 Response = ConnectionListener.GetResponse();
             }
             catch(WebException e){
-                System.Windows.MessageBox.Show(e.Message);
+                   System.Windows.MessageBox.Show(e.Message);
                    Response = null;
+                   User = null;
                    return;
             }
             using (var sr = new StreamReader(Response.GetResponseStream()))
@@ -52,6 +53,16 @@ namespace RitoConnector
         public string getUsername()
         {
             return User.Name;
+        }
+        public bool isValid()
+        {
+            if(User != null){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public DateTime GetLastRefresh()
         {

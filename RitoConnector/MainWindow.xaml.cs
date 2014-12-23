@@ -56,24 +56,14 @@ namespace RitoConnector
                 key = apiKey.Text;
             }
             Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
-            if (Connection.isValid())
-            {
-                BitmapImage logo = new BitmapImage();
-                logo.BeginInit();
-                logo.UriSource = new Uri(Connection.GetProfileIconURL());
-                logo.EndInit();
-                ProfileIcon.Source = logo;
-                LevelLabel.Text = Connection.GetSummonerLevel().ToString();
-                UsernameLabel.Text = Connection.getUsername();
-                LevelLabel.Visibility = Visibility.Visible;
-                UsernameLabel.Visibility = Visibility.Visible;
-                Tabs.SelectedIndex = 1;
-            }
-            else
-            {
-                MessageBox.Show("An unknown Error has occured. Please try again later");
-            }
-            
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(Connection.GetProfileIconURL());
+            logo.EndInit();
+            ProfileIcon.Source = logo;
+            LevelLabel.Text = Connection.GetSummonerLevel().ToString();
+            UsernameLabel.Text = Connection.getUsername();
+            Tabs.SelectedIndex = 1;
         }
     }
 }

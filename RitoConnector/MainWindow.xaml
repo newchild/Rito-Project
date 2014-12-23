@@ -1,8 +1,22 @@
 ﻿<Window x:Class="RitoConnector.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Riot Connector" Height="350" Width="525" Visibility="Visible" BorderThickness="0">
     <Grid>
-        
+        <TabControl HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="517">
+            <TabItem Header="Settings">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="427"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="103" SelectionChanged="ComboBox_SelectionChanged"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="107,28,0,0" TextWrapping="Wrap" Text="Custom Riot Games API Key [ Leave Empty if none ]" VerticalAlignment="Top" Width="320" TextChanged="TextBox_TextChanged"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Profile">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Match History">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -38,9 +38,14 @@ namespace RitoConnector
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var anim = new DoubleAnimation(0, (Duration)TimeSpan.FromSeconds(1));
+            var anim = new DoubleAnimation(0, (Duration)TimeSpan.FromSeconds(0.75));
             anim.Completed += (s, _) => this.Close();
             this.BeginAnimation(UIElement.OpacityProperty, anim);
+        }
+
+        private void Connect(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

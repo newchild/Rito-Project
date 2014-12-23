@@ -1,0 +1,10 @@
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\bin\Debug\RITO PLOX.exe.config
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\obj\Debug\RITO PLOX.csprojResolveAssemblyReference.cache
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\obj\Debug\RITO_PLOX.Ritoconnector.resources
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\obj\Debug\RITO_PLOX.Properties.Resources.resources
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\obj\Debug\RITO PLOX.csproj.GenerateResource.Cache
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\bin\Debug\RITO PLOX.exe
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\bin\Debug\RITO PLOX.pdb
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\bin\Debug\Newtonsoft.Json.dll
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\obj\Debug\RITO PLOX.exe
+c:\users\fabian\documents\visual studio 2013\Projects\RITO PLOX\RITO PLOX\obj\Debug\RITO PLOX.pdb

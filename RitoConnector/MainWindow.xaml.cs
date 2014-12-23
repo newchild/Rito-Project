@@ -32,13 +32,6 @@ namespace RitoConnector
 
         }
 
-		public void TextBox_GotFocus(object sender, RoutedEventArgs e)
-		{
-			TextBox tb = (TextBox)sender;
-			tb.Text = string.Empty;
-			tb.GotFocus -= TextBox_GotFocus;
-		}
-
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -54,7 +47,7 @@ namespace RitoConnector
         private void Connect(object sender, RoutedEventArgs e)
         {
             string key;
-            if (apiKey.Text == "Custom Riot Games API Key [ Leave Empty if none ]")
+            if (apiKey.Text == "")
             {
                 key = "64becc79-cc38-40e1-afdf-a92b95b4c836";
             }

@@ -9,7 +9,6 @@ namespace RITO_PLOX
 {
     class Champion
     {
-        [JsonProperty("newchild")]
         public SummonerDTO Summoners { get; set; }
     
     }

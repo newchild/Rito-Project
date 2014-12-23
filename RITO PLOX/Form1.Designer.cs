@@ -33,8 +33,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.UsernameBox = new System.Windows.Forms.TextBox();
             this.KeyBox = new System.Windows.Forms.TextBox();
-            this.Matches = new System.Windows.Forms.ComboBox();
-            this.GetInfoButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // ConnectButton
@@ -80,30 +83,40 @@
             this.KeyBox.Size = new System.Drawing.Size(173, 20);
             this.KeyBox.TabIndex = 4;
             // 
-            // Matches
+            // pictureBox1
             // 
-            this.Matches.FormattingEnabled = true;
-            this.Matches.Location = new System.Drawing.Point(16, 117);
-            this.Matches.Name = "Matches";
-            this.Matches.Size = new System.Drawing.Size(153, 21);
-            this.Matches.TabIndex = 5;
+            this.pictureBox1.Location = new System.Drawing.Point(16, 71);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(151, 137);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // GetInfoButton
+            // comboBox1
             // 
-            this.GetInfoButton.Location = new System.Drawing.Point(175, 115);
-            this.GetInfoButton.Name = "GetInfoButton";
-            this.GetInfoButton.Size = new System.Drawing.Size(258, 23);
-            this.GetInfoButton.TabIndex = 6;
-            this.GetInfoButton.Text = "Get Info";
-            this.GetInfoButton.UseVisualStyleBackColor = true;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(531, 11);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(470, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "label3";
             // 
             // Ritoconnector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 342);
-            this.Controls.Add(this.GetInfoButton);
-            this.Controls.Add(this.Matches);
+            this.ClientSize = new System.Drawing.Size(677, 307);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.KeyBox);
             this.Controls.Add(this.UsernameBox);
             this.Controls.Add(this.label2);
@@ -112,6 +125,7 @@
             this.Name = "Ritoconnector";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Ritoconnector_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,8 +138,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox UsernameBox;
         private System.Windows.Forms.TextBox KeyBox;
-        private System.Windows.Forms.ComboBox Matches;
-        private System.Windows.Forms.Button GetInfoButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
     }
 }
 

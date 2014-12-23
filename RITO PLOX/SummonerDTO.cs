@@ -1,17 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RITO_PLOX
 {
-    class SummonerDTO
+
+    public class SummonerDTO
     {
-        public long id { get; set; }
-        public string name { get; set; }
-        public int profileIconId { get; set; }
-        public long revisionDate { get; set; }
-        public long summonerLevel { get; set; }
+
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("profileIconId")]
+        public int ProfileIconId { get; set; }
+
+        [JsonProperty("revisionDate")]
+        public long RevisionDate { get; set; }
+
+        [JsonProperty("summonerLevel")]
+        public int SummonerLevel { get; set; }
     }
+
 }

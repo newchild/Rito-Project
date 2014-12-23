@@ -46,11 +46,9 @@ namespace RITO_PLOX
             {
                 text = sr.ReadToEnd();
             }
-            MessageBox.Show(text, text);
-            Champion user = new Champion(UsernameBox.Text);
-            user = (Champion)JsonConvert.DeserializeObject(text,typeof(Champion));
-            MessageBox.Show(user.Summoner.name);
-            
+            Champion user;
+            user = (Champion)JsonConvert.DeserializeObject(text, typeof(Champion));
+            MessageBox.Show(user.Summoners.Name);
             
             
         }

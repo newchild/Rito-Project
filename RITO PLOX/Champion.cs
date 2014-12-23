@@ -9,13 +9,8 @@ namespace RITO_PLOX
 {
     class Champion
     {
-        static string username;
-        public Champion(string Nick)
-        {
-            username = Nick;
-        }
-        [JsonProperty(username)]
-        public SummonerDTO Summoner { get; set; }
+        [JsonProperty("newchild")]
+        public SummonerDTO Summoners { get; set; }
     
     }
 }

@@ -27,3 +27,6 @@ C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnec
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.g.resources
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.Properties.Resources.resources
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.csproj.GenerateResource.Cache
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\bin\Debug\GongSolutions.Wpf.DragDrop.dll
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\bin\Debug\GongSolutions.Wpf.DragDrop.pdb
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\bin\Debug\GongSolutions.Wpf.DragDrop.xml

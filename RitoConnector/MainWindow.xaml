@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="RitoConnector.MainWindow"
         Title="Riot Connector" Height="350" Width="538" Visibility="Visible" BorderThickness="2" Background="#FF3F3F46" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" WindowStartupLocation="CenterScreen">
+<<<<<<< HEAD
 	<Grid>
 		<TabControl x:Name="Tabs" HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
 			<TabItem Header="Settings">
@@ -78,4 +79,38 @@
 		</TabControl>
 		<Button Margin="519,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="Button_Click" Width="15"/>
 	</Grid>
+=======
+    <Grid>
+        <TabControl Name="Tabs" HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
+            <TabItem Header="Settings">
+                <Grid Background="#FF3F3F46">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="UsernameTextbox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="427" TextChanged="TextBox_TextChanged" GotFocus="TextBox_GotFocus"/>
+                    <ComboBox ItemsSource="{DynamicResource Regions}" Name="RegionBox" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="103" SelectionChanged="ComboBox_SelectionChanged"/>
+					<TextBox Name="apiKey" HorizontalAlignment="Left" Height="23" Margin="107,28,0,0" TextWrapping="Wrap" Text="Custom Riot Games API Key [ Leave Empty if none ]" VerticalAlignment="Top" Width="320" TextChanged="TextBox_TextChanged" GotFocus="TextBox_GotFocus"/>
+                    <Button Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="0,75,0,0" VerticalAlignment="Top" Width="75" Click="Connect"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Profile">
+                <Grid>
+                    <Image Name="ProfileIcon" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="10,10,0,0"/>
+                    <TextBlock Visibility ="Hidden" Name="UsernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="115,10,0,0" Width="91"/>
+                    <TextBlock Visibility ="Hidden" Name="LevelLabel" HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="68"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Match History">
+                <Grid/>
+            </TabItem>
+            <TabItem Header="Masteries">
+                <Grid/>
+            </TabItem>
+            <TabItem Header="Runes">
+                <Grid/>
+            </TabItem>
+        </TabControl>
+        <Button Margin="519,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="Button_Click" Width="15"/>
+    </Grid>
+>>>>>>> origin/master
 </Window>

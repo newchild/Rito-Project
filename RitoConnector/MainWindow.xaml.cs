@@ -56,6 +56,14 @@ namespace RitoConnector
                 key = apiKey.Text;
             }
             Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(Connection.GetProfileIconURL());
+            logo.EndInit();
+            ProfileIcon.Source = logo;
+            LevelLabel.Text = Connection.GetSummonerLevel().ToString();
+            UsernameLabel.Text = Connection.getUsername();
+            Tabs.SelectedIndex = 1;
         }
     }
 }

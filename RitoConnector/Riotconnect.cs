@@ -48,6 +48,10 @@ namespace RitoConnector
             string URL = "http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + User.ProfileIconId + ".png";
             return URL;
         }
+        public string getUsername()
+        {
+            return User.Name;
+        }
         public DateTime GetLastRefresh()
         {
             long unixDate = User.RevisionDate;

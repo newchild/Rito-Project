@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Riot Connector" Height="350" Width="538" Visibility="Visible" BorderThickness="2" Background="#FF3F3F46" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
+        <TabControl Name="Tabs" HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
             <TabItem Header="Settings">
                 <Grid Background="#FF3F3F46">
                     <Grid.ColumnDefinitions>
@@ -17,9 +17,9 @@
             </TabItem>
             <TabItem Header="Profile">
                 <Grid>
-                    <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="10,10,0,0"/>
-                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="115,10,0,0" Width="91"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="68"/>
+                    <Image Name="ProfileIcon" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="10,10,0,0"/>
+                    <TextBlock Name="UsernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="115,10,0,0" Width="91"/>
+                    <TextBlock Name="LevelLabel" HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="68"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Match History">

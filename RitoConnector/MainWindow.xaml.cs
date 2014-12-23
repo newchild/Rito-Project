@@ -24,6 +24,7 @@ namespace RitoConnector
         public MainWindow()
         {
             InitializeComponent();
+            this.MouseLeftButtonDown += delegate { this.DragMove();};
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -46,13 +47,13 @@ namespace RitoConnector
         private void Connect(object sender, RoutedEventArgs e)
         {
             string key;
-            if (RiotKey.Text == "Custom Riot Games API Key [ Leave Empty if none ]")
+            if (apiKey.Text == "Custom Riot Games API Key [ Leave Empty if none ]")
             {
                 key = "64becc79-cc38-40e1-afdf-a92b95b4c836";
             }
             else
             {
-                key = RiotKey.Text;
+                key = apiKey.Text;
             }
             Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
             

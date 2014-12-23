@@ -3,14 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Riot Connector" Height="350" Width="538" Visibility="Visible" BorderThickness="2" Background="#FF3F3F46" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="51*"/>
-            <RowDefinition Height="295*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="259*"/>
-            <ColumnDefinition Width="8*"/>
-        </Grid.ColumnDefinitions>
         <TabControl HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
             <TabItem Header="Settings">
                 <Grid Background="#FF3F3F46">
@@ -19,7 +11,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBox Name="UsernameTextbox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="427" TextChanged="TextBox_TextChanged"/>
                     <ComboBox Name="RegionBox" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="103" SelectionChanged="ComboBox_SelectionChanged"/>
-                    <TextBox Name="RiotKey" HorizontalAlignment="Left" Height="23" Margin="107,28,0,0" TextWrapping="Wrap" Text="Custom Riot Games API Key [ Leave Empty if none ]" VerticalAlignment="Top" Width="320" TextChanged="TextBox_TextChanged"/>
+                    <TextBox Name="apiKey" HorizontalAlignment="Left" Height="23" Margin="107,28,0,0" TextWrapping="Wrap" Text="Custom Riot Games API Key [ Leave Empty if none ]" VerticalAlignment="Top" Width="320" TextChanged="TextBox_TextChanged"/>
                     <Button Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="0,75,0,0" VerticalAlignment="Top" Width="75" Click="Connect"/>
                 </Grid>
             </TabItem>
@@ -36,6 +28,6 @@
                 <Grid/>
             </TabItem>
         </TabControl>
-        <Button Margin="1,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="Button_Click" Grid.Column="1"/>
+        <Button Margin="519,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="Button_Click" Width="15"/>
     </Grid>
 </Window>

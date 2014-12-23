@@ -11,7 +11,6 @@ namespace RitoConnector
 
     public class RankedDTO
     {
-        [JsonProperty("SummonerID")]
         public RankedID[] RankedID { get; set; }
 
     }

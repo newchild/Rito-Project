@@ -7,6 +7,16 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace RitoConnector
 {
@@ -34,10 +44,16 @@ namespace RitoConnector
             {
                 JSONRAW = sr.ReadToEnd();
             }
-            rankedStatus = (RankedDTO)JsonConvert.DeserializeObject<RankedDTO>(JSONRAW);
+            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, List<object>>>(JSONRAW);
+            JSONRAW = tempjson[userid.ToString()].ToString();
+            rankedStatus = JsonConvert.DeserializeObject<RankedDTO>(JSONRAW);
         }
         public string getRankedTier()
         {
+            foreach (RankedID rank in rankedStatus.RankedID)
+            {
+                MessageBox.Show(rank.Tier);
+            }
            return rankedStatus.RankedID.FirstOrDefault().Tier;
         }
     }

@@ -66,10 +66,14 @@ namespace RitoConnector
                 ProfileIcon.Source = logo;
                 LevelLabel.Text = Connection.GetSummonerLevel().ToString();
                 UsernameLabel.Text = Connection.getUsername();
+                BitmapImage RankedPic = new BitmapImage();
+                RankedPic.BeginInit();
+                RankedPic.UriSource = new Uri();
+                RankedPic.EndInit();
+                RankedImage.Source = RankedPic;
                 LevelLabel.Visibility = Visibility.Visible;
                 UsernameLabel.Visibility = Visibility.Visible;
                 Tabs.SelectedIndex = 1;
-                MessageBox.Show(Connection2.getRankedTier());
             }
             else
             {

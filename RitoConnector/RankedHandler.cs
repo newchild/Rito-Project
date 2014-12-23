@@ -44,17 +44,21 @@ namespace RitoConnector
             {
                 JSONRAW = sr.ReadToEnd();
             }
-            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, List<object>>>(JSONRAW);
+            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(JSONRAW);
             JSONRAW = tempjson[userid.ToString()].ToString();
+            JSONRAW = "{ \"standard\" : " + JSONRAW + "}" ;
             rankedStatus = JsonConvert.DeserializeObject<RankedDTO>(JSONRAW);
         }
-        public string getRankedTier()
+        public string getRankedSoloTier()
         {
             foreach (RankedID rank in rankedStatus.RankedID)
             {
-                MessageBox.Show(rank.Tier);
+                if (rank.Queue == "RANKED_SOLO_5x5")
+                {
+                    return rank.Tier;
+                }
             }
-           return rankedStatus.RankedID.FirstOrDefault().Tier;
+            return "unranked";
         }
     }
 }

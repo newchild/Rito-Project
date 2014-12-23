@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Riot Connector" Height="350" Width="538" Visibility="Visible" BorderThickness="2" Background="#FF3F3F46" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="51*"/>
+            <RowDefinition Height="295*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="259*"/>
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
-        <TabControl HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0">
+        <TabControl HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
             <TabItem Header="Settings">
                 <Grid Background="#FF3F3F46">
                     <Grid.ColumnDefinitions>
@@ -32,6 +36,6 @@
                 <Grid/>
             </TabItem>
         </TabControl>
-        <Button Margin="1.167,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="Button_Click" Grid.Column="1"/>
+        <Button Margin="1,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="Button_Click" Grid.Column="1"/>
     </Grid>
 </Window>

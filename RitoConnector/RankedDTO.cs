@@ -9,14 +9,11 @@ using Newtonsoft.Json.Linq;
 namespace RitoConnector
 {
 
-    public class RunePagesDto
+    public class RankedDTO
     {
+        [JsonProperty("SummonerID")]
+        public RankedID[] RankedID { get; set; }
 
-        [JsonProperty("pages")]
-        public Page[] Pages { get; set; }
-
-        [JsonProperty("summonerId")]
-        public int SummonerId { get; set; }
     }
 
 }

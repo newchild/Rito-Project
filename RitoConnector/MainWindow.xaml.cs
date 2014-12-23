@@ -58,6 +58,7 @@ namespace RitoConnector
             Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
             if (Connection.isValid())
             {
+                RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
                 BitmapImage logo = new BitmapImage();
                 logo.BeginInit();
                 logo.UriSource = new Uri(Connection.GetProfileIconURL());
@@ -68,6 +69,7 @@ namespace RitoConnector
                 LevelLabel.Visibility = Visibility.Visible;
                 UsernameLabel.Visibility = Visibility.Visible;
                 Tabs.SelectedIndex = 1;
+                MessageBox.Show(Connection2.getRankedTier());
             }
             else
             {

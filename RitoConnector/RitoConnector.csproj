@@ -54,7 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Page.cs" />
     <Compile Include="Riotconnect.cs" />
+    <Compile Include="RunePagesDto.cs" />
+    <Compile Include="Runeshandler.cs" />
+    <Compile Include="Slot.cs" />
     <Compile Include="SummonerDTO.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

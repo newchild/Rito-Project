@@ -16,7 +16,12 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Profile">
-                <Grid/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="475*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
             </TabItem>
             <TabItem Header="Match History">
                 <Grid/>

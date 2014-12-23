@@ -14,11 +14,20 @@ namespace RitoConnector
         private RunePagesDto Runes;
         public Runeshandler(int userid, string Region, string key){
             string CleanRunesJSON;
+            WebResponse Response;
             string JSONRAW;
             string URI = "https://"+Region+".api.pvp.net/api/lol/ "+ Region + "/v1.4/summoner/" + userid + "/runes?api_key=" + key;
             WebRequest ConnectionListener = WebRequest.Create(URI);
             ConnectionListener.ContentType = "application/json; charset=utf-8";
-            WebResponse Response = ConnectionListener.GetResponse();
+            try
+            {
+                Response = ConnectionListener.GetResponse();
+            }
+            catch (WebException e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+                Response = null;
+            }
             using (var sr = new StreamReader(Response.GetResponseStream()))
             {
                 JSONRAW = sr.ReadToEnd();

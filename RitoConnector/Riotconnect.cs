@@ -27,7 +27,6 @@ namespace RitoConnector
                 Response = ConnectionListener.GetResponse();
             }
             catch(WebException e){
-                System.Windows.MessageBox.Show(URI);
                 System.Windows.MessageBox.Show(e.Message);
                    Response = null;
             }

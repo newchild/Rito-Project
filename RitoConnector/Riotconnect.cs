@@ -29,6 +29,7 @@ namespace RitoConnector
             catch(WebException e){
                 System.Windows.MessageBox.Show(e.Message);
                    Response = null;
+                   return;
             }
             using (var sr = new StreamReader(Response.GetResponseStream()))
             {

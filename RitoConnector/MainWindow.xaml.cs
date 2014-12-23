@@ -55,6 +55,7 @@ namespace RitoConnector
                 key = RiotKey.Text;
             }
             Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
+            
         }
     }
 }

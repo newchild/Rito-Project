@@ -12,7 +12,7 @@ namespace RitoConnector
     class Runeshandler
     {
         private RunePagesDto Runes;
-        public Runeshandler(int userid, string Region, string key = "64becc79-cc38-40e1-afdf-a92b95b4c836"){
+        public Runeshandler(int userid, string Region, string key){
             string CleanRunesJSON;
             string JSONRAW;
             string URI = "https://"+Region+".api.pvp.net/api/lol/ "+ Region + "/v1.4/summoner/" + userid + "/runes?api_key=" + key;

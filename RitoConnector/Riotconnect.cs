@@ -28,27 +28,27 @@ namespace RitoConnector
             CleanSummonerJSON = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
             User = JsonConvert.DeserializeObject<SummonerDTO>(CleanSummonerJSON);
         }
-        int GetProfileIcon()
+        public int GetProfileIcon()
         {
             return User.ProfileIconId;
         }
-        string GetProfileIconURL()
+        public string GetProfileIconURL()
         {
             string URL = "http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + User.ProfileIconId + ".png";
             return URL;
         }
-        DateTime GetLastRefresh()
+        public DateTime GetLastRefresh()
         {
             long unixDate = User.RevisionDate;
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             DateTime date= start.AddMilliseconds(unixDate).ToLocalTime();
             return date;
         }
-        int GetSummonerLevel()
+        public int GetSummonerLevel()
         {
             return User.SummonerLevel;
         }
-        int GetUserID()
+        public int GetUserID()
         {
             return User.Id;
         }

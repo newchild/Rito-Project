@@ -1,1 +1,2 @@
 c:\users\fabian\documents\visual studio 2013\Projects\RitoConnector\RitoConnector\bin\Debug\RitoConnector.exe.config
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\bin\Debug\RitoConnector.exe.config

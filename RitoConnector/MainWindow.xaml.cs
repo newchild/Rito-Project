@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -34,17 +35,12 @@ namespace RitoConnector
         {
 
         }
-        
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            double d = 1000;
-            for (int steps = 50; steps > 0; steps--)
-            {
-                d--;
-                System.Diagnostics.Debug.Write(this.Opacity);
-                this.Opacity = d/10;
-            }
-            //this.Close();
+            var anim = new DoubleAnimation(0, (Duration)TimeSpan.FromSeconds(1));
+            anim.Completed += (s, _) => this.Close();
+            this.BeginAnimation(UIElement.OpacityProperty, anim);
         }
     }
 }

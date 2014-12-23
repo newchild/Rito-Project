@@ -16,3 +16,14 @@ C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoCon
 C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.pdb
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.exe
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.pdb
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\bin\Debug\RitoConnector.exe
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\bin\Debug\RitoConnector.pdb
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.csprojResolveAssemblyReference.cache
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\MainWindow.baml
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\MainWindow.g.cs
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\App.g.cs
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector_MarkupCompile.cache
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.g.resources
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.Properties.Resources.resources
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.csproj.GenerateResource.Cache

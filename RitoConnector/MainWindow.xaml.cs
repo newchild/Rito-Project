@@ -25,24 +25,26 @@ namespace RitoConnector
             InitializeComponent();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
-
-        private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            double d = 1000;
+            for (int steps = 50; steps > 0; steps--)
+            {
+                d--;
+                System.Diagnostics.Debug.Write(this.Opacity);
+                this.Opacity = d/10;
+            }
+            //this.Close();
         }
     }
 }

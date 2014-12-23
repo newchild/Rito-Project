@@ -17,10 +17,9 @@
             </TabItem>
             <TabItem Header="Profile">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="24*"/>
-                        <ColumnDefinition Width="475*"/>
-                    </Grid.ColumnDefinitions>
+                    <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="10,10,0,0"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="115,10,0,0" Width="91"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="68"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Match History">

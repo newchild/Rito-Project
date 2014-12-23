@@ -21,3 +21,16 @@ C:\Users\Fabian\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\Newtonsoft.Jso
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\RiotSharp.dll
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Fabian\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\RiotSharp.xml
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\RITO PLOX.exe.config
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\obj\Debug\RITO PLOX.exe
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\obj\Debug\RITO PLOX.pdb
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\RITO PLOX.exe
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\RITO PLOX.pdb
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\RiotSharp.dll
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\bin\Debug\RiotSharp.xml
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\obj\Debug\RITO PLOX.csprojResolveAssemblyReference.cache
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\obj\Debug\RITO_PLOX.Ritoconnector.resources
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\obj\Debug\RITO_PLOX.Properties.Resources.resources
+C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RITO PLOX\obj\Debug\RITO PLOX.csproj.GenerateResource.Cache

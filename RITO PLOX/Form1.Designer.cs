@@ -36,13 +36,19 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.Region = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ConnectButton
             // 
-            this.ConnectButton.Location = new System.Drawing.Point(263, 12);
+            this.ConnectButton.Location = new System.Drawing.Point(256, 27);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(173, 21);
             this.ConnectButton.TabIndex = 0;
@@ -53,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(6, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 1;
@@ -62,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 45);
+            this.label2.Location = new System.Drawing.Point(9, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(249, 13);
             this.label2.TabIndex = 2;
@@ -71,21 +77,21 @@
             // 
             // UsernameBox
             // 
-            this.UsernameBox.Location = new System.Drawing.Point(77, 13);
+            this.UsernameBox.Location = new System.Drawing.Point(70, 27);
             this.UsernameBox.Name = "UsernameBox";
             this.UsernameBox.Size = new System.Drawing.Size(180, 20);
             this.UsernameBox.TabIndex = 3;
             // 
             // KeyBox
             // 
-            this.KeyBox.Location = new System.Drawing.Point(263, 45);
+            this.KeyBox.Location = new System.Drawing.Point(264, 58);
             this.KeyBox.Name = "KeyBox";
             this.KeyBox.Size = new System.Drawing.Size(173, 20);
             this.KeyBox.TabIndex = 4;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(16, 71);
+            this.pictureBox1.Location = new System.Drawing.Point(9, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(151, 137);
             this.pictureBox1.TabIndex = 5;
@@ -95,39 +101,74 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(531, 11);
+            this.comboBox1.Location = new System.Drawing.Point(59, 93);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 6;
             // 
-            // label3
+            // Region
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(470, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "label3";
+            this.Region.AutoSize = true;
+            this.Region.Location = new System.Drawing.Point(9, 96);
+            this.Region.Name = "Region";
+            this.Region.Size = new System.Drawing.Size(44, 13);
+            this.Region.TabIndex = 7;
+            this.Region.Text = "Region:";
+            this.Region.Click += new System.EventHandler(this.Region_Click);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(-1, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(679, 459);
+            this.tabControl1.TabIndex = 8;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.Region);
+            this.tabPage1.Controls.Add(this.UsernameBox);
+            this.tabPage1.Controls.Add(this.ConnectButton);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.KeyBox);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(671, 433);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.pictureBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(658, 153);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Ritoconnector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 307);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.KeyBox);
-            this.Controls.Add(this.UsernameBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.ConnectButton);
+            this.ClientSize = new System.Drawing.Size(677, 459);
+            this.Controls.Add(this.tabControl1);
             this.Name = "Ritoconnector";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Ritoconnector_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -141,7 +182,10 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label Region;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 

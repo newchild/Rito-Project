@@ -32,7 +32,7 @@ namespace RITO_PLOX
         private void Ritoconnector_Load(object sender, EventArgs e)
         {
             this.Text = "SummonerIcon Dumper";
-            label3.Text = "Region";
+            Region.Text = "Region";
             comboBox1.Items.Add("EUW");
             comboBox1.Items.Add("NA");
             comboBox1.Items.Add("EUNE");
@@ -100,6 +100,16 @@ namespace RITO_PLOX
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Region_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
         {
 
         }

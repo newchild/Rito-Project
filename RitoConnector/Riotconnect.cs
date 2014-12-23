@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +18,19 @@ namespace RitoConnector
         public Riotconnect(string username, string Region,string key)
         {
             string JSONRAW;
-            string URI = "https://" + Region + ".api.pvp.net/api/lol/" + Region + "/v1.4/summoner/by-name/" + username + "?api_key=" + key;
+            WebResponse Response;
+            string URI = "https://" + Region.ToLower() + ".api.pvp.net/api/lol/" + Region.ToLower() + "/v1.4/summoner/by-name/" + username + "?api_key=" + key;
             WebRequest ConnectionListener = WebRequest.Create(URI);
             ConnectionListener.ContentType = "application/json; charset=utf-8";
-            WebResponse Response = ConnectionListener.GetResponse();
+            try
+            {
+                Response = ConnectionListener.GetResponse();
+            }
+            catch(WebException e){
+                System.Windows.MessageBox.Show(URI);
+                System.Windows.MessageBox.Show(e.Message);
+                   Response = null;
+            }
             using (var sr = new StreamReader(Response.GetResponseStream()))
             {
                 JSONRAW = sr.ReadToEnd();
@@ -27,6 +38,7 @@ namespace RitoConnector
             var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(JSONRAW);
             CleanSummonerJSON = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
             User = JsonConvert.DeserializeObject<SummonerDTO>(CleanSummonerJSON);
+            
         }
         public int GetProfileIcon()
         {

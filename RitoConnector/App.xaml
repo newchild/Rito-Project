@@ -3,6 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="Regions"
+                 Type="sys:String">
+            <sys:String>BR</sys:String>
+            <sys:String>EUNE</sys:String>
+            <sys:String>EUW</sys:String>
+            <sys:String>KR</sys:String>
+            <sys:String>NA</sys:String>
+            <sys:String>OCE</sys:String>
+            <sys:String>RU</sys:String>
+            <sys:String>LAS</sys:String>
+            <sys:String>LAN</sys:String>
+            <sys:String>TR</sys:String>
+            <sys:String>CS</sys:String>
+        </x:Array>
     </Application.Resources>
 </Application>

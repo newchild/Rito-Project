@@ -15,6 +15,7 @@
             <sys:String>LAS</sys:String>
             <sys:String>LAN</sys:String>
             <sys:String>TR</sys:String>
+            <sys:String>CS</sys:String>
         </x:Array>
     </Application.Resources>
 </Application>

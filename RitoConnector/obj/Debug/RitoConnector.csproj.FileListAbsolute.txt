@@ -14,3 +14,5 @@ C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoCon
 C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.csproj.GenerateResource.Cache
 C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.exe
 C:\Users\Dragonixx\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.pdb
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.exe
+C:\Users\Fabian\Documents\GitHub\Rito-Project\RitoConnector\obj\Debug\RitoConnector.pdb

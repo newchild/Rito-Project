@@ -26,7 +26,7 @@ namespace RitoConnector
             }
             var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(JSONRAW);
             CleanSummonerJSON = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
-
+            User = JsonConvert.DeserializeObject<SummonerDTO>(CleanSummonerJSON);
         }
     }
 }

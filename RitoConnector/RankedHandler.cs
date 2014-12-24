@@ -72,6 +72,7 @@ namespace RitoConnector
         {
             foreach (RankedID rank in rankedStatus.RankedID)
             {
+                
                 if (rank.Queue == "RANKED_SOLO_5x5")
                 {
                     return rank.Tier;
@@ -81,6 +82,7 @@ namespace RitoConnector
         }
         public bool isValid()
         {
+           
             if (rankedStatus != null)
             {
                 return true;
@@ -90,5 +92,17 @@ namespace RitoConnector
                 return false;
             }
         }
+        public Entry[] getSoloQueueLeague()
+        {
+            foreach (RankedID rank in rankedStatus.RankedID)
+            {
+                if (rank.Queue == "RANKED_SOLO_5x5")
+                {
+                    return rank.Entries;
+                }
+            }
+            return null;
+        }
+        
     }
 }

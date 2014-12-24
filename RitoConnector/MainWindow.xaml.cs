@@ -25,6 +25,7 @@ namespace RitoConnector
         {
             InitializeComponent();
             this.MouseLeftButtonDown += delegate { this.DragMove();};
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

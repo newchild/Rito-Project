@@ -57,69 +57,75 @@ namespace RitoConnector
             {
                 key = apiKey.Text;
             }
-            Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
-            if (Connection.isValid())
+            if (RegionBox.SelectedItem == null)
             {
-                RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
-                if (Connection2.isValid())
-                {
-                    BitmapImage logo = new BitmapImage();
-                    logo.BeginInit();
-                    logo.UriSource = new Uri(Connection.GetProfileIconURL());
-                    logo.EndInit();
-                    ProfileIcon.Source = logo;
-                    LevelLabel.Text = Connection.GetSummonerLevel().ToString();
-                    UsernameLabel.Text = Connection.getUsername();
-                    BitmapImage RankedPic = new BitmapImage();
-                    RankedPic.BeginInit();
-                    RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Connection2.getRankedSoloTier().ToLower() + ".png");
-                    RankedPic.EndInit();
-                    RankedImage.Source = RankedPic;
-                    Divisionstatus.Text = Connection2.getRankedSoloLeague();
-                    Rankstatus.Text = Connection2.getRankedSoloTier();
-                    LevelLabel.Visibility = Visibility.Visible;
-                    UsernameLabel.Visibility = Visibility.Visible;
-                    ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
-                    Dictionary<string, int> test = new Dictionary<string, int>();
-                    foreach (Entry user in Connection2.getSoloQueueLeague())
-                    {
-                        if (user.Division == Connection2.getRankedSoloLeague())
-                        {
-                            test.Add(user.PlayerOrTeamName, user.LeaguePoints);
-                        }
-                        
-                    }
-                    var sortedDict = from entry in test orderby entry.Value descending select entry;
-                    foreach (var user in sortedDict)
-                    {
-                        if (user.Value == 100)
-                        {
-                            string HotStreak = "";
-                            foreach (Entry user2 in Connection2.getSoloQueueLeague())
-                            {
-                                if (user2.PlayerOrTeamName == user.Key)
-                                {
-                                    HotStreak = user2.MiniSeries.Progress;
-                                }
-                            }
-                            NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP " + HotStreak);
-                        }
-                        else
-                        {
-                            NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP");
-                        }
-                       
-                    }
-                    RankedLeague.ItemsSource = NameListLeague;
-                    Tabs.SelectedIndex = 1;
-                    UpdateLaper.Content = Connection.GetLastRefresh().ToString();
-                }
+                MessageBox.Show("Please select a region");
             }
             else
             {
-                MessageBox.Show("An unknown Error has occured. Please try again later");
-            }
-            
+                Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
+                if (Connection.isValid())
+                {
+                    RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
+                    if (Connection2.isValid())
+                    {
+                        BitmapImage logo = new BitmapImage();
+                        logo.BeginInit();
+                        logo.UriSource = new Uri(Connection.GetProfileIconURL());
+                        logo.EndInit();
+                        ProfileIcon.Source = logo;
+                        LevelLabel.Text = Connection.GetSummonerLevel().ToString();
+                        UsernameLabel.Text = Connection.getUsername();
+                        BitmapImage RankedPic = new BitmapImage();
+                        RankedPic.BeginInit();
+                        RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Connection2.getRankedSoloTier().ToLower() + ".png");
+                        RankedPic.EndInit();
+                        RankedImage.Source = RankedPic;
+                        Divisionstatus.Text = Connection2.getRankedSoloLeague();
+                        Rankstatus.Text = Connection2.getRankedSoloTier();
+                        LevelLabel.Visibility = Visibility.Visible;
+                        UsernameLabel.Visibility = Visibility.Visible;
+                        ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
+                        Dictionary<string, int> test = new Dictionary<string, int>();
+                        foreach (Entry user in Connection2.getSoloQueueLeague())
+                        {
+                            if (user.Division == Connection2.getRankedSoloLeague())
+                            {
+                                test.Add(user.PlayerOrTeamName, user.LeaguePoints);
+                            }
+
+                        }
+                        var sortedDict = from entry in test orderby entry.Value descending select entry;
+                        foreach (var user in sortedDict)
+                        {
+                            if (user.Value == 100)
+                            {
+                                string HotStreak = "";
+                                foreach (Entry user2 in Connection2.getSoloQueueLeague())
+                                {
+                                    if (user2.PlayerOrTeamName == user.Key)
+                                    {
+                                        HotStreak = user2.MiniSeries.Progress;
+                                    }
+                                }
+                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP " + HotStreak);
+                            }
+                            else
+                            {
+                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP");
+                            }
+
+                        }
+                        RankedLeague.ItemsSource = NameListLeague;
+                        Tabs.SelectedIndex = 1;
+                        UpdateLaper.Content = Connection.GetLastRefresh().ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("An unknown Error has occured. Please try again later");
+                }
+            }   
         }
     }
 }

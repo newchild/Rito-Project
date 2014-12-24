@@ -69,6 +69,8 @@
                     <Image Name="RankedImage" HorizontalAlignment="Left" Height="100" Margin="10,115,0,0" VerticalAlignment="Top" Width="100"/>
                     <TextBlock Text="Rank:" x:Name="Ranklabel" HorizontalAlignment="Left" Margin="110,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
                     <TextBlock Text="RANKED" x:Name="Rankstatus" HorizontalAlignment="Left" Margin="178,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
+                    <TextBlock Text="DIVISION" x:Name="Divisionstatus" HorizontalAlignment="Left" Margin="178,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
+                    <TextBlock Text="Divison:" x:Name="Divisionlabel" HorizontalAlignment="Left" Margin="110,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Match History">

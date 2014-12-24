@@ -59,22 +59,26 @@ namespace RitoConnector
             if (Connection.isValid())
             {
                 RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
-                BitmapImage logo = new BitmapImage();
-                logo.BeginInit();
-                logo.UriSource = new Uri(Connection.GetProfileIconURL());
-                logo.EndInit();
-                ProfileIcon.Source = logo;
-                LevelLabel.Text = Connection.GetSummonerLevel().ToString();
-                UsernameLabel.Text = Connection.getUsername();
-                BitmapImage RankedPic = new BitmapImage();
-                RankedPic.BeginInit();
-                RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Connection2.getRankedSoloTier().ToLower() + ".png");
-                RankedPic.EndInit();
-                RankedImage.Source = RankedPic;
-                Rankstatus.Text = Connection2.getRankedSoloTier();
-                LevelLabel.Visibility = Visibility.Visible;
-                UsernameLabel.Visibility = Visibility.Visible;
-                Tabs.SelectedIndex = 1;
+                if (Connection2.isValid())
+                {
+                    BitmapImage logo = new BitmapImage();
+                    logo.BeginInit();
+                    logo.UriSource = new Uri(Connection.GetProfileIconURL());
+                    logo.EndInit();
+                    ProfileIcon.Source = logo;
+                    LevelLabel.Text = Connection.GetSummonerLevel().ToString();
+                    UsernameLabel.Text = Connection.getUsername();
+                    BitmapImage RankedPic = new BitmapImage();
+                    RankedPic.BeginInit();
+                    RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Connection2.getRankedSoloTier().ToLower() + ".png");
+                    RankedPic.EndInit();
+                    RankedImage.Source = RankedPic;
+                    Divisionstatus.Text = Connection2.getRankedSoloLeague();
+                    Rankstatus.Text = Connection2.getRankedSoloTier();
+                    LevelLabel.Visibility = Visibility.Visible;
+                    UsernameLabel.Visibility = Visibility.Visible;
+                    Tabs.SelectedIndex = 1;
+                }
             }
             else
             {

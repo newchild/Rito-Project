@@ -22,9 +22,11 @@ namespace RitoConnector
 {
     class RankedHandler
     {
+        private int userids;
         private RankedDTO rankedStatus;
         public RankedHandler(int userid, string Region, string key)
         {
+            userids = userid;
             string JSONRAW;
             WebResponse Response;
             string URI = "https://" + Region.ToLower() + ".api.pvp.net/api/lol/" + Region.ToLower() + "/v2.5/league/by-summoner/" + userid + "?api_key=" + key;
@@ -49,6 +51,23 @@ namespace RitoConnector
             JSONRAW = "{ \"standard\" : " + JSONRAW + "}" ;
             rankedStatus = JsonConvert.DeserializeObject<RankedDTO>(JSONRAW);
         }
+        public string getRankedSoloLeague()
+        {
+            foreach (RankedID rank in rankedStatus.RankedID)
+            {
+                if (rank.Queue == "RANKED_SOLO_5x5")
+                {
+                    foreach (Entry person in rank.Entries)
+                    {
+                        if (Convert.ToInt32(person.PlayerOrTeamId) == userids)
+                        {
+                            return person.Division;
+                        }
+                    }
+                }
+            }
+            return "unkown";
+        }
         public string getRankedSoloTier()
         {
             foreach (RankedID rank in rankedStatus.RankedID)
@@ -59,6 +78,17 @@ namespace RitoConnector
                 }
             }
             return "unranked";
+        }
+        public bool isValid()
+        {
+            if (rankedStatus != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

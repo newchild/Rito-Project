@@ -24,6 +24,7 @@ namespace RitoConnector
     {
         private int userids;
         private RankedDTO rankedStatus;
+		private bool isUnranked = true;
         /// <summary>
         /// sends a request to the Riotserver
         /// </summary>
@@ -46,6 +47,10 @@ namespace RitoConnector
                    System.Windows.MessageBox.Show(e.Message);
                    Response = null;
                    rankedStatus = null;
+				   if (e.Message.Contains("404"))
+				   {
+					   isUnranked = true;
+				   }
                    return;
             }
             using (var sr = new StreamReader(Response.GetResponseStream()))
@@ -63,19 +68,22 @@ namespace RitoConnector
         /// <returns>string</returns>
         public string getRankedSoloLeague()
         {
-            foreach (RankedID rank in rankedStatus.RankedID)
-            {
-                if (rank.Queue == "RANKED_SOLO_5x5")
-                {
-                    foreach (Entry person in rank.Entries)
-                    {
-                        if (Convert.ToInt32(person.PlayerOrTeamId) == userids)
-                        {
-                            return person.Division;
-                        }
-                    }
-                }
-            }
+			if (!isUnranked)
+			{
+				foreach (RankedID rank in rankedStatus.RankedID)
+				{
+					if (rank.Queue == "RANKED_SOLO_5x5")
+					{
+						foreach (Entry person in rank.Entries)
+						{
+							if (Convert.ToInt32(person.PlayerOrTeamId) == userids)
+							{
+								return person.Division;
+							}
+						}
+					}
+				}
+			}
             return "unkown";
         }
         /// <summary>
@@ -84,14 +92,16 @@ namespace RitoConnector
         /// <returns>string</returns>
         public string getRankedSoloTier()
         {
-            foreach (RankedID rank in rankedStatus.RankedID)
-            {
-                
-                if (rank.Queue == "RANKED_SOLO_5x5")
-                {
-                    return rank.Tier;
-                }
-            }
+			if (!isUnranked)
+			{
+				foreach (RankedID rank in rankedStatus.RankedID)
+				{
+					if (rank.Queue == "RANKED_SOLO_5x5")
+					{
+						return rank.Tier;
+					}
+				}
+			}
             return "unranked";
         }
         /// <summary>

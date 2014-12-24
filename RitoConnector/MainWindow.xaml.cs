@@ -67,7 +67,7 @@ namespace RitoConnector
                 if (Connection.isValid())
                 {
                     RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
-                    if (Connection2.isValid())
+                    if (!Connection2.isValid())
                     {
                         BitmapImage logo = new BitmapImage();
                         logo.BeginInit();

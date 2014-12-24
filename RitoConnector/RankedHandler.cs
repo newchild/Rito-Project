@@ -104,7 +104,7 @@ namespace RitoConnector
 					}
 				}
 			
-            return "unranked";
+            return "Unranked";
         }
         /// <summary>
         /// checks if the Connection is val

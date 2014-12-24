@@ -135,7 +135,7 @@ namespace RitoConnector
                         RankedPic.EndInit();
                         RankedImage.Source = RankedPic;
                         Divisionstatus.Text = "Unranked";
-                        Rankstatus.Text = "unranked";
+                        Rankstatus.Text = "Unranked";
                         LevelLabel.Visibility = Visibility.Visible;
                         UsernameLabel.Visibility = Visibility.Visible;
                         Tabs.SelectedIndex = 1;

@@ -96,27 +96,8 @@ namespace RitoConnector
 
                         }
                         var sortedDict = from entry in test orderby entry.Value descending select entry;
-                        foreach (var user in sortedDict)
-                        {
-                            if (user.Value == 100)
-                            {
-                                string HotStreak = "";
-                                foreach (Entry user2 in Connection2.getSoloQueueLeague())
-                                {
-                                    if (user2.PlayerOrTeamName == user.Key)
-                                    {
-                                        HotStreak = user2.MiniSeries.Progress;
-                                    }
-                                }
-                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP " + HotStreak);
-                            }
-                            else
-                            {
-                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP");
-                            }
 
-                        }
-                        RankedLeague.ItemsSource = NameListLeague;
+                        RankedLeague.ItemsSource = sortedDict;
                         Tabs.SelectedIndex = 1;
                         UpdateLaper.Content = Connection.GetLastRefresh().ToString();
                     }
@@ -126,6 +107,11 @@ namespace RitoConnector
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
             }   
+        }
+
+        private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

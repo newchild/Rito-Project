@@ -79,9 +79,10 @@
                     <TextBlock Text="RANKED" x:Name="Rankstatus" HorizontalAlignment="Left" Margin="178,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
                     <TextBlock Text="DIVISION" x:Name="Divisionstatus" HorizontalAlignment="Left" Margin="178,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
                     <TextBlock Text="Divison:" x:Name="Divisionlabel" HorizontalAlignment="Left" Margin="110,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
-                    <ComboBox Name="RankedLeague" HorizontalAlignment="Left" Margin="291,10,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox Name="RankedLeague" HorizontalAlignment="Left" Margin="307,26,0,0" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Last Update:" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top"/>
                     <Label Name="UpdateLaper" Content="NEVER" HorizontalAlignment="Left" Margin="91,273,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.868,0.269"/>
+                    <TextBlock  HorizontalAlignment="Left" Margin="307,10,0,0" TextWrapping="Wrap" Text="League:" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Match History">

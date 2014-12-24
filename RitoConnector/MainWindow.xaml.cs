@@ -80,13 +80,35 @@ namespace RitoConnector
                     LevelLabel.Visibility = Visibility.Visible;
                     UsernameLabel.Visibility = Visibility.Visible;
                     ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
+                    Dictionary<string, int> test = new Dictionary<string, int>();
                     foreach (Entry user in Connection2.getSoloQueueLeague())
                     {
                         if (user.Division == Connection2.getRankedSoloLeague())
                         {
-                            NameListLeague.Add(user.PlayerOrTeamName);
+                            test.Add(user.PlayerOrTeamName, user.LeaguePoints);
                         }
                         
+                    }
+                    var sortedDict = from entry in test orderby entry.Value descending select entry;
+                    foreach (var user in sortedDict)
+                    {
+                        if (user.Value == 100)
+                        {
+                            string HotStreak = "";
+                            foreach (Entry user2 in Connection2.getSoloQueueLeague())
+                            {
+                                if (user2.PlayerOrTeamName == user.Key)
+                                {
+                                    HotStreak = user2.MiniSeries.Progress;
+                                }
+                            }
+                            NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP " + HotStreak);
+                        }
+                        else
+                        {
+                            NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP");
+                        }
+                       
                     }
                     RankedLeague.ItemsSource = NameListLeague;
                     Tabs.SelectedIndex = 1;

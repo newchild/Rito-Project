@@ -24,6 +24,12 @@ namespace RitoConnector
     {
         private int userids;
         private RankedDTO rankedStatus;
+        /// <summary>
+        /// sends a request to the Riotserver
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="Region"></param>
+        /// <param name="key"></param>
         public RankedHandler(int userid, string Region, string key)
         {
             userids = userid;
@@ -51,6 +57,10 @@ namespace RitoConnector
             JSONRAW = "{ \"standard\" : " + JSONRAW + "}" ;
             rankedStatus = JsonConvert.DeserializeObject<RankedDTO>(JSONRAW);
         }
+        /// <summary>
+        /// returns the current Division
+        /// </summary>
+        /// <returns>string</returns>
         public string getRankedSoloLeague()
         {
             foreach (RankedID rank in rankedStatus.RankedID)
@@ -68,6 +78,10 @@ namespace RitoConnector
             }
             return "unkown";
         }
+        /// <summary>
+        /// Gets the current SoloQ League
+        /// </summary>
+        /// <returns>string</returns>
         public string getRankedSoloTier()
         {
             foreach (RankedID rank in rankedStatus.RankedID)
@@ -80,6 +94,10 @@ namespace RitoConnector
             }
             return "unranked";
         }
+        /// <summary>
+        /// checks if the Connection is val
+        /// </summary>
+        /// <returns>bool</returns>
         public bool isValid()
         {
            
@@ -92,6 +110,10 @@ namespace RitoConnector
                 return false;
             }
         }
+/// <summary>
+/// Get the Current List of League Participants
+/// </summary>
+/// <returns>Entry[]</returns>
         public Entry[] getSoloQueueLeague()
         {
             foreach (RankedID rank in rankedStatus.RankedID)

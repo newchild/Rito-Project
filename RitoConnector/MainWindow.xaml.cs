@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,18 @@ namespace RitoConnector
                     Rankstatus.Text = Connection2.getRankedSoloTier();
                     LevelLabel.Visibility = Visibility.Visible;
                     UsernameLabel.Visibility = Visibility.Visible;
+                    ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
+                    foreach (Entry user in Connection2.getSoloQueueLeague())
+                    {
+                        if (user.Division == Connection2.getRankedSoloLeague())
+                        {
+                            NameListLeague.Add(user.PlayerOrTeamName);
+                        }
+                        
+                    }
+                    RankedLeague.ItemsSource = NameListLeague;
                     Tabs.SelectedIndex = 1;
+                    UpdateLaper.Content = Connection.GetLastRefresh().ToString();
                 }
             }
             else

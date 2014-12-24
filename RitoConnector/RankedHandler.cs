@@ -44,13 +44,17 @@ namespace RitoConnector
                 Response = ConnectionListener.GetResponse();
             }
             catch(WebException e){
-                   System.Windows.MessageBox.Show(e.Message);
+                   
                    Response = null;
                    rankedStatus = null;
 				   if (e.Message.Contains("404"))
 				   {
                        rankedStatus = null;
 				   }
+                   else
+                   {
+                       System.Windows.MessageBox.Show(e.Message);
+                   }
                    return;
             }
             using (var sr = new StreamReader(Response.GetResponseStream()))

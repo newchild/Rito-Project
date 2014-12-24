@@ -83,7 +83,7 @@
 					<Label Content="Last Update:" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top"/>
 					<Label Name="UpdateLaper" Content="NEVER" HorizontalAlignment="Left" Margin="91,273,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.868,0.269"/>
 					<TextBlock  HorizontalAlignment="Left" Margin="307,10,0,0" TextWrapping="Wrap" Text="League:" VerticalAlignment="Top"/>
-					<DataGrid Name="RankedLeague" HorizontalAlignment="Left" Margin="307,31,0,0" VerticalAlignment="Top" Height="267" Width="188" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" Background="{x:Null}" SelectionChanged="RankedLeague_SelectionChanged" ColumnHeaderHeight="25" CanUserResizeRows="False"/>
+					<ListBox Name="RankedLeague" HorizontalAlignment="Left" Height="267" Margin="307,31,0,0" VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="White" SelectionChanged="RankedLeague_SelectionChanged"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Match History">

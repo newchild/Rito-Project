@@ -111,7 +111,7 @@ namespace RitoConnector
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+			RankedLeague.UnselectAll();
         }
     }
 }

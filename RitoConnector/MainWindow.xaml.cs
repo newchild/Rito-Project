@@ -71,7 +71,7 @@ namespace RitoConnector
                 RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Connection2.getRankedSoloTier().ToLower() + ".png");
                 RankedPic.EndInit();
                 RankedImage.Source = RankedPic;
-                MessageBox.Show(RankedImage.Source.ToString());
+                Rankstatus.Text = Connection2.getRankedSoloTier();
                 LevelLabel.Visibility = Visibility.Visible;
                 UsernameLabel.Visibility = Visibility.Visible;
                 Tabs.SelectedIndex = 1;

@@ -96,8 +96,27 @@ namespace RitoConnector
 
                         }
                         var sortedDict = from entry in test orderby entry.Value descending select entry;
+                        foreach (var user in sortedDict)
+                        {
+                            if (user.Value == 100)
+                            {
+                                string HotStreak = "";
+                                foreach (Entry user2 in Connection2.getSoloQueueLeague())
+                                {
+                                    if (user2.PlayerOrTeamName == user.Key)
+                                    {
+                                        HotStreak = user2.MiniSeries.Progress;
+                                    }
+                                }
+                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP | " + HotStreak.Replace("N","_ ").Replace("L","X").Replace("W","✓"));
+                            }
+                            else
+                            {
+                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP");
+                            }
 
-                        RankedLeague.ItemsSource = sortedDict;
+                        }
+                        RankedLeague.ItemsSource = NameListLeague;
                         Tabs.SelectedIndex = 1;
                         UpdateLaper.Content = Connection.GetLastRefresh().ToString();
                     }

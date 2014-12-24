@@ -67,7 +67,7 @@ namespace RitoConnector
                 if (Connection.isValid())
                 {
                     RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
-                    if (!Connection2.isValid())
+                    if (Connection2.isValid())
                     {
                         BitmapImage logo = new BitmapImage();
                         logo.BeginInit();
@@ -117,6 +117,27 @@ namespace RitoConnector
 
                         }
                         RankedLeague.ItemsSource = NameListLeague;
+                        Tabs.SelectedIndex = 1;
+                        UpdateLaper.Content = Connection.GetLastRefresh().ToString();
+                    }
+                    else
+                    {
+                        BitmapImage logo = new BitmapImage();
+                        logo.BeginInit();
+                        logo.UriSource = new Uri(Connection.GetProfileIconURL());
+                        logo.EndInit();
+                        ProfileIcon.Source = logo;
+                        LevelLabel.Text = Connection.GetSummonerLevel().ToString();
+                        UsernameLabel.Text = Connection.getUsername();
+                        BitmapImage RankedPic = new BitmapImage();
+                        RankedPic.BeginInit();
+                        RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/unranked.png");
+                        RankedPic.EndInit();
+                        RankedImage.Source = RankedPic;
+                        Divisionstatus.Text = "Unranked";
+                        Rankstatus.Text = "unranked";
+                        LevelLabel.Visibility = Visibility.Visible;
+                        UsernameLabel.Visibility = Visibility.Visible;
                         Tabs.SelectedIndex = 1;
                         UpdateLaper.Content = Connection.GetLastRefresh().ToString();
                     }

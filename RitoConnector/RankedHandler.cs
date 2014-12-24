@@ -49,7 +49,7 @@ namespace RitoConnector
                    rankedStatus = null;
 				   if (e.Message.Contains("404"))
 				   {
-					   isUnranked = true;
+                       rankedStatus = null;
 				   }
                    return;
             }
@@ -68,8 +68,7 @@ namespace RitoConnector
         /// <returns>string</returns>
         public string getRankedSoloLeague()
         {
-			if (!isUnranked)
-			{
+			
 				foreach (RankedID rank in rankedStatus.RankedID)
 				{
 					if (rank.Queue == "RANKED_SOLO_5x5")
@@ -82,7 +81,7 @@ namespace RitoConnector
 							}
 						}
 					}
-				}
+				
 			}
             return "unkown";
         }
@@ -92,8 +91,7 @@ namespace RitoConnector
         /// <returns>string</returns>
         public string getRankedSoloTier()
         {
-			if (!isUnranked)
-			{
+			
 				foreach (RankedID rank in rankedStatus.RankedID)
 				{
 					if (rank.Queue == "RANKED_SOLO_5x5")
@@ -101,7 +99,7 @@ namespace RitoConnector
 						return rank.Tier;
 					}
 				}
-			}
+			
             return "unranked";
         }
         /// <summary>

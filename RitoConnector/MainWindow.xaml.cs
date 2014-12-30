@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace RitoConnector
 {
@@ -48,7 +49,7 @@ namespace RitoConnector
 
         private void Connect(object sender, RoutedEventArgs e)
         {
-            string key;
+			string key;
             if (apiKey.Text == "")
             {
                 key = "64becc79-cc38-40e1-afdf-a92b95b4c836";

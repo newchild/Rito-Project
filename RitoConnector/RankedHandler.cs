@@ -24,7 +24,6 @@ namespace RitoConnector
     {
         private int userids;
         private RankedDTO rankedStatus;
-		private bool isUnranked = true;
         /// <summary>
         /// sends a request to the Riotserver
         /// </summary>

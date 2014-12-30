@@ -8,6 +8,5 @@ namespace RitoConnector
 {
     class Matchhistory
     {
-        MatchhistoryDTO test = new MatchhistoryDTO();
     }
 }

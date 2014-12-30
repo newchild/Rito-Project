@@ -9,12 +9,14 @@ using Newtonsoft.Json.Linq;
 namespace RitoConnector
 {
 
-    public class RankedDTO
+    public class MatchhistoryDTO
     {
-        [JsonProperty("standard")]
-        public RankedID[] RankedID { get; set; }
 
+        [JsonProperty("games")]
+        public Game[] Games { get; set; }
 
+        [JsonProperty("summonerId")]
+        public int SummonerId { get; set; }
     }
 
 }

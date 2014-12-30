@@ -58,11 +58,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Entry.cs" />
+    <Compile Include="FellowPlayer.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Matchhistory.cs" />
+    <Compile Include="MatchhistoryDTO.cs" />
     <Compile Include="MiniSeries.cs" />
     <Compile Include="RankedDTO.cs" />
     <Compile Include="RankedHandler.cs" />
     <Compile Include="RankedID.cs" />
     <Compile Include="Riotconnect.cs" />
+    <Compile Include="Stats.cs" />
     <Compile Include="SummonerDTO.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

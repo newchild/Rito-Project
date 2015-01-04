@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using System.Net;
 
 namespace RitoConnector
 {
@@ -112,20 +113,45 @@ namespace RitoConnector
                     {
                         BitmapImage logo = new BitmapImage();
                         logo.BeginInit();
-                        logo.UriSource = new Uri(Connection.GetProfileIconURL());
+						if (!Directory.Exists("./resources"))
+						{
+							Directory.CreateDirectory("./resources");
+						}
+						if (!File.Exists(@"./resources/" + Connection.GetProfileIcon() + ".png"))
+						{
+							try
+							{	byte[] data;
+								using (WebClient webclient = new WebClient())
+								{
+									data = webclient.DownloadData(Connection.GetProfileIconURL());
+								}
+								File.WriteAllBytes(@"./resources/" + Connection.GetProfileIcon() + ".png" , data);
+							}
+							catch (WebException e1)
+							{
+								System.Windows.MessageBox.Show(e1.Message);
+							}
+						}
+						logo.StreamSource = new FileStream(@"./resources/" + Connection.GetProfileIcon() + ".png", FileMode.Open, FileAccess.Read);
                         logo.EndInit();
                         ProfileIcon.Source = logo;
+
                         LevelLabel.Text = Connection.GetSummonerLevel().ToString();
                         UsernameLabel.Text = Connection.getUsername();
+
                         BitmapImage RankedPic = new BitmapImage();
                         RankedPic.BeginInit();
                         RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Connection2.getRankedSoloTier().ToLower() + ".png");
                         RankedPic.EndInit();
                         RankedImage.Source = RankedPic;
+
                         Divisionstatus.Text = Connection2.getRankedSoloLeague();
+
                         Rankstatus.Text = Connection2.getRankedSoloTier();
+
                         LevelLabel.Visibility = Visibility.Visible;
                         UsernameLabel.Visibility = Visibility.Visible;
+
                         ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
                         Dictionary<string, int> test = new Dictionary<string, int>();
                         foreach (Entry user in Connection2.getSoloQueueLeague())

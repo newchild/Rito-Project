@@ -86,6 +86,8 @@ csx
 AppPackages/
 
 # Others
+[Dd]ebug/
+[Rr]elease/
 [Bb]in
 [Oo]bj
 TestResults

@@ -86,6 +86,7 @@ csx
 AppPackages/
 
 # Others
+[Bb]in
 [Oo]bj
 TestResults
 [Tt]est[Rr]esult*

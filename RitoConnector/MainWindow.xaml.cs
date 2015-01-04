@@ -63,6 +63,7 @@ namespace RitoConnector
 
 			SQLiteConnection dbConnect = new SQLiteConnection("data source=" + databasefile);
 			SQLiteCommand dbCommand = new SQLiteCommand(dbConnect);
+			
 
 			string createTableQuery =	@"CREATE TABLE IF NOT EXISTS [Summoner] (
 										[ID] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -74,13 +75,20 @@ namespace RitoConnector
 
 			dbConnect.Open();		//Starts Connection
 
-			dbCommand.CommandText = createTableQuery;     // Set CommandText that will create the table
+			dbCommand.CommandText = createTableQuery;     // Create Tables
 			dbCommand.ExecuteNonQuery();                  // Execute the query
 
-			dbConnect.Close();		//Closes Connection
-
-			//SQL Part end
-
+			//Searches for Summoner by Name
+			dbCommand.CommandText =		@"SELECT *
+										FROM Summoner
+										WHERE Name = '" + UsernameTextbox.Text.ToLower() + "'";
+			dbCommand.ExecuteNonQuery();
+			SQLiteDataReader dbreader = dbCommand.ExecuteReader();
+			while (dbreader.Read())
+			{
+				MessageBox.Show("ID: " + dbreader["ID"]);
+			}
+			
 			string key;
             if (apiKey.Text == "")
             {
@@ -179,7 +187,8 @@ namespace RitoConnector
                 {
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
-            }   
+            }
+			dbConnect.Close();		//Closes Database Connection
         }
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)

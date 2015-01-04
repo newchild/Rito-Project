@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
+using System.Data.SQLite;
+using System.IO;
 
 namespace RitoConnector
 {
@@ -49,6 +51,36 @@ namespace RitoConnector
 
         private void Connect(object sender, RoutedEventArgs e)
         {
+			//SQL Part
+
+			string databasefile = "database.sqlite";
+
+			//Creates a new Database if it it is not existing
+			if (!File.Exists(databasefile))
+			{
+				SQLiteConnection.CreateFile(databasefile);
+			}
+
+			SQLiteConnection dbConnect = new SQLiteConnection("data source=" + databasefile);
+			SQLiteCommand dbCommand = new SQLiteCommand(dbConnect);
+
+			string createTableQuery =	@"CREATE TABLE IF NOT EXISTS [Summoner] (
+										[ID] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+										[Name] TINYTEXT NULL,
+										[Level] TINYINT NULL,
+										[ProfileIconID] SMALLINT NULL,
+										[LastUpdate] DATETIME NULL
+										)";
+
+			dbConnect.Open();		//Starts Connection
+
+			dbCommand.CommandText = createTableQuery;     // Set CommandText that will create the table
+			dbCommand.ExecuteNonQuery();                  // Execute the query
+
+			dbConnect.Close();		//Closes Connection
+
+			//SQL Part end
+
 			string key;
             if (apiKey.Text == "")
             {

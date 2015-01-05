@@ -15,7 +15,8 @@ namespace RitoConnector
         {
             string JSONRAW;
             WebResponse Response;
-            string URI = "https://euw.api.pvp.net/api/lol/static-data/euw/v1.2/champion/" + ChampID.ToString() + "?api_key=" + Keyloader.getRealKey();
+            string URI = "https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/" + ChampID.ToString() + "?api_key=" + Keyloader.getRealKey();
+            
             WebRequest ConnectionListener = WebRequest.Create(URI);
             ConnectionListener.ContentType = "application/json; charset=utf-8";
             try
@@ -25,6 +26,7 @@ namespace RitoConnector
             catch (WebException e)
             {
                 System.Windows.MessageBox.Show(e.Message);
+                System.Windows.MessageBox.Show(URI);
                 Response = null;
             }
             using (var sr = new StreamReader(Response.GetResponseStream()))

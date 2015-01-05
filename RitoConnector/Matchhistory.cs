@@ -14,7 +14,6 @@ namespace RitoConnector
     class Matchhistory
     {
         private MatchhistoryDTO Matches;
-        private string CleanSummonerJSON;
         public Matchhistory(int userid, string Region, string key)
         {
             string JSONRAW;
@@ -55,5 +54,82 @@ namespace RitoConnector
         {
             return Matches.Games;
         }
+        public string getChampionName(int MatchID)
+        {
+            Game MatchingGame = null;
+            foreach(var match in Matches.Games)
+            {
+                if (match.GameId == MatchID)
+                {
+                    MatchingGame = match;
+                }
+          
+            }
+            if (MatchingGame != null)
+            {
+                return ChampionTransform.getChampName(MatchingGame.ChampionId);
+            }
+            else
+            {
+                return "INVALID";
+            }
+        }
+        public int[] getMatchhistoryIDs()
+        {
+            int i = 0;
+            int[] test = new int[10];
+            foreach (var match in Matches.Games)
+            {
+                test[i] = match.GameId;
+                i++;
+            }
+            return test;
+        }
+        public string GetGameMode(int MatchID)
+        {
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
+            {
+                if (match.GameId == MatchID)
+                {
+                    MatchingGame = match;
+                }
+
+            }
+            if (MatchingGame != null)
+            {
+                return getRealMode(MatchingGame.GameMode);
+            }
+            else
+            {
+                return "INVALID";
+            }
+
+        }
+        private string getRealMode(string Matchtype)
+        {
+            switch (Matchtype)
+            {
+                case "Classic":
+                    return "Normal";
+                case "ODIN":
+                    return "Dominion";
+                case "ARAM":
+                    return "Aram";
+                case "TUTORIAL":
+                    return "Tutorialgame";
+                case "ONEFORALL":
+                    return "One for All";
+                case "ASCENSION":
+                    return "Ascension";
+                case "FIRSTBLOOD":
+                    return "Snowdown Showdown";
+                case "KINGPORO":
+                    return "Poroking";
+                case:
+                    return "INVALID";
+            }
+        }
+        
     }
 }

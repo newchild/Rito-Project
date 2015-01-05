@@ -96,14 +96,14 @@ namespace RitoConnector
 						RankedHandler RankedConnection = new RankedHandler(DB.GetUserID(username, region), region, key);
 						if (RankedConnection.isValid())
 						{
-							DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
+							DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision(),RankedConnection.getLeagueName());
 							MultipleIDGrabber multi = new MultipleIDGrabber(RankedConnection.getLeagueIDList(RankedConnection.getRankedSoloDivision(), region), region, key);
 							foreach(SummonerDTO user in multi.getUserDTOs())
 							{
 								if (!(user.Id == DB.GetUserID(username, region)))
 								{
 									DB.insertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-									DB.updateRank(user.Name.ToLower(), region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
+									DB.updateRank(user.Name.ToLower(), region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision(), RankedConnection.getLeagueName());
 								}
 							}
 						}
@@ -115,7 +115,7 @@ namespace RitoConnector
 					}
 					else
 					{
-						DB.updateRank(username, region, "Unranked", null);
+						DB.updateRank(username, region, "Unranked", null,null);
 					}
 				}
 				if (!error)

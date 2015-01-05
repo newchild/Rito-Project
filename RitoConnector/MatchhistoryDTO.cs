@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace RitoConnector
 {
 
-    public class MatchhistoryDTO
+    public class MatchhistoryDto
     {
 
         [JsonProperty("summonerId")]

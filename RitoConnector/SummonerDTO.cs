@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 namespace RitoConnector
 {
 
-    public class SummonerDTO
+    public class SummonerDto
     {
 
         [JsonProperty("id")]

@@ -44,6 +44,11 @@ namespace RitoConnector
 			dbCommand.ExecuteNonQuery();                  // Execute the query
 		}
 
+		public static void resetDB()
+		{
+			File.Delete(databasefile);
+		}
+
 		public bool userInDatabase(string name, string region)
 		{
 			bool userInDatabase;

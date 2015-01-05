@@ -18,6 +18,11 @@ namespace RitoConnector
 
 		}
 
+		public static void resetCache()
+		{
+			Directory.Delete("./resources", true);
+		}
+
 		public BitmapImage ProfileIcon(int ProfileIconID)
 		{
 			BitmapImage logo = new BitmapImage();

@@ -264,5 +264,11 @@ namespace RitoConnector
         {
 			RankedLeague.UnselectAll();
         }
+
+		private void Reset(object sender, RoutedEventArgs e)
+		{
+			SQLManager.resetDB();
+			CacheManager.resetCache();
+		}
     }
 }

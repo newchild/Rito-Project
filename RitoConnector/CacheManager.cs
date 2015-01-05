@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.IO;
+﻿using System.IO;
 using System.Net;
-using System.Media;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace RitoConnector
@@ -28,7 +22,7 @@ namespace RitoConnector
 
 		public BitmapImage ProfileIcon(int profileIconId)
 		{
-			BitmapImage logo = new BitmapImage();
+			var logo = new BitmapImage();
 			logo.BeginInit();
 			if (!Directory.Exists("./resources"))
 			{
@@ -43,7 +37,7 @@ namespace RitoConnector
 				try
 				{
 					byte[] data;
-					using (WebClient webclient = new WebClient())
+					using (var webclient = new WebClient())
 					{
 						data = webclient.DownloadData("http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + profileIconId + ".png");
 					}
@@ -51,7 +45,7 @@ namespace RitoConnector
 				}
 				catch (WebException e)
 				{
-					System.Windows.MessageBox.Show(e.Message);
+					MessageBox.Show(e.Message);
 				}
 			}
 			logo.StreamSource = new FileStream(@"./resources/ProfileIcons/" + profileIconId + ".png", FileMode.Open, FileAccess.Read);
@@ -61,7 +55,7 @@ namespace RitoConnector
 
 		public BitmapImage RankedIcon(string tier, string division)
 		{
-			BitmapImage logo = new BitmapImage();
+			var logo = new BitmapImage();
 			logo.BeginInit();
 			if (!Directory.Exists("./resources"))
 			{
@@ -77,7 +71,7 @@ namespace RitoConnector
 				try
 				{
 					byte[] data;
-					using (WebClient webclient = new WebClient())
+					using (var webclient = new WebClient())
 					{
 						data = webclient.DownloadData("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + tier + "_" + division + ".png");
 					}
@@ -85,7 +79,7 @@ namespace RitoConnector
 				}
 				catch (WebException e)
 				{
-					System.Windows.MessageBox.Show(e.Message);
+					MessageBox.Show(e.Message);
 				}
 			}
 			logo.StreamSource = new FileStream(@"./resources/RankedIcons/" + tier + "_" + division + ".png", FileMode.Open, FileAccess.Read);

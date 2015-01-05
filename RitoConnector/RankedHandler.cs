@@ -127,22 +127,34 @@ namespace RitoConnector
 /// <returns>Entry[]</returns>
         public Entry[] getSoloQueueLeague(string Division, string region)
         {
-            LeagueIDList IDList = new LeagueIDList();
 			foreach (RankedID rank in rankedStatus.RankedID)
             {
                 if (rank.Queue == "RANKED_SOLO_5x5")
                 {	
-					foreach (Entry user in rank.Entries)
-					{
-						if (user.Division == Division)
-						{
-							IDList.addListItem(user.PlayerOrTeamId);
-						}
-					}
                     return rank.Entries;
                 }
             }
             return null;
         }
+
+		public string LeagueIDList(string Division, string region)
+		{
+			string IdList = "";
+			foreach (RankedID rank in rankedStatus.RankedID)
+			{
+				if (rank.Queue == "RANKED_SOLO_5x5")
+				{
+					foreach (Entry user in rank.Entries)
+					{
+						if (user.Division == Division)
+						{
+							IdList += user.PlayerOrTeamId + ",";
+						}
+					}
+				}
+				return IdList;
+			}
+			return null;
+		}
     }
 }

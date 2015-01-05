@@ -30,7 +30,7 @@ namespace RitoConnector
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DoubleAnimation anim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
+            var anim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
             anim.Completed += (s, _) => Close();
             BeginAnimation(OpacityProperty, anim);
         }

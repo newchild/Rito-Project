@@ -79,17 +79,6 @@ namespace RitoConnector
 			dbCommand.CommandText = createTableQuery;     // Create Tables
 			dbCommand.ExecuteNonQuery();                  // Execute the query
 
-			//Searches for Summoner by Name
-			dbCommand.CommandText =		@"SELECT *
-										FROM Summoner
-										WHERE Name = '" + UsernameTextbox.Text.ToLower() + "'";
-			dbCommand.ExecuteNonQuery();
-			SQLiteDataReader dbreader = dbCommand.ExecuteReader();
-			while (dbreader.Read())
-			{
-				MessageBox.Show("ID: " + dbreader["ID"]);
-			}
-			
 			string key;
             if (apiKey.Text == "")
             {
@@ -137,7 +126,21 @@ namespace RitoConnector
                         ProfileIcon.Source = logo;
 
                         LevelLabel.Text = Connection.GetSummonerLevel().ToString();
+
                         UsernameLabel.Text = Connection.getUsername();
+						dbCommand.CommandText = @"SELECT *
+										FROM Summoner
+										WHERE Name = '" + UsernameTextbox.Text.ToLower() + "'";
+						dbCommand.ExecuteNonQuery();
+						SQLiteDataReader dbreader = dbCommand.ExecuteReader();
+						if (!dbreader.Read())
+						{	
+							dbreader.Close();
+							MessageBox.Show(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+							dbCommand.CommandText = @"INSERT INTO Summoner
+													VALUES (" + Connection.GetUserID() + "," + UsernameTextbox.Text.ToLower() + "," + Connection.GetSummonerLevel().ToString() + "," + Connection.GetProfileIconURL() + "," + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ")";
+							dbCommand.ExecuteNonQuery();
+						}
 
                         BitmapImage RankedPic = new BitmapImage();
                         RankedPic.BeginInit();

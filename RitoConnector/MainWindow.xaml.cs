@@ -85,6 +85,11 @@ namespace RitoConnector
 					{
 						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());	
 					}
+					else
+					{
+						error = true;
+						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+					}
 					RankedHandler RankedConnection = new RankedHandler(DB.GetUserID(username, region), region, key);
 					if (RankedConnection.isValid())
 					{

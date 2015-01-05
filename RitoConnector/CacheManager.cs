@@ -18,7 +18,7 @@ namespace RitoConnector
 
 		}
 
-		public static void ResetCache()
+		public static void resetCache()
 		{
 			if (Directory.Exists("./resources"))
 			{
@@ -26,7 +26,7 @@ namespace RitoConnector
 			}
 		}
 
-		public BitmapImage ProfileIcon(int profileIconId)
+		public BitmapImage ProfileIcon(int ProfileIconID)
 		{
 			BitmapImage logo = new BitmapImage();
 			logo.BeginInit();
@@ -38,28 +38,28 @@ namespace RitoConnector
 			{
 				Directory.CreateDirectory("./resources/ProfileIcons");
 			}
-			if (!File.Exists(@"./resources/ProfileIcons/" + profileIconId + ".png"))
+			if (!File.Exists(@"./resources/ProfileIcons/" + ProfileIconID + ".png"))
 			{
 				try
 				{
 					byte[] data;
 					using (WebClient webclient = new WebClient())
 					{
-						data = webclient.DownloadData("http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + profileIconId + ".png");
+						data = webclient.DownloadData("http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + ProfileIconID + ".png");
 					}
-					File.WriteAllBytes(@"./resources/ProfileIcons/" + profileIconId + ".png", data);
+					File.WriteAllBytes(@"./resources/ProfileIcons/" + ProfileIconID + ".png", data);
 				}
 				catch (WebException e)
 				{
 					System.Windows.MessageBox.Show(e.Message);
 				}
 			}
-			logo.StreamSource = new FileStream(@"./resources/ProfileIcons/" + profileIconId + ".png", FileMode.Open, FileAccess.Read);
+			logo.StreamSource = new FileStream(@"./resources/ProfileIcons/" + ProfileIconID + ".png", FileMode.Open, FileAccess.Read);
 			logo.EndInit();
 			return logo;
 		}
 
-		public BitmapImage RankedIcon(string tier, string division)
+		public BitmapImage RankedIcon(string Tier, string Division)
 		{
 			BitmapImage logo = new BitmapImage();
 			logo.BeginInit();
@@ -72,23 +72,23 @@ namespace RitoConnector
 			{
 				Directory.CreateDirectory("./resources/RankedIcons");
 			}
-			if (!File.Exists(@"./resources/RankedIcons/" + tier + "_" + division + ".png"))
+			if (!File.Exists(@"./resources/RankedIcons/" + Tier + "_" + Division + ".png"))
 			{
 				try
 				{
 					byte[] data;
 					using (WebClient webclient = new WebClient())
 					{
-						data = webclient.DownloadData("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + tier + "_" + division + ".png");
+						data = webclient.DownloadData("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Tier + "_" + Division + ".png");
 					}
-					File.WriteAllBytes(@"./resources/RankedIcons/" + tier + "_" + division + ".png", data);
+					File.WriteAllBytes(@"./resources/RankedIcons/" + Tier + "_" + Division + ".png", data);
 				}
 				catch (WebException e)
 				{
 					System.Windows.MessageBox.Show(e.Message);
 				}
 			}
-			logo.StreamSource = new FileStream(@"./resources/RankedIcons/" + tier + "_" + division + ".png", FileMode.Open, FileAccess.Read);
+			logo.StreamSource = new FileStream(@"./resources/RankedIcons/" + Tier + "_" + Division + ".png", FileMode.Open, FileAccess.Read);
 			logo.EndInit();
 			return logo;
 		}

@@ -22,33 +22,33 @@ namespace RitoConnector
 {
     class RankedHandler
     {
-        private readonly int _userids;
-        private readonly RankedDto _rankedStatus;
+        private int userids;
+        private RankedDTO rankedStatus;
         /// <summary>
         /// sends a request to the Riotserver
         /// </summary>
         /// <param name="userid"></param>
-        /// <param name="region"></param>
+        /// <param name="Region"></param>
         /// <param name="key"></param>
-        public RankedHandler(int userid, string region, string key)
+        public RankedHandler(int userid, string Region, string key)
         {
-            _userids = userid;
-            string jsonraw;
-            WebResponse response;
-            string uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v2.5/league/by-summoner/" + userid + "?api_key=" + key;
-            WebRequest connectionListener = WebRequest.Create(uri);
-            connectionListener.ContentType = "application/json; charset=utf-8";
+            userids = userid;
+            string JSONRAW;
+            WebResponse Response;
+            string URI = "https://" + Region.ToLower() + ".api.pvp.net/api/lol/" + Region.ToLower() + "/v2.5/league/by-summoner/" + userid + "?api_key=" + key;
+            WebRequest ConnectionListener = WebRequest.Create(URI);
+            ConnectionListener.ContentType = "application/json; charset=utf-8";
             try
             {
-                response = connectionListener.GetResponse();
+                Response = ConnectionListener.GetResponse();
             }
             catch(WebException e){
                    
-                   response = null;
-                   _rankedStatus = null;
+                   Response = null;
+                   rankedStatus = null;
 				   if (e.Message.Contains("404"))
 				   {
-                       _rankedStatus = null;
+                       rankedStatus = null;
 				   }
                    else
                    {
@@ -56,29 +56,29 @@ namespace RitoConnector
                    }
                    return;
             }
-            using (var sr = new StreamReader(response.GetResponseStream()))
+            using (var sr = new StreamReader(Response.GetResponseStream()))
             {
-                jsonraw = sr.ReadToEnd();
+                JSONRAW = sr.ReadToEnd();
             }
-            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonraw);
-            jsonraw = tempjson[userid.ToString()].ToString();
-            jsonraw = "{ \"standard\" : " + jsonraw + "}" ;
-            _rankedStatus = JsonConvert.DeserializeObject<RankedDto>(jsonraw);
+            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(JSONRAW);
+            JSONRAW = tempjson[userid.ToString()].ToString();
+            JSONRAW = "{ \"standard\" : " + JSONRAW + "}" ;
+            rankedStatus = JsonConvert.DeserializeObject<RankedDTO>(JSONRAW);
         }
         /// <summary>
         /// returns the current Division
         /// </summary>
         /// <returns>string</returns>
-        public string GetRankedSoloDivision()
+        public string getRankedSoloDivision()
         {
 			
-				foreach (RankedId rank in _rankedStatus.RankedId)
+				foreach (RankedID rank in rankedStatus.RankedID)
 				{
 					if (rank.Queue == "RANKED_SOLO_5x5")
 					{
 						foreach (Entry person in rank.Entries)
 						{
-							if (Convert.ToInt32(person.PlayerOrTeamId) == _userids)
+							if (Convert.ToInt32(person.PlayerOrTeamId) == userids)
 							{
 								return person.Division;
 							}
@@ -92,10 +92,10 @@ namespace RitoConnector
         /// Gets the current SoloQ League
         /// </summary>
         /// <returns>string</returns>
-        public string GetRankedSoloTier()
+        public string getRankedSoloTier()
         {
 			
-				foreach (RankedId rank in _rankedStatus.RankedId)
+				foreach (RankedID rank in rankedStatus.RankedID)
 				{
 					if (rank.Queue == "RANKED_SOLO_5x5")
 					{
@@ -109,10 +109,10 @@ namespace RitoConnector
         /// checks if the Connection is val
         /// </summary>
         /// <returns>bool</returns>
-        public bool IsValid()
+        public bool isValid()
         {
            
-            if (_rankedStatus != null)
+            if (rankedStatus != null)
             {
                 return true;
             }
@@ -125,9 +125,9 @@ namespace RitoConnector
 /// Get the Current List of League Participants
 /// </summary>
 /// <returns>Entry[]</returns>
-        public Entry[] GetSoloQueueLeague(string division, string region)
+        public Entry[] getSoloQueueLeague(string Division, string region)
         {
-			foreach (RankedId rank in _rankedStatus.RankedId)
+			foreach (RankedID rank in rankedStatus.RankedID)
             {
                 if (rank.Queue == "RANKED_SOLO_5x5")
                 {	
@@ -137,9 +137,9 @@ namespace RitoConnector
             return null;
         }
 
-		public string GetLeagueName()
+		public string getLeagueName()
 		{
-			foreach (RankedId rank in _rankedStatus.RankedId)
+			foreach (RankedID rank in rankedStatus.RankedID)
 			{
 				if (rank.Queue == "RANKED_SOLO_5x5")
 				{
@@ -149,22 +149,22 @@ namespace RitoConnector
 			return null;
 		}
 
-		public string GetLeagueIdList(string division, string region)
+		public string getLeagueIDList(string Division, string region)
 		{
-			string idList = "";
-			foreach (RankedId rank in _rankedStatus.RankedId)
+			string IdList = "";
+			foreach (RankedID rank in rankedStatus.RankedID)
 			{
 				if (rank.Queue == "RANKED_SOLO_5x5")
 				{
 					foreach (Entry user in rank.Entries)
 					{
-						if (user.Division == division)
+						if (user.Division == Division)
 						{
-							idList += user.PlayerOrTeamId + ",";
+							IdList += user.PlayerOrTeamId + ",";
 						}
 					}
 				}
-				return idList;
+				return IdList;
 			}
 			return null;
 		}

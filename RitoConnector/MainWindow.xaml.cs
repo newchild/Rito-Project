@@ -60,13 +60,13 @@ namespace RitoConnector
 			string region = RegionBox.SelectedItem.ToString();
 
 			string key;
-            if (ApiKey.Text == "")
+            if (apiKey.Text == "")
             {
-                key = Keyloader.GetRealKey();
+                key = Keyloader.getRealKey();
             }
             else
             {
-                key = ApiKey.Text;
+                key = apiKey.Text;
             }
 
             if (RegionBox.SelectedItem == null)
@@ -77,33 +77,33 @@ namespace RitoConnector
             
 			if (!error)
             {
-				SqlManager db = new SqlManager();
-				if (!db.UserInDatabase(username, region))
+				SQLManager DB = new SQLManager();
+				if (!DB.userInDatabase(username, region))
 				{
-					Riotconnect connection = new Riotconnect(username, region, key);
-					if (connection.IsValid())
+					Riotconnect Connection = new Riotconnect(username, region, key);
+					if (Connection.isValid())
 					{
-						db.InsertUserinDatabase(connection.GetUserId(), region, username, connection.GetUsername(), connection.GetSummonerLevel(), connection.GetProfileIcon());	
+						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());	
 					}
 					else
 					{
 						error = true;
 						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
 					}
-					if (db.GetLevel(username, region) == 30)
+					if (DB.GetLevel(username, region) == 30)
 					{
 						//only starts Ranked Call if Summoner is Level 30
-						RankedHandler rankedConnection = new RankedHandler(db.GetUserId(username, region), region, key);
-						if (rankedConnection.IsValid())
+						RankedHandler RankedConnection = new RankedHandler(DB.GetUserID(username, region), region, key);
+						if (RankedConnection.isValid())
 						{
-							db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision());
-							MultipleIdGrabber multi = new MultipleIdGrabber(rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region), region, key);
-							foreach(SummonerDto user in multi.GetUserDtOs())
+							DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
+							MultipleIDGrabber multi = new MultipleIDGrabber(RankedConnection.getLeagueIDList(RankedConnection.getRankedSoloDivision(), region), region, key);
+							foreach(SummonerDTO user in multi.getUserDTOs())
 							{
-								if (!(user.Id == db.GetUserId(username, region)))
+								if (!(user.Id == DB.GetUserID(username, region)))
 								{
-									db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-									db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision());
+									DB.insertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
+									DB.updateRank(user.Name.ToLower(), region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
 								}
 							}
 						}
@@ -115,29 +115,29 @@ namespace RitoConnector
 					}
 					else
 					{
-						db.UpdateRank(username, region, "Unranked", null);
+						DB.updateRank(username, region, "Unranked", null);
 					}
 				}
 				if (!error)
 				{
 					//Sets Name
-					UsernameLabel.Text = db.GetName(username, region);
+					UsernameLabel.Text = DB.GetName(username, region);
 					
 					//Sets Profile Icon
-					ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId( username, region));
+					ProfileIcon.Source = cache.ProfileIcon(DB.GetProfileIconID( username, region));
 
 					//Sets Level
-					LevelLabel.Text = db.GetLevel(username, region).ToString();
+					LevelLabel.Text = DB.GetLevel(username, region).ToString();
 
 					//Switches to Profile Tab
 					Tabs.SelectedIndex = 1;
 
 					//Sets Ranked
-					Rankstatus.Text = db.GetSoloTier(username, region);
-					Divisionstatus.Text = db.GetSoloDivision(username, region);
-					RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
+					Rankstatus.Text = DB.GetSoloTier(username, region);
+					Divisionstatus.Text = DB.GetSoloDivision(username, region);
+					RankedImage.Source = cache.RankedIcon(DB.GetSoloTier(username, region), DB.GetSoloDivision(username, region));
 				}
-				db.CloseConnection();
+				DB.closeConnection();
                 /*
 				Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
                 if (Connection.isValid())
@@ -206,8 +206,8 @@ namespace RitoConnector
 
 		private void Reset(object sender, RoutedEventArgs e)
 		{
-			SqlManager.ResetDb();
-			CacheManager.ResetCache();
+			SQLManager.resetDB();
+			CacheManager.resetCache();
 		}
     }
 }

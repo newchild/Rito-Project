@@ -10,35 +10,35 @@ using System.Windows;
 
 namespace RitoConnector
 {
-    class MultipleIdGrabber
+    class MultipleIDGrabber
     {
-        SummonerDto[] _tests;
-        public MultipleIdGrabber(string ids,string region, string key)
+        SummonerDTO[] tests;
+        public MultipleIDGrabber(string ids,string Region, string key)
         {
-            string jsonraw;
-            WebResponse response;
-            string uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v1.4/summoner/" + ids + "?api_key=" + key;
-            WebRequest connectionListener = WebRequest.Create(uri);
-            connectionListener.ContentType = "application/json; charset=utf-8";
+            string JSONRAW;
+            WebResponse Response;
+            string URI = "https://" + Region.ToLower() + ".api.pvp.net/api/lol/" + Region.ToLower() + "/v1.4/summoner/" + ids + "?api_key=" + key;
+            WebRequest ConnectionListener = WebRequest.Create(URI);
+            ConnectionListener.ContentType = "application/json; charset=utf-8";
             try
             {
-                response = connectionListener.GetResponse();
+                Response = ConnectionListener.GetResponse();
             }
             catch(WebException e){
                    System.Windows.MessageBox.Show(e.Message);
-                   response = null;
+                   Response = null;
                    return;
             }
-            using (var sr = new StreamReader(response.GetResponseStream()))
+            using (var sr = new StreamReader(Response.GetResponseStream()))
             {
-                jsonraw = sr.ReadToEnd();
+                JSONRAW = sr.ReadToEnd();
             }
             var test = ids.Split(',');
             foreach (string id in test)
             {
                 if (id != "")
                 {
-                    jsonraw = jsonraw.Replace("\"" + id + "\"", "user");
+                    JSONRAW = JSONRAW.Replace("\"" + id + "\"", "user");
                 }
                 
             }
@@ -49,16 +49,16 @@ namespace RitoConnector
             }
 
             string[] stringSeparators = new string[] { "user" };
-            var jsons = jsonraw.Split(stringSeparators,StringSplitOptions.None);
+            var JSONS = JSONRAW.Split(stringSeparators,StringSplitOptions.None);
             testcounter = 0;
-            foreach (var jstring in jsons)
+            foreach (var jstring in JSONS)
             {
                 
                 testcounter++;
             }
-            _tests = new SummonerDto[testcounter-1];
+            tests = new SummonerDTO[testcounter-1];
             testcounter = 0;
-            foreach (var jstring in jsons)
+            foreach (var jstring in JSONS)
             {
                 if (jstring == "{" || jstring.Length < 4)
                 {
@@ -68,16 +68,16 @@ namespace RitoConnector
                 {
 					var jstringlegit = jstring.Substring(1, jstring.Length - 2);
                     MessageBox.Show(jstringlegit);
-                    SummonerDto users = JsonConvert.DeserializeObject<SummonerDto>(jstringlegit);
-                    _tests[testcounter] = users;
+                    SummonerDTO Users = JsonConvert.DeserializeObject<SummonerDTO>(jstringlegit);
+                    tests[testcounter] = Users;
                     testcounter++;
                 }
                 
             }
         }
-        public SummonerDto[] GetUserDtOs()
+        public SummonerDTO[] getUserDTOs()
         {
-            return _tests;
+            return tests;
         }
     }
 }

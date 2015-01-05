@@ -69,7 +69,7 @@ namespace RitoConnector
         /// returns the current Division
         /// </summary>
         /// <returns>string</returns>
-        public string getRankedSoloLeague()
+        public string getRankedSoloDivision()
         {
 			
 				foreach (RankedID rank in rankedStatus.RankedID)

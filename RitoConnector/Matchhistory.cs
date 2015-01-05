@@ -106,6 +106,48 @@ namespace RitoConnector
             }
 
         }
+        public string GetStats(int MatchID)
+        {
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
+            {
+                if (match.GameId == MatchID)
+                {
+                    MatchingGame = match;
+                }
+
+            }
+            if (MatchingGame != null)
+            {
+                return MatchingGame.Stats.ChampionsKilled.ToString() + "/" + MatchingGame.Stats.NumDeaths.ToString() + "/" + MatchingGame.Stats.Assists.ToString();
+            }
+            else
+            {
+                return "INVALID";
+            }
+
+        }
+        public int GetStats(int MatchID)
+        {
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
+            {
+                if (match.GameId == MatchID)
+                {
+                    MatchingGame = match;
+                }
+
+            }
+            if (MatchingGame != null)
+            {
+                return MatchingGame.Stats.MinionsKilled;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
         private string getRealMode(string Matchtype)
         {
             switch (Matchtype)

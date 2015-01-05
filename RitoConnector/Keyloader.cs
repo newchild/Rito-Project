@@ -8,7 +8,7 @@ namespace RitoConnector
 {
     class Keyloader
     {
-        private static const string Key = "NjRiZWNjNzktY2MzOC00MGUxLWFmZGYtYTkyYjk1YjRjODM2";
+        private const string Key = "NjRiZWNjNzktY2MzOC00MGUxLWFmZGYtYTkyYjk1YjRjODM2";
 
         public static string getRealKey()
         {

@@ -63,6 +63,7 @@
     <Compile Include="Entry.cs" />
     <Compile Include="FellowPlayer.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Keyloader.cs" />
     <Compile Include="Matchhistory.cs" />
     <Compile Include="MatchhistoryDTO.cs" />
     <Compile Include="MiniSeries.cs" />

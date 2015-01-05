@@ -65,6 +65,7 @@ namespace RitoConnector
             foreach (var jstring in JSONS)
             {
                 MultiIDclass Users = JsonConvert.DeserializeObject<MultiIDclass>(JSONRAW);
+                MessageBox.Show(Users.user.Name);
                 tests[testcounter] = Users;
                 testcounter++;
             }

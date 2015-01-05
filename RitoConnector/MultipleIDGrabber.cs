@@ -12,7 +12,7 @@ namespace RitoConnector
 {
     class MultipleIDGrabber
     {
-        SummonerDTO[] tests = new SummonerDTO[1];
+        SummonerDTO[] tests;
         public MultipleIDGrabber(string ids,string Region, string key)
         {
             string JSONRAW;

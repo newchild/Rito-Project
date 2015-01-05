@@ -137,6 +137,18 @@ namespace RitoConnector
             return null;
         }
 
+		public string getLeagueName()
+		{
+			foreach (RankedID rank in rankedStatus.RankedID)
+			{
+				if (rank.Queue == "RANKED_SOLO_5x5")
+				{
+					return rank.Name;
+				}
+			}
+			return null;
+		}
+
 		public string getLeagueIDList(string Division, string region)
 		{
 			string IdList = "";

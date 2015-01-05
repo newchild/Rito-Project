@@ -53,10 +53,6 @@ namespace RitoConnector
 
 		public BitmapImage RankedIcon(string Tier, string Division)
 		{
-            if (Tier == "")
-            {
-                Tier = "Unranked";
-            }
 			BitmapImage logo = new BitmapImage();
 			logo.BeginInit();
 			if (!Directory.Exists("./resources"))

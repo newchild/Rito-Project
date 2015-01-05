@@ -72,6 +72,7 @@
     <Compile Include="RankedHandler.cs" />
     <Compile Include="RankedID.cs" />
     <Compile Include="Riotconnect.cs" />
+    <Compile Include="SQLManager.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="SummonerDTO.cs" />
     <Page Include="MainWindow.xaml">

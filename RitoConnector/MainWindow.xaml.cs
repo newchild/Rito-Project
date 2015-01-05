@@ -52,16 +52,9 @@ namespace RitoConnector
 
         private void Connect(object sender, RoutedEventArgs e)
         {
-			//SQL Part
-
-			string databasefile = "database.sqlite";
 
 			//Creates a new Database if it it is not existing
-			if (!File.Exists(databasefile))
-			{
-				SQLiteConnection.CreateFile(databasefile);
-			}
-
+			
 			SQLiteConnection dbConnect = new SQLiteConnection("data source=" + databasefile);
 			SQLiteCommand dbCommand = new SQLiteCommand(dbConnect);
 			

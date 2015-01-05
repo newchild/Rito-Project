@@ -9,10 +9,10 @@ using Newtonsoft.Json.Linq;
 namespace RitoConnector
 {
 
-    public class RankedDTO
+    public class RankedDto
     {
         [JsonProperty("standard")]
-        public RankedID[] RankedID { get; set; }
+        public RankedId[] RankedId { get; set; }
 
 
     }

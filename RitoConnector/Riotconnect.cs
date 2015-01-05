@@ -13,50 +13,50 @@ namespace RitoConnector
 {
     class Riotconnect
     {
-        private SummonerDTO User;
-        private string CleanSummonerJSON;
-        public Riotconnect(string username, string Region,string key)
+        private SummonerDto _user;
+        private string _cleanSummonerJson;
+        public Riotconnect(string username, string region,string key)
         {
-            string JSONRAW;
-            WebResponse Response;
-            string URI = "https://" + Region.ToLower() + ".api.pvp.net/api/lol/" + Region.ToLower() + "/v1.4/summoner/by-name/" + username + "?api_key=" + key;
-            WebRequest ConnectionListener = WebRequest.Create(URI);
-            ConnectionListener.ContentType = "application/json; charset=utf-8";
+            string jsonraw;
+            WebResponse response;
+            string uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v1.4/summoner/by-name/" + username + "?api_key=" + key;
+            WebRequest connectionListener = WebRequest.Create(uri);
+            connectionListener.ContentType = "application/json; charset=utf-8";
             try
             {
-                Response = ConnectionListener.GetResponse();
+                response = connectionListener.GetResponse();
             }
             catch(WebException e){
                    System.Windows.MessageBox.Show(e.Message);
-                   Response = null;
-                   User = null;
+                   response = null;
+                   _user = null;
                    return;
             }
-            using (var sr = new StreamReader(Response.GetResponseStream()))
+            using (var sr = new StreamReader(response.GetResponseStream()))
             {
-                JSONRAW = sr.ReadToEnd();
+                jsonraw = sr.ReadToEnd();
             }
-            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(JSONRAW);
-            CleanSummonerJSON = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
-			MessageBox.Show(CleanSummonerJSON);
-            User = JsonConvert.DeserializeObject<SummonerDTO>(CleanSummonerJSON);
+            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonraw);
+            _cleanSummonerJson = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
+			MessageBox.Show(_cleanSummonerJson);
+            _user = JsonConvert.DeserializeObject<SummonerDto>(_cleanSummonerJson);
         }
         public int GetProfileIcon()
         {
-            return User.ProfileIconId;
+            return _user.ProfileIconId;
         }
-        public string GetProfileIconURL()
+        public string GetProfileIconUrl()
         {
-            string URL = "http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + User.ProfileIconId + ".png"; //needs update at every patch
-            return URL;
+            string url = "http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + _user.ProfileIconId + ".png"; //needs update at every patch
+            return url;
         }
         public string GetUsername()
         {
-            return User.Name;
+            return _user.Name;
         }
-        public bool isValid()
+        public bool IsValid()
         {
-            if(User != null){
+            if(_user != null){
                 return true;
             }
             else
@@ -66,18 +66,18 @@ namespace RitoConnector
         }
         public DateTime GetLastRefresh()
         {
-            long unixDate = User.RevisionDate;
+            long unixDate = _user.RevisionDate;
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             DateTime date= start.AddMilliseconds(unixDate).ToLocalTime();
             return date;
         }
         public int GetSummonerLevel()
         {
-            return User.SummonerLevel;
+            return _user.SummonerLevel;
         }
-        public int GetUserID()
+        public int GetUserId()
         {
-            return User.Id;
+            return _user.Id;
         }
     }
 }

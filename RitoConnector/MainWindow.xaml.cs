@@ -186,8 +186,7 @@ namespace RitoConnector
                             {
                                 test.Add(user.PlayerOrTeamName, user.LeaguePoints);
                             }
-
-                        }
+						}
                         var sortedDict = from entry in test orderby entry.Value descending select entry;
                         foreach (var user in sortedDict)
                         {

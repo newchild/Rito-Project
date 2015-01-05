@@ -125,17 +125,24 @@ namespace RitoConnector
 /// Get the Current List of League Participants
 /// </summary>
 /// <returns>Entry[]</returns>
-        public Entry[] getSoloQueueLeague()
+        public Entry[] getSoloQueueLeague(string Division)
         {
-            foreach (RankedID rank in rankedStatus.RankedID)
+            LeagueIDList IDList = new LeagueIDList();
+			foreach (RankedID rank in rankedStatus.RankedID)
             {
                 if (rank.Queue == "RANKED_SOLO_5x5")
-                {
+                {	
+					foreach (Entry user in rank.Entries)
+					{
+						if (user.Division == Division)
+						{
+							IDList.addListItem(user.PlayerOrTeamId);
+						}
+					}
                     return rank.Entries;
                 }
             }
             return null;
         }
-        
     }
 }

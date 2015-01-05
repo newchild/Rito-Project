@@ -22,7 +22,6 @@ namespace RitoConnector
 
 		public string returnLeagueIDList()
 		{
-			IDList = IDList.Remove(IDList.Length - 1);
 			return IDList;
 		}
 

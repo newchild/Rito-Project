@@ -54,8 +54,8 @@ namespace RitoConnector
 
 		public bool userInDatabase(string name, string region)
 		{
-			bool userInDatabase;
-			dbCommand.CommandText = @"SELECT *
+			bool userInDatabase = false;
+			dbCommand.CommandText =		@"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
 			dbCommand.ExecuteNonQuery();
@@ -63,10 +63,6 @@ namespace RitoConnector
 			if (dbreader.Read())
 			{
 				userInDatabase = true;
-			}
-			else
-			{
-				userInDatabase = false;
 			}
 			dbreader.Close();
 			return userInDatabase;

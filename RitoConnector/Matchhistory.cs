@@ -1,42 +1,48 @@
-﻿using System.IO;
-using System.Net;
+﻿using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net;
+using System.IO;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace RitoConnector
 {
     class Matchhistory
     {
-        private MatchhistoryDto _matches;
-        public Matchhistory(int userid, string region, string key)
+        private MatchhistoryDTO Matches;
+        public Matchhistory(int userid, string Region, string key)
         {
-            string jsonraw;
-            WebResponse response;
-            var uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v1.3/game/by-summoner/" + userid.ToString() +"/recent" + "?api_key=" + key;
-            var connectionListener = WebRequest.Create(uri);
-            connectionListener.ContentType = "application/json; charset=utf-8";
+            string JSONRAW;
+            WebResponse Response;
+            string URI = "https://" + Region.ToLower() + ".api.pvp.net/api/lol/" + Region.ToLower() + "/v1.3/game/by-summoner/" + userid.ToString() +"/recent" + "?api_key=" + key;
+            WebRequest ConnectionListener = WebRequest.Create(URI);
+            ConnectionListener.ContentType = "application/json; charset=utf-8";
             try
             {
-                response = connectionListener.GetResponse();
+                Response = ConnectionListener.GetResponse();
             }
             catch(WebException e){
-                   MessageBox.Show(e.Message);
-                   response = null;
-                   _matches = null;
+                   System.Windows.MessageBox.Show(e.Message);
+                   Response = null;
+                   Matches = null;
                    return;
             }
-            using (var sr = new StreamReader(response.GetResponseStream()))
+            using (var sr = new StreamReader(Response.GetResponseStream()))
             {
-                jsonraw = sr.ReadToEnd();
+                JSONRAW = sr.ReadToEnd();
             }
-            _matches = JsonConvert.DeserializeObject<MatchhistoryDto>(jsonraw);
+            Matches = JsonConvert.DeserializeObject<MatchhistoryDTO>(JSONRAW);
             
             
         }
         
-        public bool IsValid()
+        public bool isValid()
         {
-            if(_matches != null){
+            if(Matches != null){
                 return true;
             }
             else
@@ -44,55 +50,55 @@ namespace RitoConnector
                 return false;
             }
         }
-        public Game[] GetGames()
+        public Game[] getGames()
         {
-            return _matches.Games;
+            return Matches.Games;
         }
-        public string GetChampionName(int matchId)
+        public string getChampionName(int MatchID)
         {
-            Game matchingGame = null;
-            foreach(var match in _matches.Games)
+            Game MatchingGame = null;
+            foreach(var match in Matches.Games)
             {
-                if (match.GameId == matchId)
+                if (match.GameId == MatchID)
                 {
-                    matchingGame = match;
+                    MatchingGame = match;
                 }
           
             }
-            if (matchingGame != null)
+            if (MatchingGame != null)
             {
-                return ChampionTransform.GetChampName(matchingGame.ChampionId);
+                return ChampionTransform.getChampName(MatchingGame.ChampionId);
             }
             else
             {
                 return "INVALID";
             }
         }
-        public int[] GetMatchhistoryIDs()
+        public int[] getMatchhistoryIDs()
         {
-            var i = 0;
-            var test = new int[10];
-            foreach (var match in _matches.Games)
+            int i = 0;
+            int[] test = new int[10];
+            foreach (var match in Matches.Games)
             {
                 test[i] = match.GameId;
                 i++;
             }
             return test;
         }
-        public string GetGameType(int matchId)
+        public string GetGameType(int MatchID)
         {
-            Game matchingGame = null;
-            foreach (var match in _matches.Games)
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
             {
-                if (match.GameId == matchId)
+                if (match.GameId == MatchID)
                 {
-                    matchingGame = match;
+                    MatchingGame = match;
                 }
 
             }
-            if (matchingGame != null)
+            if (MatchingGame != null)
             {
-                return GetRealMode(matchingGame.GameType);
+                return getRealMode(MatchingGame.GameType);
             }
             else
             {
@@ -100,20 +106,20 @@ namespace RitoConnector
             }
 
         }
-        public string GetGameMap(int matchId)
+        public string GetGameMap(int MatchID)
         {
-            Game matchingGame = null;
-            foreach (var match in _matches.Games)
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
             {
-                if (match.GameId == matchId)
+                if (match.GameId == MatchID)
                 {
-                    matchingGame = match;
+                    MatchingGame = match;
                 }
 
             }
-            if (matchingGame != null)
+            if (MatchingGame != null)
             {
-                return GetRealType(matchingGame.GameMode);
+                return getRealType(MatchingGame.GameMode);
             }
             else
             {
@@ -121,20 +127,20 @@ namespace RitoConnector
             }
 
         }
-        public string GetStats(int matchId)
+        public string GetStats(int MatchID)
         {
-            Game matchingGame = null;
-            foreach (var match in _matches.Games)
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
             {
-                if (match.GameId == matchId)
+                if (match.GameId == MatchID)
                 {
-                    matchingGame = match;
+                    MatchingGame = match;
                 }
 
             }
-            if (matchingGame != null)
+            if (MatchingGame != null)
             {
-                return matchingGame.Stats.ChampionsKilled.ToString() + "/" + matchingGame.Stats.NumDeaths.ToString() + "/" + matchingGame.Stats.Assists.ToString();
+                return MatchingGame.Stats.ChampionsKilled.ToString() + "/" + MatchingGame.Stats.NumDeaths.ToString() + "/" + MatchingGame.Stats.Assists.ToString();
             }
             else
             {
@@ -142,20 +148,20 @@ namespace RitoConnector
             }
 
         }
-        public int GetFarm(int matchId)
+        public int GetFarm(int MatchID)
         {
-            Game matchingGame = null;
-            foreach (var match in _matches.Games)
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
             {
-                if (match.GameId == matchId)
+                if (match.GameId == MatchID)
                 {
-                    matchingGame = match;
+                    MatchingGame = match;
                 }
 
             }
-            if (matchingGame != null)
+            if (MatchingGame != null)
             {
-                return matchingGame.Stats.MinionsKilled;
+                return MatchingGame.Stats.MinionsKilled;
             }
             else
             {
@@ -163,10 +169,10 @@ namespace RitoConnector
             }
 
         }
-        private string GetRealType(string matchtype)
+        private string getRealType(string Matchtype)
         {
-            MessageBox.Show(matchtype);
-            switch (matchtype)
+            MessageBox.Show(Matchtype);
+            switch (Matchtype)
             {
                 case "CLASSIC":
                     return "Normal";
@@ -189,10 +195,10 @@ namespace RitoConnector
             }
             return "Unknown";
         }
-        private string GetRealMode(string matchmode)
+        private string getRealMode(string Matchmode)
         {
-            MessageBox.Show(matchmode);
-            switch (matchmode)
+            MessageBox.Show(Matchmode);
+            switch (Matchmode)
             {
                 case "CUSTOM_GAME":
                     return "Custom Game";

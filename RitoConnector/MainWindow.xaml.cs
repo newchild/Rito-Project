@@ -1,7 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
+using System.Net;
 
 namespace RitoConnector
 {
@@ -31,19 +47,27 @@ namespace RitoConnector
         {
             var anim = new DoubleAnimation(0, (Duration)TimeSpan.FromSeconds(0.5));
             anim.Completed += (s, _) => this.Close();
-            this.BeginAnimation(OpacityProperty, anim);
+            this.BeginAnimation(UIElement.OpacityProperty, anim);
         }
 
         private void Connect(object sender, RoutedEventArgs e)
         {
-			var error = false;
+			bool error = false;
 
-			var cache = new CacheManager();
+			CacheManager cache = new CacheManager();
 
-			var username = UsernameTextbox.Text;
-			var region = RegionBox.SelectedItem.ToString();
+			string username = UsernameTextbox.Text;
+			string region = RegionBox.SelectedItem.ToString();
 
-	        var key = ApiKey.Text == "" ? Keyloader.GetRealKey() : ApiKey.Text;
+			string key;
+            if (apiKey.Text == "")
+            {
+                key = Keyloader.getRealKey();
+            }
+            else
+            {
+                key = apiKey.Text;
+            }
 
             if (RegionBox.SelectedItem == null)
             {
@@ -53,33 +77,33 @@ namespace RitoConnector
             
 			if (!error)
             {
-				var db = new SqlManager();
-				if (!db.UserInDatabase(username, region))
+				SQLManager DB = new SQLManager();
+				if (!DB.userInDatabase(username, region))
 				{
-					var connection = new Riotconnect(username, region, key);
-					if (connection.IsValid())
+					Riotconnect Connection = new Riotconnect(username, region, key);
+					if (Connection.isValid())
 					{
-						db.InsertUserinDatabase(connection.GetUserId(), region, username, connection.GetUsername(), connection.GetSummonerLevel(), connection.GetProfileIcon());	
+						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());	
 					}
 					else
 					{
 						error = true;
 						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
 					}
-					if (db.GetLevel(username, region) == 30)
+					if (DB.GetLevel(username, region) == 30)
 					{
 						//only starts Ranked Call if Summoner is Level 30
-						var rankedConnection = new RankedHandler(db.GetUserId(username, region), region, key);
-						if (rankedConnection.IsValid())
+						RankedHandler RankedConnection = new RankedHandler(DB.GetUserID(username, region), region, key);
+						if (RankedConnection.isValid())
 						{
-							db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName());
-							var multi = new MultipleIdGrabber(rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region), region, key);
-							foreach(var user in multi.GetUserDtOs())
+							DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision(),RankedConnection.getLeagueName());
+							MultipleIDGrabber multi = new MultipleIDGrabber(RankedConnection.getLeagueIDList(RankedConnection.getRankedSoloDivision(), region), region, key);
+							foreach(SummonerDTO user in multi.getUserDTOs())
 							{
-								if (user.Id != db.GetUserId(username, region))
+								if (!(user.Id == DB.GetUserID(username, region)))
 								{
-									db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-									db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
+									DB.insertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
+									DB.updateRank(user.Name.ToLower(), region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision(), RankedConnection.getLeagueName());
 								}
 							}
 						}
@@ -91,29 +115,29 @@ namespace RitoConnector
 					}
 					else
 					{
-						db.UpdateRank(username, region, "Unranked", null,null);
+						DB.updateRank(username, region, "Unranked", null,null);
 					}
 				}
 				if (!error)
 				{
 					//Sets Name
-					UsernameLabel.Text = db.GetName(username, region);
+					UsernameLabel.Text = DB.GetName(username, region);
 					
 					//Sets Profile Icon
-					ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId( username, region));
+					ProfileIcon.Source = cache.ProfileIcon(DB.GetProfileIconID( username, region));
 
 					//Sets Level
-					LevelLabel.Text = db.GetLevel(username, region).ToString();
+					LevelLabel.Text = DB.GetLevel(username, region).ToString();
 
 					//Switches to Profile Tab
 					Tabs.SelectedIndex = 1;
 
 					//Sets Ranked
-					Rankstatus.Text = db.GetSoloTier(username, region);
-					Divisionstatus.Text = db.GetSoloDivision(username, region);
-					RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
+					Rankstatus.Text = DB.GetSoloTier(username, region);
+					Divisionstatus.Text = DB.GetSoloDivision(username, region);
+					RankedImage.Source = cache.RankedIcon(DB.GetSoloTier(username, region), DB.GetSoloDivision(username, region));
 				}
-				db.CloseConnection();
+				DB.closeConnection();
                 /*
 				Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
                 if (Connection.isValid())
@@ -182,8 +206,8 @@ namespace RitoConnector
 
 		private void Reset(object sender, RoutedEventArgs e)
 		{
-			SqlManager.ResetDb();
-			CacheManager.ResetCache();
+			SQLManager.resetDB();
+			CacheManager.resetCache();
 		}
     }
 }

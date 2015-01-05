@@ -138,7 +138,7 @@ namespace RitoConnector
 							dbreader.Close();
 							MessageBox.Show(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 							dbCommand.CommandText = @"INSERT INTO Summoner
-													VALUES (" + Connection.GetUserID() + "," + UsernameTextbox.Text.ToLower() + "," + Connection.GetSummonerLevel().ToString() + "," + Connection.GetProfileIconURL() + "," + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ")";
+													VALUES ('" + Connection.GetUserID() + "','" + UsernameTextbox.Text.ToLower() + "','" + Connection.GetSummonerLevel().ToString() + "','" + Connection.GetProfileIcon() + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
 							dbCommand.ExecuteNonQuery();
 						}
 

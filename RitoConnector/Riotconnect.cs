@@ -9,11 +9,11 @@ namespace RitoConnector
 {
     class Riotconnect
     {
-        private readonly SummonerDto _user;
-
-	    public Riotconnect(string username, string region,string key)
+        private SummonerDto _user;
+        private string _cleanSummonerJson;
+        public Riotconnect(string username, string region,string key)
         {
-	        string jsonraw;
+            string jsonraw;
             WebResponse response;
             var uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v1.4/summoner/by-name/" + username + "?api_key=" + key;
             var connectionListener = WebRequest.Create(uri);
@@ -33,9 +33,9 @@ namespace RitoConnector
                 jsonraw = sr.ReadToEnd();
             }
             var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonraw);
-            var cleanSummonerJson = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
-			MessageBox.Show(cleanSummonerJson);
-            _user = JsonConvert.DeserializeObject<SummonerDto>(cleanSummonerJson);
+            _cleanSummonerJson = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
+			MessageBox.Show(_cleanSummonerJson);
+            _user = JsonConvert.DeserializeObject<SummonerDto>(_cleanSummonerJson);
         }
         public int GetProfileIcon()
         {

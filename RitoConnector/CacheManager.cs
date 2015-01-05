@@ -7,6 +7,11 @@ namespace RitoConnector
 {
 	class CacheManager
 	{
+		public CacheManager()
+		{
+
+		}
+
 		public static void ResetCache()
 		{
 			if (Directory.Exists("./resources"))

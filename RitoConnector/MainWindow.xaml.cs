@@ -8,12 +8,12 @@ namespace RitoConnector
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            MouseLeftButtonDown += delegate { this.DragMove();};
+            this.MouseLeftButtonDown += delegate { this.DragMove();};
             
         }
 
@@ -29,9 +29,9 @@ namespace RitoConnector
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DoubleAnimation anim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
-            anim.Completed += (s, _) => Close();
-            BeginAnimation(OpacityProperty, anim);
+            var anim = new DoubleAnimation(0, (Duration)TimeSpan.FromSeconds(0.5));
+            anim.Completed += (s, _) => this.Close();
+            this.BeginAnimation(OpacityProperty, anim);
         }
 
         private void Connect(object sender, RoutedEventArgs e)

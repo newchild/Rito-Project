@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Windows;
 using Newtonsoft.Json;
@@ -9,7 +8,7 @@ namespace RitoConnector
 {
     class MultipleIdGrabber
     {
-	    readonly SummonerDto[] _tests;
+        SummonerDto[] _tests;
         public MultipleIdGrabber(string ids,string region, string key)
         {
             string jsonraw;
@@ -31,12 +30,29 @@ namespace RitoConnector
                 jsonraw = sr.ReadToEnd();
             }
             var test = ids.Split(',');
-	        jsonraw = test.Where(id => id != "").Aggregate(jsonraw, (current, id) => current.Replace("\"" + id + "\"", "user"));
+            foreach (var id in test)
+            {
+                if (id != "")
+                {
+                    jsonraw = jsonraw.Replace("\"" + id + "\"", "user");
+                }
+                
+            }
+            var testcounter = 0;
+            foreach (var id in test)
+            {
+                testcounter++;
+            }
 
-	        var stringSeparators = new[] { "user" };
+            var stringSeparators = new string[] { "user" };
             var jsons = jsonraw.Split(stringSeparators,StringSplitOptions.None);
-            var testcounter = jsons.Count();
-	        _tests = new SummonerDto[testcounter-1];
+            testcounter = 0;
+            foreach (var jstring in jsons)
+            {
+                
+                testcounter++;
+            }
+            _tests = new SummonerDto[testcounter-1];
             testcounter = 0;
             foreach (var jstring in jsons)
             {

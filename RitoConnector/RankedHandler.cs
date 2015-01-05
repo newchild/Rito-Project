@@ -9,8 +9,8 @@ namespace RitoConnector
 {
     class RankedHandler
     {
-        private readonly int _userids;
-        private readonly RankedDto _rankedStatus;
+        private int _userids;
+        private RankedDto _rankedStatus;
         /// <summary>
         /// sends a request to the Riotserver
         /// </summary>

@@ -83,7 +83,6 @@ namespace RitoConnector
 					Riotconnect Connection = new Riotconnect(username, region, key);
 					if (Connection.isValid())
 					{
-						MessageBox.Show("");
 						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());	
 					}
 					else

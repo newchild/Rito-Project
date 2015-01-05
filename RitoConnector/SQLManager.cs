@@ -36,6 +36,7 @@ namespace RitoConnector
 										[ProfileIconID] SMALLINT NULL,
 										[Tier] TINYTEXT NULL,
 										[Division] TINYTEXT NULL,
+										[LeagueName] TINYTEXT NULL,
 										[LastUpdate] DATETIME NULL
 										)";
 			dbConnect.Open();		//Starts Connection
@@ -75,10 +76,10 @@ namespace RitoConnector
 			dbCommand.ExecuteNonQuery();
 		}
 
-		public void updateRank(string name, string region, string tier, string division)
+		public void updateRank(string name, string region, string tier, string division, string leagueName)
 		{
 			dbCommand.CommandText = @"UPDATE Summoner
-									SET TIER ='" + tier + "', Division = '" + division + "' WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+									SET TIER ='" + tier + "', Division = '" + division + "', LeagueName = '" + leagueName + "' WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
 			dbCommand.ExecuteNonQuery();
 		}
 

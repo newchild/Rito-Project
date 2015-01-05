@@ -1,11 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using Newtonsoft.Json;
 
 namespace RitoConnector
 {
@@ -15,9 +12,9 @@ namespace RitoConnector
         {
             string jsonraw;
             WebResponse response;
-            string uri = "https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/" + champId.ToString() + "?api_key=" + Keyloader.GetRealKey();
+            var uri = "https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/" + champId.ToString() + "?api_key=" + Keyloader.GetRealKey();
             
-            WebRequest connectionListener = WebRequest.Create(uri);
+            var connectionListener = WebRequest.Create(uri);
             connectionListener.ContentType = "application/json; charset=utf-8";
             try
             {
@@ -25,8 +22,8 @@ namespace RitoConnector
             }
             catch (WebException e)
             {
-                System.Windows.MessageBox.Show(e.Message);
-                System.Windows.MessageBox.Show(uri);
+                MessageBox.Show(e.Message);
+                MessageBox.Show(uri);
                 response = null;
             }
             using (var sr = new StreamReader(response.GetResponseStream()))

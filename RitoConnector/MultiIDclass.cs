@@ -9,6 +9,6 @@ namespace RitoConnector
     class MultiIDclass
     {
          [JsonProperty("user")]
-        public User User { get; set; }
+        public User user { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace RitoConnector
 {
 
-    public class RankedId
+    public class RankedID
     {
 
         [JsonProperty("queue")]

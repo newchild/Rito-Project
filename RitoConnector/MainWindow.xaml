@@ -37,7 +37,7 @@
 						</TextBox.Style>
 					</TextBox>
 					<ComboBox ItemsSource="{DynamicResource Regions}" x:Name="RegionBox" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="103" SelectionChanged="ComboBox_SelectionChanged"/>
-					<TextBox x:Name="ApiKey" HorizontalAlignment="Left" Height="23" Margin="107,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" TextChanged="TextBox_TextChanged">
+					<TextBox x:Name="apiKey" HorizontalAlignment="Left" Height="23" Margin="107,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" TextChanged="TextBox_TextChanged">
 						<TextBox.Style>
 							<Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 								<Style.Resources>
@@ -67,7 +67,7 @@
 						</TextBox.Style>
 					</TextBox>
 					<Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="0,75,0,0" VerticalAlignment="Top" Width="75" Click="Connect"/>
-					<Button x:Name="ConnectButtonCopy" Content="Reset" HorizontalAlignment="Left" Margin="0,276,0,0" VerticalAlignment="Top" Width="75" Click="Reset"/>
+					<Button x:Name="ConnectButton_Copy" Content="Reset" HorizontalAlignment="Left" Margin="0,276,0,0" VerticalAlignment="Top" Width="75" Click="Reset"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Profile">

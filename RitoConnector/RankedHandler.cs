@@ -125,7 +125,7 @@ namespace RitoConnector
 /// Get the Current List of League Participants
 /// </summary>
 /// <returns>Entry[]</returns>
-        public Entry[] getSoloQueueLeague(string Division)
+        public Entry[] getSoloQueueLeague(string Division, string region)
         {
             LeagueIDList IDList = new LeagueIDList();
 			foreach (RankedID rank in rankedStatus.RankedID)

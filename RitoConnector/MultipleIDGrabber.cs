@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RitoConnector
 {
@@ -43,6 +44,7 @@ namespace RitoConnector
             usercounter = 0;
             foreach (string user in userids)
             {
+				MessageBox.Show(user);
                 var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(JSONRAW);
                 var CleanSummonerJSON = tempjson[user].ToString();
                 var User = JsonConvert.DeserializeObject<SummonerDTO>(CleanSummonerJSON);

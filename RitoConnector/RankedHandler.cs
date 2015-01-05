@@ -137,7 +137,7 @@ namespace RitoConnector
             return null;
         }
 
-		public string LeagueIDList(string Division, string region)
+		public string getLeagueIDList(string Division, string region)
 		{
 			string IdList = "";
 			foreach (RankedID rank in rankedStatus.RankedID)

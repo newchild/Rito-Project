@@ -113,7 +113,7 @@ namespace RitoConnector
 		        RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
 	        }
 	        db.CloseConnection();
-	        
+	        /*
                     RankedHandler Connection2 = new RankedHandler(db.GetUserId(username,region), region, key);
                     if (Connection2.IsValid())
                     {
@@ -166,6 +166,7 @@ namespace RitoConnector
                 {
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
+			  */
 				
         }
 

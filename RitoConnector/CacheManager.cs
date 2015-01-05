@@ -25,10 +25,10 @@ namespace RitoConnector
 			if (!Directory.Exists("./resources"))
 			{
 				Directory.CreateDirectory("./resources");
-				if (!Directory.Exists("./resources/ProfileIcons"))
-				{
-					Directory.CreateDirectory("./resources/ProfileIcons");
-				}
+			}
+			if (!Directory.Exists("./resources/ProfileIcons"))
+			{
+				Directory.CreateDirectory("./resources/ProfileIcons");
 			}
 			if (!File.Exists(@"./resources/ProfileIcons/" + ProfileIconID + ".png"))
 			{
@@ -47,6 +47,40 @@ namespace RitoConnector
 				}
 			}
 			logo.StreamSource = new FileStream(@"./resources/ProfileIcons/" + ProfileIconID + ".png", FileMode.Open, FileAccess.Read);
+			logo.EndInit();
+			return logo;
+		}
+
+		public BitmapImage RankedIcon(string Tier, string Division)
+		{
+			BitmapImage logo = new BitmapImage();
+			logo.BeginInit();
+			if (!Directory.Exists("./resources"))
+			{
+				Directory.CreateDirectory("./resources");
+				
+			}
+			if (!Directory.Exists("./resources/RankedIcons"))
+			{
+				Directory.CreateDirectory("./resources/RankedIcons");
+			}
+			if (!File.Exists(@"./resources/RankedIcons/" + Tier + "_" + Division + ".png"))
+			{
+				try
+				{
+					byte[] data;
+					using (WebClient webclient = new WebClient())
+					{
+						data = webclient.DownloadData("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Tier + "_" + Division + ".png");
+					}
+					File.WriteAllBytes(@"./resources/RankedIcons/" + Tier + "_" + Division + ".png", data);
+				}
+				catch (WebException e)
+				{
+					System.Windows.MessageBox.Show(e.Message);
+				}
+			}
+			logo.StreamSource = new FileStream(@"./resources/RankedIcons/" + Tier + "_" + Division + ".png", FileMode.Open, FileAccess.Read);
 			logo.EndInit();
 			return logo;
 		}

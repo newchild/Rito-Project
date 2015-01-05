@@ -108,8 +108,9 @@ namespace RitoConnector
 					Tabs.SelectedIndex = 1;
 
 					//Sets Ranked
-					Divisionstatus.Text = DB.GetSoloDivision(username, region);
 					Rankstatus.Text = DB.GetSoloTier(username, region);
+					Divisionstatus.Text = DB.GetSoloDivision(username, region);
+					RankedImage.Source = cache.RankedIcon(DB.GetSoloTier(username, region), DB.GetSoloDivision(username, region));
 				}
 				DB.closeConnection();
                 /*

@@ -34,6 +34,8 @@ namespace RitoConnector
 										[RealName] TINYTEXT NULL,
 										[Level] TINYINT NULL,
 										[ProfileIconID] SMALLINT NULL,
+										[Tier] TINYTEXT NULL,
+										[Division] TINYTEXT NULL,
 										[LastUpdate] DATETIME NULL
 										)";
 			dbConnect.Open();		//Starts Connection
@@ -63,10 +65,12 @@ namespace RitoConnector
 		}
 		public void insertUserinDatabase(int ID, string region, string name, string realName, int Level, int ProfileIconID)
 		{
-			dbCommand.CommandText = @"INSERT INTO Summoner
+			dbCommand.CommandText = @"INSERT INTO Summoner (ID , Region, Name, RealName, Level, ProfileIconID, LastUpdate)
 									VALUES ('" + ID + "','" + region + "','" + name.ToLower() + "','" + realName + "','" + Level + "','" + ProfileIconID + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
 			dbCommand.ExecuteNonQuery();
 		}
+
+		//public void updateRank(string username, string region, )
 
 		public void closeConnection()
 		{

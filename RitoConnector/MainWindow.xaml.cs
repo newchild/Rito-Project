@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -50,71 +51,67 @@ namespace RitoConnector
 				error = true;
                 MessageBox.Show("Please select a region");
             }
-            
-			if (!error)
-            {
-				var db = new SqlManager();
-				if (!db.UserInDatabase(username, region))
-				{
-					var connection = new Riotconnect(username, region, key);
-					if (connection.IsValid())
-					{
-						db.InsertUserinDatabase(connection.GetUserId(), region, username, connection.GetUsername(), connection.GetSummonerLevel(), connection.GetProfileIcon());	
-					}
-					else
-					{
-						error = true;
-						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
-					}
-					if (db.GetLevel(username, region) == 30)
-					{
-						//only starts Ranked Call if Summoner is Level 30
-						var rankedConnection = new RankedHandler(db.GetUserId(username, region), region, key);
-						if (rankedConnection.IsValid())
-						{
-							db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName());
-							var multi = new MultipleIdGrabber(rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region), region, key);
-							foreach(var user in multi.GetUserDtOs())
-							{
-								if (user.Id != db.GetUserId(username, region))
-								{
-									db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-									db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
-								}
-							}
-						}
-						else
-						{
-							error = true;
-							MessageBox.Show("Connection to the Riot Server failed. Please try again later");
-						}
-					}
-					else
-					{
-						db.UpdateRank(username, region, "Unranked", null,null);
-					}
-				}
-				if (!error)
-				{
-					//Sets Name
-					UsernameLabel.Text = db.GetName(username, region);
+
+	        if (error) return;
+	        var db = new SqlManager();
+	        if (!db.UserInDatabase(username, region))
+	        {
+		        var connection = new Riotconnect(username, region, key);
+		        if (connection.IsValid())
+		        {
+			        db.InsertUserinDatabase(connection.GetUserId(), region, username, connection.GetUsername(), connection.GetSummonerLevel(), connection.GetProfileIcon());	
+		        }
+		        else
+		        {
+			        error = true;
+			        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+		        }
+		        if (db.GetLevel(username, region) == 30)
+		        {
+			        //only starts Ranked Call if Summoner is Level 30
+			        var rankedConnection = new RankedHandler(db.GetUserId(username, region), region, key);
+			        if (rankedConnection.IsValid())
+			        {
+				        db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName());
+				        var multi = new MultipleIdGrabber(rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region), region, key);
+				        foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
+				        {
+					        db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
+					        db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
+				        }
+			        }
+			        else
+			        {
+				        error = true;
+				        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+			        }
+		        }
+		        else
+		        {
+			        db.UpdateRank(username, region, "Unranked", null,null);
+		        }
+	        }
+	        if (!error)
+	        {
+		        //Sets Name
+		        UsernameLabel.Text = db.GetName(username, region);
 					
-					//Sets Profile Icon
-					ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId( username, region));
+		        //Sets Profile Icon
+		        ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId( username, region));
 
-					//Sets Level
-					LevelLabel.Text = db.GetLevel(username, region).ToString();
+		        //Sets Level
+		        LevelLabel.Text = db.GetLevel(username, region).ToString();
 
-					//Switches to Profile Tab
-					Tabs.SelectedIndex = 1;
+		        //Switches to Profile Tab
+		        Tabs.SelectedIndex = 1;
 
-					//Sets Ranked
-					Rankstatus.Text = db.GetSoloTier(username, region);
-					Divisionstatus.Text = db.GetSoloDivision(username, region);
-					RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
-				}
-				db.CloseConnection();
-                /*
+		        //Sets Ranked
+		        Rankstatus.Text = db.GetSoloTier(username, region);
+		        Divisionstatus.Text = db.GetSoloDivision(username, region);
+		        RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
+	        }
+	        db.CloseConnection();
+	        /*
 				Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
                 if (Connection.isValid())
                 {
@@ -172,7 +169,6 @@ namespace RitoConnector
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
 				*/
-            }
         }
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)

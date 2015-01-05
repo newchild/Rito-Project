@@ -82,7 +82,7 @@ namespace RitoConnector
 			string key;
             if (apiKey.Text == "")
             {
-                key = "64becc79-cc38-40e1-afdf-a92b95b4c836";
+                key = Keyloader.getRealKey();
             }
             else
             {

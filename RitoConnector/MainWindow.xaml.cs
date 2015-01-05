@@ -178,7 +178,8 @@ namespace RitoConnector
                         
                         foreach (var Match in matches.getGames())
                         {
-                            Games.Add(Match.GameMode + " " + Match.GameType + " " + Match.IpEarned.ToString());
+                            Games.Add(Match.GameMode + " " + Match.GameType + " " + ChampionTransform.getChampName(Match.ChampionId));
+
                         }
                         Matchhistorybox.ItemsSource = Games;
                     }

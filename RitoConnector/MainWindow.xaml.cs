@@ -80,9 +80,10 @@ namespace RitoConnector
 				SQLManager DB = new SQLManager();
 				if (!DB.userInDatabase(username, region))
 				{
-					Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, region, key);
+					Riotconnect Connection = new Riotconnect(username, region, key);
 					if (Connection.isValid())
 					{
+						MessageBox.Show("");
 						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());	
 					}
 					else
@@ -90,15 +91,23 @@ namespace RitoConnector
 						error = true;
 						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
 					}
-					RankedHandler RankedConnection = new RankedHandler(DB.GetUserID(username, region), region, key);
-					if (RankedConnection.isValid())
+					if (DB.GetLevel(username, region) == 30)
 					{
-						DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
+						//only starts Ranked Call if Summoner is Level 30
+						RankedHandler RankedConnection = new RankedHandler(DB.GetUserID(username, region), region, key);
+						if (RankedConnection.isValid())
+						{
+							DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
+						}
+						else
+						{
+							error = true;
+							MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+						}
 					}
 					else
 					{
-						error = true;
-						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+						DB.updateRank(username, region, "Unranked", null);
 					}
 				}
 				if (!error)

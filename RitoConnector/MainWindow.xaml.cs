@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -111,18 +113,15 @@ namespace RitoConnector
 		        RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
 	        }
 	        db.CloseConnection();
-	        /*
-				Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
-                if (Connection.isValid())
-                {
-                    RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
-                    if (Connection2.isValid())
+	        
+                    RankedHandler Connection2 = new RankedHandler(db.GetUserId(username,region), region, key);
+                    if (Connection2.IsValid())
                     {
                         ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
                         Dictionary<string, int> test = new Dictionary<string, int>();
-                        foreach (Entry user in Connection2.getSoloQueueLeague())
+                        foreach (Entry user in Connection2.GetSoloQueueLeague("s","s"))
                         {
-                            if (user.Division == Connection2.getRankedSoloLeague())
+							if (user.Division == Connection2.GetRankedSoloDivision())
                             {
                                 test.Add(user.PlayerOrTeamName, user.LeaguePoints);
                             }
@@ -133,7 +132,7 @@ namespace RitoConnector
                             if (user.Value == 100)
                             {
                                 string HotStreak = "";
-                                foreach (Entry user2 in Connection2.getSoloQueueLeague())
+                                foreach (Entry user2 in Connection2.GetSoloQueueLeague("s","s"))
                                 {
                                     if (user2.PlayerOrTeamName == user.Key)
                                     {
@@ -149,26 +148,25 @@ namespace RitoConnector
 
                         }
                         RankedLeague.ItemsSource = NameListLeague;
-                        UpdateLaper.Content = Connection.GetLastRefresh().ToString();
                     }
-                    Matchhistory matches = new Matchhistory(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
+                    Matchhistory matches = new Matchhistory(db.GetUserId(username,region), region, key);
                     ObservableCollection<string> Games= new ObservableCollection<string>();
-                    if (matches.isValid())
+                    if (matches.IsValid())
                     {
                         
-                        foreach (var Match in matches.getGames())
+                        foreach (var Match in matches.GetGames())
                         {
-                            Games.Add(Match.GameMode + " " + Match.GameType + " " + ChampionTransform.getChampName(Match.ChampionId));
+							Games.Add(ChampionTransform.GetChampName(Match.ChampionId) + " " + matches.GetStats(Match.GameId) + " " + matches.GetGameType(Match.GameId) + " " + matches.GetFarm(Match.GameId));
 
                         }
                         Matchhistorybox.ItemsSource = Games;
                     }
-                }
+                
                 else
                 {
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
-				*/
+				
         }
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)

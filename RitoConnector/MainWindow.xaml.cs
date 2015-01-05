@@ -52,26 +52,6 @@ namespace RitoConnector
 
         private void Connect(object sender, RoutedEventArgs e)
         {
-
-			//Creates a new Database if it it is not existing
-			
-			SQLiteConnection dbConnect = new SQLiteConnection("data source=" + databasefile);
-			SQLiteCommand dbCommand = new SQLiteCommand(dbConnect);
-			
-
-			string createTableQuery =	@"CREATE TABLE IF NOT EXISTS [Summoner] (
-										[ID] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-										[Name] TINYTEXT NULL,
-										[Level] TINYINT NULL,
-										[ProfileIconID] SMALLINT NULL,
-										[LastUpdate] DATETIME NULL
-										)";
-
-			dbConnect.Open();		//Starts Connection
-
-			dbCommand.CommandText = createTableQuery;     // Create Tables
-			dbCommand.ExecuteNonQuery();                  // Execute the query
-
 			string key;
             if (apiKey.Text == "")
             {
@@ -121,19 +101,6 @@ namespace RitoConnector
                         LevelLabel.Text = Connection.GetSummonerLevel().ToString();
 
                         UsernameLabel.Text = Connection.getUsername();
-						dbCommand.CommandText = @"SELECT *
-										FROM Summoner
-										WHERE Name = '" + UsernameTextbox.Text.ToLower() + "'";
-						dbCommand.ExecuteNonQuery();
-						SQLiteDataReader dbreader = dbCommand.ExecuteReader();
-						if (!dbreader.Read())
-						{	
-							dbreader.Close();
-							MessageBox.Show(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-							dbCommand.CommandText = @"INSERT INTO Summoner
-													VALUES ('" + Connection.GetUserID() + "','" + UsernameTextbox.Text.ToLower() + "','" + Connection.GetSummonerLevel().ToString() + "','" + Connection.GetProfileIcon() + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
-							dbCommand.ExecuteNonQuery();
-						}
 
                         BitmapImage RankedPic = new BitmapImage();
                         RankedPic.BeginInit();
@@ -221,7 +188,6 @@ namespace RitoConnector
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
             }
-			dbConnect.Close();		//Closes Database Connection
         }
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)

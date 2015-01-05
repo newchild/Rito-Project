@@ -6,17 +6,17 @@ namespace RitoConnector
 {
 	class SqlManager
 	{
-		private static string _databasefile = "database.sqlite";
+		private static readonly string Databasefile = "database.sqlite";
 
-		private static SQLiteConnection _dbConnect = new SQLiteConnection("data source=" + _databasefile);
-		private static SQLiteCommand _dbCommand = new SQLiteCommand(_dbConnect);
+		private static readonly SQLiteConnection DbConnect = new SQLiteConnection("data source=" + Databasefile);
+		private static readonly SQLiteCommand DbCommand = new SQLiteCommand(DbConnect);
 
 		public SqlManager()
 		{
 			//Creates new DatabaseFile is none is present
-			if (!File.Exists(_databasefile))
+			if (!File.Exists(Databasefile))
 			{
-				SQLiteConnection.CreateFile(_databasefile);
+				SQLiteConnection.CreateFile(Databasefile);
 			}
 
 			
@@ -34,28 +34,28 @@ namespace RitoConnector
 										[LeagueName] TINYTEXT NULL,
 										[LastUpdate] DATETIME NULL
 										)";
-			_dbConnect.Open();		//Starts Connection
+			DbConnect.Open();		//Starts Connection
 
-			_dbCommand.CommandText = createTableQuery;     // Create Tables
-			_dbCommand.ExecuteNonQuery();                  // Execute the query
+			DbCommand.CommandText = createTableQuery;     // Create Tables
+			DbCommand.ExecuteNonQuery();                  // Execute the query
 		}
 
 		public static void ResetDb()
 		{
-			if (File.Exists(_databasefile))
+			if (File.Exists(Databasefile))
 			{
-				File.Delete(_databasefile);
+				File.Delete(Databasefile);
 			}
 		}
 
 		public bool UserInDatabase(string name, string region)
 		{
 			var userInDatabase = false;
-			_dbCommand.CommandText =		@"SELECT *
+			DbCommand.CommandText =		@"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
-			_dbCommand.ExecuteNonQuery();
-			var dbreader = _dbCommand.ExecuteReader();
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
 				userInDatabase = true;
@@ -66,31 +66,31 @@ namespace RitoConnector
 
 		public void InsertUserinDatabase(int id, string region, string name, string realName, int level, int profileIconId)
 		{
-			_dbCommand.CommandText = @"INSERT INTO Summoner (ID , Region, Name, RealName, Level, ProfileIconID, LastUpdate)
+			DbCommand.CommandText = @"INSERT INTO Summoner (ID , Region, Name, RealName, Level, ProfileIconID, LastUpdate)
 									VALUES ('" + id + "','" + region + "','" + name.ToLower() + "','" + realName + "','" + level + "','" + profileIconId + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
-			_dbCommand.ExecuteNonQuery();
+			DbCommand.ExecuteNonQuery();
 		}
 
 		public void UpdateRank(string name, string region, string tier, string division, string leagueName)
 		{
-			_dbCommand.CommandText = @"UPDATE Summoner
+			DbCommand.CommandText = @"UPDATE Summoner
 									SET TIER ='" + tier + "', Division = '" + division + "', LeagueName = '" + leagueName + "' WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
-			_dbCommand.ExecuteNonQuery();
+			DbCommand.ExecuteNonQuery();
 		}
 
 		public void CloseConnection()
 		{
-			_dbConnect.Close();
+			DbConnect.Close();
 		}
 
 		public int GetUserId(string name, string region)
 		{
 			var userId = -1;
-			_dbCommand.CommandText = @"SELECT *
+			DbCommand.CommandText = @"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
-			_dbCommand.ExecuteNonQuery();
-			var dbreader = _dbCommand.ExecuteReader();
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
 				userId = Convert.ToInt32(dbreader["ID"]);
@@ -102,11 +102,11 @@ namespace RitoConnector
 		public string GetName(string name, string region)
 		{
 			var Name = "";
-			_dbCommand.CommandText = @"SELECT *
+			DbCommand.CommandText = @"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
-			_dbCommand.ExecuteNonQuery();
-			var dbreader = _dbCommand.ExecuteReader();
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
 				Name = "" + dbreader["realName"];
@@ -118,11 +118,11 @@ namespace RitoConnector
 		public int GetProfileIconId(string name, string region)
 		{
 			var profileIconId = -1;
-			_dbCommand.CommandText =		@"SELECT *
+			DbCommand.CommandText =		@"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region +"'";
-			_dbCommand.ExecuteNonQuery();
-			var dbreader = _dbCommand.ExecuteReader();
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
 				profileIconId = Convert.ToInt32(dbreader["ProfileIconID"]);
@@ -134,11 +134,11 @@ namespace RitoConnector
 		public int GetLevel(string name, string region)
 		{
 			var level = -1;
-			_dbCommand.CommandText = @"SELECT *
+			DbCommand.CommandText = @"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
-			_dbCommand.ExecuteNonQuery();
-			var dbreader = _dbCommand.ExecuteReader();
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
 				level = Convert.ToInt32(dbreader["Level"]);
@@ -150,11 +150,11 @@ namespace RitoConnector
 		public string GetSoloTier(string name, string region)
 		{
 			var tier = "";
-			_dbCommand.CommandText = @"SELECT *
+			DbCommand.CommandText = @"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
-			_dbCommand.ExecuteNonQuery();
-			var dbreader = _dbCommand.ExecuteReader();
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
 				tier = "" + dbreader["Tier"];
@@ -166,11 +166,11 @@ namespace RitoConnector
 		public string GetSoloDivision(string name, string region)
 		{
 			var division = "";
-			_dbCommand.CommandText = @"SELECT *
+			DbCommand.CommandText = @"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
-			_dbCommand.ExecuteNonQuery();
-			var dbreader = _dbCommand.ExecuteReader();
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
 				division = "" + dbreader["Division"];

@@ -20,7 +20,10 @@ namespace RitoConnector
 
 		public static void resetCache()
 		{
-			Directory.Delete("./resources", true);
+			if (Directory.Exists("./resources"))
+			{
+				Directory.Delete("./resources", true);
+			}
 		}
 
 		public BitmapImage ProfileIcon(int ProfileIconID)

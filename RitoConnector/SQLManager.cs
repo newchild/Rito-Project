@@ -46,7 +46,10 @@ namespace RitoConnector
 
 		public static void resetDB()
 		{
-			File.Delete(databasefile);
+			if (File.Exists(databasefile))
+			{
+				File.Delete(databasefile);
+			}
 		}
 
 		public bool userInDatabase(string name, string region)

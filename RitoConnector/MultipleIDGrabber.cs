@@ -56,7 +56,7 @@ namespace RitoConnector
                 
                 testcounter++;
             }
-            tests = new SummonerDTO[testcounter];
+            tests = new SummonerDTO[testcounter-1];
             testcounter = 0;
             foreach (var jstring in JSONS)
             {

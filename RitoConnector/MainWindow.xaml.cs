@@ -52,6 +52,8 @@ namespace RitoConnector
 
         private void Connect(object sender, RoutedEventArgs e)
         {
+			bool error = false;
+
 			string key;
             if (apiKey.Text == "")
             {
@@ -61,13 +63,32 @@ namespace RitoConnector
             {
                 key = apiKey.Text;
             }
+
             if (RegionBox.SelectedItem == null)
             {
+				error = true;
                 MessageBox.Show("Please select a region");
             }
-            else
+            
+			if (!error)
             {
-                Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
+				SQLManager DB = new SQLManager();
+				if (!DB.userInDatabase(UsernameTextbox.Text))
+				{
+					Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
+					if (Connection.isValid())
+					{
+						DB.insertUserinDatabase(Connection.GetUserID(), UsernameTextbox.Text, Connection.GetSummonerLevel(), Connection.GetProfileIcon());
+					}
+					else
+					{
+						error = true
+						MessageBox.Show("An unknown Error has occured. Please try again later");
+					}
+				}
+				DB.closeConnection();
+                /*
+				Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
                 if (Connection.isValid())
                 {
                     RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
@@ -188,6 +209,7 @@ namespace RitoConnector
                 {
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
+				*/
             }
         }
 

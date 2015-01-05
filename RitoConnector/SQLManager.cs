@@ -38,12 +38,11 @@ namespace RitoConnector
 
 			dbCommand.CommandText = createTableQuery;     // Create Tables
 			dbCommand.ExecuteNonQuery();                  // Execute the query
-
-			dbConnect.Close();	//Closes Database Connection
 		}
 
 		public bool userInDatabase(string name)
 		{
+			bool userInDatabase;
 			dbCommand.CommandText = @"SELECT *
 										FROM Summoner
 										WHERE Name = '" + name.ToLower() + "'";
@@ -51,18 +50,25 @@ namespace RitoConnector
 			SQLiteDataReader dbreader = dbCommand.ExecuteReader();
 			if (dbreader.Read())
 			{
-				return true;
+				userInDatabase = true;
 			}
 			else
 			{
-				return false;
+				userInDatabase = false;
 			}
+			dbreader.Close();
+			return userInDatabase;
 		}
 		public void insertUserinDatabase(int ID, string name, int Level, int ProfileIconID)
 		{
 			dbCommand.CommandText = @"INSERT INTO Summoner
 									VALUES ('" + ID + "','" + name.ToLower() + "','" + Level + "','" + ProfileIconID + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
 			dbCommand.ExecuteNonQuery();
+		}
+
+		public void closeConnection()
+		{
+			dbConnect.Close();
 		}
 	}
 }

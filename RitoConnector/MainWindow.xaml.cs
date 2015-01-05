@@ -54,6 +54,11 @@ namespace RitoConnector
         {
 			bool error = false;
 
+			CacheManager cache = new CacheManager();
+
+			string username = UsernameTextbox.Text;
+			string region = RegionBox.SelectedItem.ToString();
+
 			string key;
             if (apiKey.Text == "")
             {
@@ -73,18 +78,29 @@ namespace RitoConnector
 			if (!error)
             {
 				SQLManager DB = new SQLManager();
-				if (!DB.userInDatabase(UsernameTextbox.Text))
+				if (!DB.userInDatabase(username))
 				{
 					Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
 					if (Connection.isValid())
 					{
-						DB.insertUserinDatabase(Connection.GetUserID(), UsernameTextbox.Text, Connection.GetSummonerLevel(), Connection.GetProfileIcon());
+						DB.insertUserinDatabase(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), UsernameTextbox.Text, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());
 					}
 					else
 					{
-						error = true
-						MessageBox.Show("An unknown Error has occured. Please try again later");
+						error = true;
+						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
 					}
+				}
+				if (!error)
+				{
+					//Sets Name
+					UsernameLabel.Text = DB.GetName(username, region);
+					
+					//Sets Profile Icon
+					ProfileIcon.Source = cache.ProfileIcon(DB.GetProfileIconID( username, region));
+
+					//Sets Level
+					LevelLabel.Text = DB.GetLevel(username, region).ToString();
 				}
 				DB.closeConnection();
                 /*

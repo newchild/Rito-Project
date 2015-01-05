@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CacheManager.cs" />
     <Compile Include="ChampionTransform.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="FellowPlayer.cs" />

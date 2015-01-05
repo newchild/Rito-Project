@@ -25,8 +25,12 @@ namespace RitoConnector
 			if (!Directory.Exists("./resources"))
 			{
 				Directory.CreateDirectory("./resources");
+				if (!Directory.Exists("./resources/ProfileIcons"))
+				{
+					Directory.CreateDirectory("./resources/ProfileIcons");
+				}
 			}
-			if (!File.Exists(@"./resources/" + ProfileIconID + ".png"))
+			if (!File.Exists(@"./resources/ProfileIcons/" + ProfileIconID + ".png"))
 			{
 				try
 				{
@@ -35,14 +39,14 @@ namespace RitoConnector
 					{
 						data = webclient.DownloadData("http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + ProfileIconID + ".png");
 					}
-					File.WriteAllBytes(@"./resources/" + ProfileIconID + ".png", data);
+					File.WriteAllBytes(@"./resources/ProfileIcons/" + ProfileIconID + ".png", data);
 				}
 				catch (WebException e)
 				{
 					System.Windows.MessageBox.Show(e.Message);
 				}
 			}
-			logo.StreamSource = new FileStream(@"./resources/" + ProfileIconID + ".png", FileMode.Open, FileAccess.Read);
+			logo.StreamSource = new FileStream(@"./resources/ProfileIcons/" + ProfileIconID + ".png", FileMode.Open, FileAccess.Read);
 			logo.EndInit();
 			return logo;
 		}

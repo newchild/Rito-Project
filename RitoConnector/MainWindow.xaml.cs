@@ -142,48 +142,6 @@ namespace RitoConnector
                     RankedHandler Connection2 = new RankedHandler(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
                     if (Connection2.isValid())
                     {
-                        BitmapImage logo = new BitmapImage();
-                        logo.BeginInit();
-						if (!Directory.Exists("./resources"))
-						{
-							Directory.CreateDirectory("./resources");
-						}
-						if (!File.Exists(@"./resources/" + Connection.GetProfileIcon() + ".png"))
-						{
-							try
-							{	byte[] data;
-								using (WebClient webclient = new WebClient())
-								{
-									data = webclient.DownloadData(Connection.GetProfileIconURL());
-								}
-								File.WriteAllBytes(@"./resources/" + Connection.GetProfileIcon() + ".png" , data);
-							}
-							catch (WebException e1)
-							{
-								System.Windows.MessageBox.Show(e1.Message);
-							}
-						}
-						logo.StreamSource = new FileStream(@"./resources/" + Connection.GetProfileIcon() + ".png", FileMode.Open, FileAccess.Read);
-                        logo.EndInit();
-                        ProfileIcon.Source = logo;
-
-                        LevelLabel.Text = Connection.GetSummonerLevel().ToString();
-
-                        UsernameLabel.Text = Connection.getUsername();
-
-                        BitmapImage RankedPic = new BitmapImage();
-                        RankedPic.BeginInit();
-                        RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + Connection2.getRankedSoloTier().ToLower() + ".png");
-                        RankedPic.EndInit();
-                        RankedImage.Source = RankedPic;
-
-                        Divisionstatus.Text = Connection2.getRankedSoloLeague();
-
-                        Rankstatus.Text = Connection2.getRankedSoloTier();
-
-                        LevelLabel.Visibility = Visibility.Visible;
-                        UsernameLabel.Visibility = Visibility.Visible;
-
                         ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
                         Dictionary<string, int> test = new Dictionary<string, int>();
                         foreach (Entry user in Connection2.getSoloQueueLeague())
@@ -215,28 +173,6 @@ namespace RitoConnector
 
                         }
                         RankedLeague.ItemsSource = NameListLeague;
-                        Tabs.SelectedIndex = 1;
-                        UpdateLaper.Content = Connection.GetLastRefresh().ToString();
-                    }
-                    else
-                    {
-                        BitmapImage logo = new BitmapImage();
-                        logo.BeginInit();
-                        logo.UriSource = new Uri(Connection.GetProfileIconURL());
-                        logo.EndInit();
-                        ProfileIcon.Source = logo;
-                        LevelLabel.Text = Connection.GetSummonerLevel().ToString();
-                        UsernameLabel.Text = Connection.getUsername();
-                        BitmapImage RankedPic = new BitmapImage();
-                        RankedPic.BeginInit();
-                        RankedPic.UriSource = new Uri("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/unranked.png");
-                        RankedPic.EndInit();
-                        RankedImage.Source = RankedPic;
-                        Divisionstatus.Text = "Unranked";
-                        Rankstatus.Text = "Unranked";
-                        LevelLabel.Visibility = Visibility.Visible;
-                        UsernameLabel.Visibility = Visibility.Visible;
-                        Tabs.SelectedIndex = 1;
                         UpdateLaper.Content = Connection.GetLastRefresh().ToString();
                     }
                     Matchhistory matches = new Matchhistory(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);

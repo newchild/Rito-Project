@@ -101,6 +101,9 @@ namespace RitoConnector
 
 					//Sets Level
 					LevelLabel.Text = DB.GetLevel(username, region).ToString();
+
+					//Switches to Profile Tab
+					Tabs.SelectedIndex = 1;
 				}
 				DB.closeConnection();
                 /*

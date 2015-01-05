@@ -81,10 +81,13 @@ namespace RitoConnector
 				if (!DB.userInDatabase(username, region))
 				{
 					Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, region, key);
-					RankedHandler RankedConnection = new RankedHandler(Connection.GetUserID(), region, key);
 					if (Connection.isValid())
 					{
-						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());
+						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());	
+					}
+					RankedHandler RankedConnection = new RankedHandler(DB.GetUserID(username, region), region, key);
+					if (RankedConnection.isValid())
+					{
 						DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
 					}
 					else

@@ -83,6 +83,22 @@ namespace RitoConnector
 			dbConnect.Close();
 		}
 
+		public int GetUserID(string name, string region)
+		{
+			int UserID = -1;
+			dbCommand.CommandText = @"SELECT *
+										FROM Summoner
+										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+			dbCommand.ExecuteNonQuery();
+			SQLiteDataReader dbreader = dbCommand.ExecuteReader();
+			if (dbreader.Read())
+			{
+				UserID = Convert.ToInt32(dbreader["ID"]);
+			}
+			dbreader.Close();
+			return UserID;
+		}
+		
 		public string GetName(string name, string region)
 		{
 			string Name = "";

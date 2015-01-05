@@ -7,12 +7,12 @@ namespace RitoConnector
 {
     class Matchhistory
     {
-        private MatchhistoryDto _matches;
+        private readonly MatchhistoryDto _matches;
         public Matchhistory(int userid, string region, string key)
         {
             string jsonraw;
             WebResponse response;
-            var uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v1.3/game/by-summoner/" + userid.ToString() +"/recent" + "?api_key=" + key;
+            var uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v1.3/game/by-summoner/" + userid +"/recent" + "?api_key=" + key;
             var connectionListener = WebRequest.Create(uri);
             connectionListener.ContentType = "application/json; charset=utf-8";
             try
@@ -134,7 +134,7 @@ namespace RitoConnector
             }
             if (matchingGame != null)
             {
-                return matchingGame.Stats.ChampionsKilled.ToString() + "/" + matchingGame.Stats.NumDeaths.ToString() + "/" + matchingGame.Stats.Assists.ToString();
+                return matchingGame.Stats.ChampionsKilled + "/" + matchingGame.Stats.NumDeaths + "/" + matchingGame.Stats.Assists;
             }
             else
             {

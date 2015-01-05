@@ -47,7 +47,7 @@ namespace RitoConnector
         }
         public string GetProfileIconURL()
         {
-            string URL = "http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + User.ProfileIconId + ".png";
+            string URL = "http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + User.ProfileIconId + ".png"; //needs update at every patch
             return URL;
         }
         public string getUsername()

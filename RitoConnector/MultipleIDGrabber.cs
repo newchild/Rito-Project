@@ -66,7 +66,7 @@ namespace RitoConnector
                 }
                 else
                 {
-                    var jstringlegit = "{\"user\"" + jstring.Replace(",", "") + "}";
+                    var jstringlegit = "{\"user\"" + jstring.Substring(0,jstring.Length - 1) + "}";
                     MessageBox.Show(jstringlegit);
                     MultiIDclass Users = JsonConvert.DeserializeObject<MultiIDclass>(jstringlegit);
 

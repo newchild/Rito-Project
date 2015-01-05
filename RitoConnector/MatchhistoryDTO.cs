@@ -12,11 +12,11 @@ namespace RitoConnector
     public class MatchhistoryDTO
     {
 
-        [JsonProperty("games")]
-        public Game[] Games { get; set; }
-
         [JsonProperty("summonerId")]
         public int SummonerId { get; set; }
+
+        [JsonProperty("games")]
+        public Game[] Games { get; set; }
     }
 
 }

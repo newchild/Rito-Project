@@ -66,6 +66,7 @@
     <Compile Include="Matchhistory.cs" />
     <Compile Include="MatchhistoryDTO.cs" />
     <Compile Include="MiniSeries.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="RankedDTO.cs" />
     <Compile Include="RankedHandler.cs" />
     <Compile Include="RankedID.cs" />

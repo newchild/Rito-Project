@@ -9,17 +9,20 @@ using Newtonsoft.Json.Linq;
 namespace RitoConnector
 {
 
-    public class FellowPlayer
+    public class Player
     {
 
         [JsonProperty("summonerId")]
         public int SummonerId { get; set; }
 
-        [JsonProperty("teamId")]
-        public int TeamId { get; set; }
+        [JsonProperty("summonerName")]
+        public string SummonerName { get; set; }
 
-        [JsonProperty("championId")]
-        public int ChampionId { get; set; }
+        [JsonProperty("matchHistoryUri")]
+        public string MatchHistoryUri { get; set; }
+
+        [JsonProperty("profileIcon")]
+        public int ProfileIcon { get; set; }
     }
 
 }

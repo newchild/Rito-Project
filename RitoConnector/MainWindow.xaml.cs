@@ -208,6 +208,17 @@ namespace RitoConnector
                         Tabs.SelectedIndex = 1;
                         UpdateLaper.Content = Connection.GetLastRefresh().ToString();
                     }
+                    Matchhistory matches = new Matchhistory(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), key);
+                    ObservableCollection<string> Games= new ObservableCollection<string>();
+                    if (matches.isValid())
+                    {
+                        
+                        foreach (var Match in matches.getGames())
+                        {
+                            Games.Add(Match.GameMode + " " + Match.GameType + " " + Match.IpEarned.ToString());
+                        }
+                        Matchhistorybox.ItemsSource = Games;
+                    }
                 }
                 else
                 {

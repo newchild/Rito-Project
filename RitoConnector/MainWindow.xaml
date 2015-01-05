@@ -87,8 +87,10 @@
 				</Grid>
 			</TabItem>
 			<TabItem Header="Match History">
-				<Grid/>
-			</TabItem>
+				<Grid>
+                    <ListBox x:Name="Matchhistorybox" HorizontalAlignment="Left" Height="267" Margin="10,25,0,0" VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="White" SelectionChanged="RankedLeague_SelectionChanged"/>
+                </Grid>
+            </TabItem>
 			<TabItem Header="Masteries">
 				<Grid/>
 			</TabItem>

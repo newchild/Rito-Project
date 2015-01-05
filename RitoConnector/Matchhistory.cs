@@ -110,7 +110,7 @@ namespace RitoConnector
         {
             switch (Matchtype)
             {
-                case "Classic":
+                case "CLASSIC":
                     return "Normal";
                 case "ODIN":
                     return "Dominion";
@@ -126,9 +126,10 @@ namespace RitoConnector
                     return "Snowdown Showdown";
                 case "KINGPORO":
                     return "Poroking";
-                case:
-                    return "INVALID";
+          
+                    
             }
+            return "INVALID";
         }
         
     }

@@ -12,7 +12,7 @@ namespace RitoConnector
 {
     class MultipleIDGrabber
     {
-        private MultiIDclass Users;
+        MultiIDclass[] tests;
         public MultipleIDGrabber(string ids,string Region, string key)
         {
             string JSONRAW;
@@ -36,13 +36,45 @@ namespace RitoConnector
             var test = ids.Split(',');
             foreach (string id in test)
             {
-                JSONRAW.Replace(id, "user");
+                if (id != "")
+                {
+                    JSONRAW = JSONRAW.Replace("\"" + id + "\"", "user");
+                }
+                
             }
-            MultiIDclass Users = JsonConvert.DeserializeObject<MultiIDclass>(JSONRAW);
+            int testcounter = 0;
+            foreach (string id in test)
+            {
+                testcounter++;
+            }
+            
+            char[] replacement = new char[4];
+            replacement[0] = 'u';
+            replacement[1] = 's';
+            replacement[2] = 'e';
+            replacement[3] = 'r';
+            var JSONS = JSONRAW.Split(replacement);
+            testcounter = 0;
+            foreach (var jstring in JSONS)
+            {
+                
+                testcounter++;
+            }
+            MultiIDclass[] tests = new MultiIDclass[testcounter];
+            testcounter = 0;
+            foreach (var jstring in JSONS)
+            {
+                MultiIDclass Users = JsonConvert.DeserializeObject<MultiIDclass>(JSONRAW);
+                tests[testcounter] = Users;
+                testcounter++;
+            }
+
+            
+
         }
-        public MultiIDclass getUserDTOs()
+        public MultiIDclass[] getUserDTOs()
         {
-            return Users;
+            return tests;
         }
     }
 }

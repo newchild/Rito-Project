@@ -47,13 +47,9 @@ namespace RitoConnector
             {
                 testcounter++;
             }
-            
-            char[] replacement = new char[4];
-            replacement[0] = 'u';
-            replacement[1] = 's';
-            replacement[2] = 'e';
-            replacement[3] = 'r';
-            var JSONS = JSONRAW.Split(replacement);
+
+            string[] stringSeparators = new string[] { "user" };
+            var JSONS = JSONRAW.Split(stringSeparators,StringSplitOptions.None);
             testcounter = 0;
             foreach (var jstring in JSONS)
             {
@@ -64,10 +60,20 @@ namespace RitoConnector
             testcounter = 0;
             foreach (var jstring in JSONS)
             {
-                MultiIDclass Users = JsonConvert.DeserializeObject<MultiIDclass>(JSONRAW);
-                MessageBox.Show(Users.user.Name);
-                tests[testcounter] = Users;
-                testcounter++;
+                if (jstring == "{" || jstring.Length < 4)
+                {
+
+                }
+                else
+                {
+                    var jstringlegit = "{\"user\"" + jstring.Replace(",", "") + "}";
+                    MessageBox.Show(jstringlegit);
+                    MultiIDclass Users = JsonConvert.DeserializeObject<MultiIDclass>(jstringlegit);
+
+                    tests[testcounter] = Users;
+                    testcounter++;
+                }
+                
             }
 
             

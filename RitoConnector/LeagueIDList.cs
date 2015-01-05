@@ -16,6 +16,7 @@ namespace RitoConnector
 
 		public void addListItem(string ID)
 		{
+			n_League++;
 			IDList += ID + ",";
 		}
 
@@ -23,6 +24,15 @@ namespace RitoConnector
 		{
 			IDList = IDList.Remove(IDList.Length - 1);
 			return IDList;
+		}
+
+		public bool isOver20()
+		{
+			if (n_League > 20)
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 }

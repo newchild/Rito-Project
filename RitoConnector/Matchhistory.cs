@@ -127,7 +127,7 @@ namespace RitoConnector
             }
 
         }
-        public int GetStats(int MatchID)
+        public int GetFarm(int MatchID)
         {
             Game MatchingGame = null;
             foreach (var match in Matches.Games)

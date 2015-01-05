@@ -85,7 +85,7 @@ namespace RitoConnector
             }
             return test;
         }
-        public string GetGameMode(int MatchID)
+        public string GetGameType(int MatchID)
         {
             Game MatchingGame = null;
             foreach (var match in Matches.Games)
@@ -98,7 +98,28 @@ namespace RitoConnector
             }
             if (MatchingGame != null)
             {
-                return getRealMode(MatchingGame.GameMode);
+                return getRealMode(MatchingGame.GameType);
+            }
+            else
+            {
+                return "INVALID";
+            }
+
+        }
+        public string GetGameMap(int MatchID)
+        {
+            Game MatchingGame = null;
+            foreach (var match in Matches.Games)
+            {
+                if (match.GameId == MatchID)
+                {
+                    MatchingGame = match;
+                }
+
+            }
+            if (MatchingGame != null)
+            {
+                return getRealType(MatchingGame.GameMode);
             }
             else
             {
@@ -148,8 +169,9 @@ namespace RitoConnector
             }
 
         }
-        private string getRealMode(string Matchtype)
+        private string getRealType(string Matchtype)
         {
+            MessageBox.Show(Matchtype);
             switch (Matchtype)
             {
                 case "CLASSIC":
@@ -171,8 +193,23 @@ namespace RitoConnector
           
                     
             }
-            return "INVALID";
+            return "Unknown";
         }
+        private string getRealMode(string Matchmode)
+        {
+            MessageBox.Show(Matchmode);
+            switch (Matchmode)
+            {
+                case "CUSTOM_GAME":
+                    return "Custom Game";
+                case "MATCHED_GAME":
+                    return "Normal Game";
+                case "TUTORIAL_GAME":
+                    return "Tutorial";
+            }
+            return "Unknown";
+        }
+
         
     }
 }

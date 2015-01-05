@@ -69,6 +69,7 @@
     <Compile Include="Matchhistory.cs" />
     <Compile Include="MatchhistoryDTO.cs" />
     <Compile Include="MiniSeries.cs" />
+    <Compile Include="MultiIDclass.cs" />
     <Compile Include="MultipleIDGrabber.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="RankedDTO.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="SQLManager.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="SummonerDTO.cs" />
+    <Compile Include="User.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

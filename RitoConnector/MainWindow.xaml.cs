@@ -78,12 +78,14 @@ namespace RitoConnector
 			if (!error)
             {
 				SQLManager DB = new SQLManager();
-				if (!DB.userInDatabase(username))
+				if (!DB.userInDatabase(username, region))
 				{
-					Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, RegionBox.SelectedItem.ToString(), key);
+					Riotconnect Connection = new Riotconnect(UsernameTextbox.Text, region, key);
+					RankedHandler RankedConnection = new RankedHandler(Connection.GetUserID(), region, key);
 					if (Connection.isValid())
 					{
-						DB.insertUserinDatabase(Connection.GetUserID(), RegionBox.SelectedItem.ToString(), UsernameTextbox.Text, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());
+						DB.insertUserinDatabase(Connection.GetUserID(), region, username, Connection.GetUsername(), Connection.GetSummonerLevel(), Connection.GetProfileIcon());
+						DB.updateRank(username, region, RankedConnection.getRankedSoloTier(), RankedConnection.getRankedSoloDivision());
 					}
 					else
 					{
@@ -104,6 +106,10 @@ namespace RitoConnector
 
 					//Switches to Profile Tab
 					Tabs.SelectedIndex = 1;
+
+					//Sets Ranked
+					Divisionstatus.Text = DB.GetSoloDivision(username, region);
+					Rankstatus.Text = DB.GetSoloTier(username, region);
 				}
 				DB.closeConnection();
                 /*

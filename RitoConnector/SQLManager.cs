@@ -44,12 +44,12 @@ namespace RitoConnector
 			dbCommand.ExecuteNonQuery();                  // Execute the query
 		}
 
-		public bool userInDatabase(string name)
+		public bool userInDatabase(string name, string region)
 		{
 			bool userInDatabase;
 			dbCommand.CommandText = @"SELECT *
 										FROM Summoner
-										WHERE Name = '" + name.ToLower() + "'";
+										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
 			dbCommand.ExecuteNonQuery();
 			SQLiteDataReader dbreader = dbCommand.ExecuteReader();
 			if (dbreader.Read())
@@ -63,6 +63,7 @@ namespace RitoConnector
 			dbreader.Close();
 			return userInDatabase;
 		}
+
 		public void insertUserinDatabase(int ID, string region, string name, string realName, int Level, int ProfileIconID)
 		{
 			dbCommand.CommandText = @"INSERT INTO Summoner (ID , Region, Name, RealName, Level, ProfileIconID, LastUpdate)
@@ -70,7 +71,12 @@ namespace RitoConnector
 			dbCommand.ExecuteNonQuery();
 		}
 
-		//public void updateRank(string username, string region, )
+		public void updateRank(string name, string region, string tier, string division)
+		{
+			dbCommand.CommandText = @"UPDATE Summoner
+									SET TIER ='" + tier + "', Division = '" + division + "' WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+			dbCommand.ExecuteNonQuery();
+		}
 
 		public void closeConnection()
 		{
@@ -123,6 +129,38 @@ namespace RitoConnector
 			}
 			dbreader.Close();
 			return Level;
+		}
+
+		public string GetSoloTier(string name, string region)
+		{
+			string Tier = "";
+			dbCommand.CommandText = @"SELECT *
+										FROM Summoner
+										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+			dbCommand.ExecuteNonQuery();
+			SQLiteDataReader dbreader = dbCommand.ExecuteReader();
+			if (dbreader.Read())
+			{
+				Tier = "" + dbreader["Tier"];
+			}
+			dbreader.Close();
+			return Tier;
+		}
+
+		public string GetSoloDivision(string name, string region)
+		{
+			string Division = "";
+			dbCommand.CommandText = @"SELECT *
+										FROM Summoner
+										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+			dbCommand.ExecuteNonQuery();
+			SQLiteDataReader dbreader = dbCommand.ExecuteReader();
+			if (dbreader.Read())
+			{
+				Division = "" + dbreader["Division"];
+			}
+			dbreader.Close();
+			return Division;
 		}
 	}
 }

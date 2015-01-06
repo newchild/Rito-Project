@@ -73,6 +73,7 @@ namespace RitoConnector
 
 		public void UpdateRank(string name, string region, string tier, string division, string leagueName)
 		{
+			leagueName = leagueName.Replace("\'","\'\'");
 			DbCommand.CommandText = @"UPDATE Summoner
 									SET TIER ='" + tier + "', Division = '" + division + "', LeagueName = '" + leagueName + "' WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
 			DbCommand.ExecuteNonQuery();

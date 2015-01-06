@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Windows;
 
 namespace RitoConnector
 {
@@ -60,7 +61,25 @@ namespace RitoConnector
 			{
 				userInDatabase = true;
 			}
-			dbreader.Close();
+			
+			if (userInDatabase)
+			{
+				DateTime LastUpdate = Convert.ToDateTime(dbreader["LastUpdate"]);
+				MessageBox.Show("" + LastUpdate);
+				if (LastUpdate.AddMinutes(30) < DateTime.Now)
+				{
+					userInDatabase = false;
+					dbreader.Close();
+					DbCommand.CommandText = @"DELETE
+											FROM Summoner
+											WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+					DbCommand.ExecuteNonQuery();
+				}
+			}
+			if (!dbreader.IsClosed)
+			{
+				dbreader.Close();
+			}
 			return userInDatabase;
 		}
 

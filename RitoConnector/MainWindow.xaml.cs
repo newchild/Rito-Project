@@ -75,12 +75,15 @@ namespace RitoConnector
 			        if (rankedConnection.IsValid())
 			        {
 				        db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName());
-				        var multi = new MultipleIdGrabber(rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region), region, key);
-				        foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
-				        {
-					        db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-					        db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
-				        }
+						if (rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region) != null)
+						{
+							var multi = new MultipleIdGrabber(rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region), region, key);
+							foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
+							{
+								db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
+								db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
+							}
+						}
 			        }
 			        else
 			        {

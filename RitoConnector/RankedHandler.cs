@@ -96,17 +96,17 @@ namespace RitoConnector
             return "Unranked";
         }
 
-	    public int GetLpByUser(string userId)
+	    public int GetLpByUser(int userId)
 	    {
 		    return GetSoloQueueLeague(GetRankedSoloDivision(), _region).Where(user => userId == user.PlayerOrTeamName).Select(user => user.LeaguePoints).FirstOrDefault();
 	    }
 
-	    private MiniSeries GetMiniSeriesByUser(string userId)
+	    private MiniSeries GetMiniSeriesByUser(int userId)
 	    {
 		    return GetSoloQueueLeague(GetRankedSoloDivision(), _region).Where(user => userId == user.PlayerOrTeamName).Select(user => user.MiniSeries).FirstOrDefault();
 	    }
 
-	    public string GetMiniSeriesUserId(string userId)
+	    public string GetMiniSeriesUserId(int userId)
 	    {
 		    MiniSeries helpervar = GetMiniSeriesByUser(userId);
 			return helpervar.Progress.Replace("N", "_ ").Replace("L", "X").Replace("W", "✓"); ;

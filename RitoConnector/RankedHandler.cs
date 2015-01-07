@@ -108,8 +108,15 @@ namespace RitoConnector
 
 	    public string GetMiniSeriesUserId(string userName)
 	    {
-		    MiniSeries helpervar = GetMiniSeriesByUser(userName);
-			return helpervar.Progress.Replace("N", "_ ").Replace("L", "X").Replace("W", "✓"); ;
+			if (GetLpByUser(userName) == 100)
+			{
+				MiniSeries helpervar = GetMiniSeriesByUser(userName);
+				return helpervar.Progress.Replace("N", "_ ").Replace("L", "X").Replace("W", "✓"); ;
+			}
+			else
+			{
+				return null;
+			}
 	    }
 
 	    /// <summary>
@@ -172,7 +179,7 @@ namespace RitoConnector
 					}
 				}
 			}
-		return idList;
+			return idList;
 		}
     }
 }

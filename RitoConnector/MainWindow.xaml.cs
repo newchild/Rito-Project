@@ -74,7 +74,7 @@ namespace RitoConnector
 			        var rankedConnection = new RankedHandler(db.GetUserId(username, region), region, key);
 			        if (rankedConnection.IsValid())
 			        {
-				        db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName());
+				        db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName(), rankedConnection.GetLpByUser(username), rankedConnection.GetMiniSeriesUserId(username));
 						string rawIDList = rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region);
 						string[] IDList = rawIDList.Split(',');
 						if (IDList.Length <= 40)
@@ -83,7 +83,7 @@ namespace RitoConnector
 							foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
 							{
 								db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-								db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
+								db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName(),rankedConnection.GetLpByUser(user.Name), rankedConnection.GetMiniSeriesUserId(user.Name));
 							}
 						}
 						else
@@ -106,7 +106,7 @@ namespace RitoConnector
 									foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
 									{
 										db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-										db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
+										db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName(), rankedConnection.GetLpByUser(user.Name), rankedConnection.GetMiniSeriesUserId(user.Name));
 									}
 									n = 0;
 									splitIDList = "";

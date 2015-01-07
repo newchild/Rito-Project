@@ -75,16 +75,45 @@ namespace RitoConnector
 			        if (rankedConnection.IsValid())
 			        {
 				        db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName());
-						if (rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region) != null)
+						string rawIDList = rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region);
+						string[] IDList = rawIDList.Split(',');
+						if (IDList.Length <= 40)
 						{
-							var multi = new MultipleIdGrabber(rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region), region, key);
+							var multi = new MultipleIdGrabber(rawIDList, region, key);
 							foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
 							{
 								db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
 								db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
 							}
 						}
-			        }
+						else
+						{
+							string splitIDList = "";
+							int m = 0;
+							int n = 0;
+							foreach (string ID in IDList)
+							{
+								if(n < 40)
+								{
+									splitIDList += ID + ",";
+									m++;
+									n++;
+								}
+								if (n == 40 || m == IDList.Length)
+								{
+									MessageBox.Show("hi");
+									var multi = new MultipleIdGrabber(splitIDList, region, key);
+									foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
+									{
+										db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
+										db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName());
+									}
+									n = 0;
+									splitIDList = "";
+								}
+							}
+						}
+					}
 			        else
 			        {
 				        error = true;

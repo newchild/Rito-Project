@@ -47,7 +47,6 @@ namespace RitoConnector
                 else
                 {
 					var jstringlegit = jstring.Substring(1, jstring.Length - 2);
-                    MessageBox.Show(jstringlegit);
                     var users = JsonConvert.DeserializeObject<SummonerDto>(jstringlegit);
                     _tests[testcounter] = users;
                     testcounter++;

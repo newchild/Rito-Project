@@ -138,7 +138,6 @@ namespace RitoConnector
 
 		public string GetLeagueIdList(string division, string region)
 		{
-			int n_ids = 0;
 			string idList = "";
 			foreach (var rank in _rankedStatus.RankedId)
 			{
@@ -148,20 +147,12 @@ namespace RitoConnector
 					{
 						if (user.Division == division)
 						{
-							n_ids++;
 							idList += user.PlayerOrTeamId + ",";
 						}
 					}
 				}
 			}
-			if (n_ids <= 40)
-			{
-				return idList;
-			}
-			else
-			{
-				return null;
-			}
+		return idList;
 		}
     }
 }

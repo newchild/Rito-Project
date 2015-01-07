@@ -33,6 +33,8 @@ namespace RitoConnector
 										[Tier] TINYTEXT NULL,
 										[Division] TINYTEXT NULL,
 										[LeagueName] TINYTEXT NULL,
+										[LeaguePoints] TINYINT NULL,
+										[Miniseries] TINYTEXT NULL,
 										[LastUpdate] DATETIME NULL
 										)";
 			DbConnect.Open();		//Starts Connection
@@ -90,11 +92,11 @@ namespace RitoConnector
 			DbCommand.ExecuteNonQuery();
 		}
 
-		public void UpdateRank(string name, string region, string tier, string division, string leagueName)
+		public void UpdateRank(string name, string region, string tier, string division, string leagueName, int? leaguepoints, string miniseries)
 		{
 			leagueName = leagueName.Replace("\'","\'\'");
 			DbCommand.CommandText = @"UPDATE Summoner
-									SET TIER ='" + tier + "', Division = '" + division + "', LeagueName = '" + leagueName + "' WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+									SET TIER ='" + tier + "', Division = '" + division + "', LeagueName = '" + leagueName + "', LeaguePoints = '" + leaguepoints + "', Miniseries = '" + miniseries + "' WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
 			DbCommand.ExecuteNonQuery();
 		}
 

@@ -122,7 +122,7 @@ namespace RitoConnector
 		        }
 		        else
 		        {
-			        db.UpdateRank(username, region, "Unranked", null,null);
+			        db.UpdateRank(username, region, "Unranked", null,null,null,null);
 		        }
 	        }
 	        if (!error)

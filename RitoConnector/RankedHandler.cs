@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ namespace RitoConnector
 {
     class RankedHandler
     {
+	    private string _region;
         private readonly int _userids;
         private readonly RankedDto _rankedStatus;
         /// <summary>
@@ -20,6 +22,7 @@ namespace RitoConnector
         public RankedHandler(int userid, string region, string key)
         {
             _userids = userid;
+	        _region = region;
             string jsonraw;
             WebResponse response;
             var uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v2.5/league/by-summoner/" + userid + "?api_key=" + key;
@@ -92,7 +95,24 @@ namespace RitoConnector
 			
             return "Unranked";
         }
-        /// <summary>
+
+	    public int GetLPByUser(int userId)
+	    {
+		    return GetSoloQueueLeague(GetRankedSoloDivision(), _region).Where(user => userId.ToString() == user.PlayerOrTeamId).Select(user => user.LeaguePoints).FirstOrDefault();
+	    }
+
+	    private MiniSeries GetMiniSeriesByUser(int userId)
+	    {
+		    return GetSoloQueueLeague(GetRankedSoloDivision(), _region).Where(user => userId.ToString() == user.PlayerOrTeamId).Select(user => user.MiniSeries).FirstOrDefault();
+	    }
+
+	    public string GetMiniSeriesUserId(int userID)
+	    {
+		    MiniSeries helpervar = GetMiniSeriesByUser(userID);
+			return helpervar.Progress.Replace("N", "_ ").Replace("L", "X").Replace("W", "✓"); ;
+	    }
+
+	    /// <summary>
         /// checks if the Connection is val
         /// </summary>
         /// <returns>bool</returns>

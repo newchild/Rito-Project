@@ -2,16 +2,40 @@
 using System.Net;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System;
 
 namespace RitoConnector
 {
 	class CacheManager
 	{
+		private static string roamingFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LoLStats";
+		private static string resourcesFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LoLStats\resources";
+
+		public static void PrepareRoaming()
+		{
+			if (!Directory.Exists(roamingFolder))
+			{
+				Directory.CreateDirectory(roamingFolder);
+			}
+			if (!Directory.Exists(resourcesFolder))
+			{
+				Directory.CreateDirectory(resourcesFolder);
+			}
+			if (!Directory.Exists(resourcesFolder + "/ProfileIcons"))
+			{
+				Directory.CreateDirectory(resourcesFolder + "/ProfileIcons");
+			}
+			if (!Directory.Exists(resourcesFolder + "/RankedIcons"))
+			{
+				Directory.CreateDirectory(resourcesFolder + "/RankedIcons");
+			}
+		}
+
 		public static void ResetCache()
 		{
-			if (Directory.Exists("./resources"))
+			if (Directory.Exists(resourcesFolder))
 			{
-				Directory.Delete("./resources", true);
+				Directory.Delete(resourcesFolder, true);
 			}
 		}
 
@@ -19,15 +43,7 @@ namespace RitoConnector
 		{
 			var logo = new BitmapImage();
 			logo.BeginInit();
-			if (!Directory.Exists("./resources"))
-			{
-				Directory.CreateDirectory("./resources");
-			}
-			if (!Directory.Exists("./resources/ProfileIcons"))
-			{
-				Directory.CreateDirectory("./resources/ProfileIcons");
-			}
-			if (!File.Exists(@"./resources/ProfileIcons/" + profileIconId + ".png"))
+			if (!File.Exists(resourcesFolder + "/ProfileIcons/" + profileIconId + ".png"))
 			{
 				try
 				{
@@ -36,14 +52,14 @@ namespace RitoConnector
 					{
 						data = webclient.DownloadData("http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + profileIconId + ".png");
 					}
-					File.WriteAllBytes(@"./resources/ProfileIcons/" + profileIconId + ".png", data);
+					File.WriteAllBytes(resourcesFolder +"/ProfileIcons/" + profileIconId + ".png", data);
 				}
 				catch (WebException e)
 				{
 					MessageBox.Show(e.Message);
 				}
 			}
-			logo.StreamSource = new FileStream(@"./resources/ProfileIcons/" + profileIconId + ".png", FileMode.Open, FileAccess.Read);
+			logo.StreamSource = new FileStream(resourcesFolder +"/ProfileIcons/" + profileIconId + ".png", FileMode.Open, FileAccess.Read);
 			logo.EndInit();
 			return logo;
 		}
@@ -52,16 +68,7 @@ namespace RitoConnector
 		{
 			var logo = new BitmapImage();
 			logo.BeginInit();
-			if (!Directory.Exists("./resources"))
-			{
-				Directory.CreateDirectory("./resources");
-				
-			}
-			if (!Directory.Exists("./resources/RankedIcons"))
-			{
-				Directory.CreateDirectory("./resources/RankedIcons");
-			}
-			if (!File.Exists(@"./resources/RankedIcons/" + tier + "_" + division + ".png"))
+			if (!File.Exists(resourcesFolder + "/RankedIcons/" + tier + "_" + division + ".png"))
 			{
 				try
 				{
@@ -70,14 +77,14 @@ namespace RitoConnector
 					{
 						data = webclient.DownloadData("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + tier + "_" + division + ".png");
 					}
-					File.WriteAllBytes(@"./resources/RankedIcons/" + tier + "_" + division + ".png", data);
+					File.WriteAllBytes(resourcesFolder + "/RankedIcons/" + tier + "_" + division + ".png", data);
 				}
 				catch (WebException e)
 				{
 					MessageBox.Show(e.Message);
 				}
 			}
-			logo.StreamSource = new FileStream(@"./resources/RankedIcons/" + tier + "_" + division + ".png", FileMode.Open, FileAccess.Read);
+			logo.StreamSource = new FileStream(resourcesFolder + "/RankedIcons/" + tier + "_" + division + ".png", FileMode.Open, FileAccess.Read);
 			logo.EndInit();
 			return logo;
 		}

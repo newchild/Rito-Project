@@ -39,22 +39,20 @@ namespace RitoConnector
 
         private void Connect(object sender, RoutedEventArgs e)
         {
-			var error = false;
-
 			var cache = new CacheManager();
+			CacheManager.PrepareRoaming();		//Creates Local Files if necessary
 
 			var username = UsernameTextbox.Text;
+
+			if (RegionBox.SelectedItem == null)
+			{
+				MessageBox.Show("Please select a region");
+				return;
+			}
 			var region = RegionBox.SelectedItem.ToString();
 
 	        var key = ApiKey.Text == "" ? Keyloader.GetRealKey() : ApiKey.Text;
 
-            if (RegionBox.SelectedItem == null)
-            {
-				error = true;
-                MessageBox.Show("Please select a region");
-            }
-
-	        if (error) return;
 	        var db = new SqlManager();
 	        if (!db.UserInDatabase(username, region))
 	        {
@@ -65,8 +63,8 @@ namespace RitoConnector
 		        }
 		        else
 		        {
-			        error = true;
 			        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+					return;
 		        }
 		        if (db.GetLevel(username, region) == 30)
 		        {
@@ -116,8 +114,8 @@ namespace RitoConnector
 					}
 			        else
 			        {
-				        error = true;
 				        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+						return;
 			        }
 		        }
 		        else
@@ -125,25 +123,23 @@ namespace RitoConnector
 			        db.UpdateRank(username, region, "Unranked", null,null,null,null);
 		        }
 	        }
-	        if (!error)
-	        {
-		        //Sets Name
-		        UsernameLabel.Text = db.GetName(username, region);
-					
-		        //Sets Profile Icon
-		        ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId( username, region));
+	        //Sets Name
+		    UsernameLabel.Text = db.GetName(username, region);
+	
+		    //Sets Profile Icon
+		    ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId( username, region));
 
-		        //Sets Level
-		        LevelLabel.Text = db.GetLevel(username, region).ToString();
+		    //Sets Level
+		    LevelLabel.Text = db.GetLevel(username, region).ToString();
 
-		        //Switches to Profile Tab
-		        Tabs.SelectedIndex = 1;
+		    //Switches to Profile Tab
+		    Tabs.SelectedIndex = 1;
 
-		        //Sets Ranked
-		        Rankstatus.Text = db.GetSoloTier(username, region);
-		        Divisionstatus.Text = db.GetSoloDivision(username, region);
-		        RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
-	        }
+		    //Sets Ranked
+		    Rankstatus.Text = db.GetSoloTier(username, region);
+		    Divisionstatus.Text = db.GetSoloDivision(username, region);
+		    RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
+
 	        db.CloseConnection();
 	        /*
                     RankedHandler Connection2 = new RankedHandler(db.GetUserId(username,region), region, key);

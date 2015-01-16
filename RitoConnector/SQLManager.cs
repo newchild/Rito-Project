@@ -7,7 +7,7 @@ namespace RitoConnector
 {
 	class SqlManager
 	{
-		private static readonly string Databasefile = "database.sqlite";
+		private static readonly string Databasefile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LoLStats\database.sqlite";
 
 		private static readonly SQLiteConnection DbConnect = new SQLiteConnection("data source=" + Databasefile);
 		private static readonly SQLiteCommand DbCommand = new SQLiteCommand(DbConnect);
@@ -19,8 +19,6 @@ namespace RitoConnector
 			{
 				SQLiteConnection.CreateFile(Databasefile);
 			}
-
-			
 
 			//Creates new Table if none is existing
 			var createTableQuery = @"CREATE TABLE IF NOT EXISTS [Summoner] (

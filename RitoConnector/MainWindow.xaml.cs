@@ -106,8 +106,11 @@ namespace RitoConnector
 									var multi = new MultipleIdGrabber(splitIDList, region, key);
 									foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
 									{
-										db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-										db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName(), rankedConnection.GetLpByUser(user.Name), rankedConnection.GetMiniSeriesUserId(user.Name));
+										if (!db.UserInDatabase(user.Name, region))
+										{
+											db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
+											db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName(), rankedConnection.GetLpByUser(user.Name), rankedConnection.GetMiniSeriesUserId(user.Name));
+										}
 									}
 									n = 0;
 									splitIDList = "";

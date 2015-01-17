@@ -136,23 +136,13 @@ namespace RitoConnector
 		    //Sets Level
 		    LevelLabel.Text = db.GetLevel(username, region).ToString();
 
-		    //Switches to Profile Tab
-		    Tabs.SelectedIndex = 1;
-
 		    //Sets Ranked
 		    Rankstatus.Text = db.GetSoloTier(username, region);
 		    Divisionstatus.Text = db.GetSoloDivision(username, region);
 		    RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
-
-	        db.CloseConnection();
-		}
-	        /*
-                    RankedHandler Connection2 = new RankedHandler(db.GetUserId(username,region), region, key);
-                    if (Connection2.IsValid())
-                    {
-                        ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
-                        Dictionary<string, int> test = new Dictionary<string, int>();
-                        foreach (Entry user in Connection2.GetSoloQueueLeague("s","s"))
+			ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
+            Dictionary<string, int> test = new Dictionary<string, int>();
+            foreach (var user in ) // edit
                         {
 							if (user.Division == Connection2.GetRankedSoloDivision())
                             {
@@ -181,6 +171,13 @@ namespace RitoConnector
 
                         }
                         RankedLeague.ItemsSource = NameListLeague;
+			//Switches to Profile Tab
+		    Tabs.SelectedIndex = 1;
+	        db.CloseConnection();
+		}
+	        
+                   
+                        /*
                     }
                     Matchhistory matches = new Matchhistory(db.GetUserId(username,region), region, key);
                     ObservableCollection<string> Games= new ObservableCollection<string>();

@@ -143,44 +143,49 @@ namespace RitoConnector
 		    Rankstatus.Text = db.GetSoloTier(username, region);
 		    Divisionstatus.Text = db.GetSoloDivision(username, region);
 		    RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
+
+			//WIP
 			ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
             Dictionary<string, int> test = new Dictionary<string, int>();
             foreach (var user in ) // edit
-                        {
-							if (user.Division == Connection2.GetRankedSoloDivision())
-                            {
-                                test.Add(user.PlayerOrTeamName, user.LeaguePoints);
-                            }
-						}
-                        var sortedDict = from entry in test orderby entry.Value descending select entry;
-                        foreach (var user in sortedDict)
-                        {
-                            if (user.Value == 100)
-                            {
-                                string HotStreak = "";
-                                foreach (Entry user2 in Connection2.GetSoloQueueLeague("s","s"))
-                                {
-                                    if (user2.PlayerOrTeamName == user.Key)
-                                    {
-                                        HotStreak = user2.MiniSeries.Progress;
-                                    }
-                                }
-                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP | " + HotStreak.Replace("N","_ ").Replace("L","X").Replace("W","✓"));
-                            }
-                            else
-                            {
-                                NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP");
-                            }
+            {
+					if (user.Division == Connection2.GetRankedSoloDivision())
+                    {
+						test.Add(user.PlayerOrTeamName, user.LeaguePoints);
+                    }
+			}
+			var sortedDict = from entry in test orderby entry.Value descending select entry;
+			foreach (var user in sortedDict)
+			{
+				if (user.Value == 100)
+				{
+					string HotStreak = "";
+					foreach (Entry user2 in Connection2.GetSoloQueueLeague("s","s"))
+					{
+						if (user2.PlayerOrTeamName == user.Key)
+							{
+								HotStreak = user2.MiniSeries.Progress;
+								//NEW: db.GetMiniseries(USERNAME, REGION);
+							}
+					}
+					NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP | " + HotStreak.Replace("N","_ ").Replace("L","X").Replace("W","✓"));
+				}
+				else
+				{
+					NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP");
+					//NEW: db.GetLeaguePoints(USERNAME, REGION);
+				}
+			}
+			RankedLeague.ItemsSource = NameListLeague;
+			// END WIP
 
-                        }
-                        RankedLeague.ItemsSource = NameListLeague;
+
 			//Switches to Profile Tab
 		    Tabs.SelectedIndex = 1;
 	        db.CloseConnection();
 		}
 	        
-                   
-                        /*
+		/*
                     }
                     Matchhistory matches = new Matchhistory(db.GetUserId(username,region), region, key);
                     ObservableCollection<string> Games= new ObservableCollection<string>();
@@ -199,7 +204,7 @@ namespace RitoConnector
                 {
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
-			  */
+		*/
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

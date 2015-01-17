@@ -166,6 +166,22 @@ namespace RitoConnector
 			return level;
 		}
 
+		public int GetLeaguePoints(string name, string region)
+		{
+			var lp = -1;
+			DbCommand.CommandText = @"SELECT *
+										FROM Summoner
+										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
+			if (dbreader.Read())
+			{
+				lp = Convert.ToInt32(dbreader["LeaguePoints"]);
+			}
+			dbreader.Close();
+			return lp;
+		}
+
 		public string GetSoloTier(string name, string region)
 		{
 			var tier = "";
@@ -224,6 +240,22 @@ namespace RitoConnector
 			string countAsString = dbreader2.ToString();
 			int count = Convert.ToInt32(countAsString);
 			return count;
+		}
+
+		public string GetMiniseries(string name, string region)
+		{
+			var Miniseries = "";
+			DbCommand.CommandText =	@"SELECT *
+									FROM Summoner
+									WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
+			if (dbreader.Read())
+			{
+				Miniseries = "" + dbreader["Miniseries"];
+			}
+			dbreader.Close();
+			return Miniseries;
 		}
 	}
 }

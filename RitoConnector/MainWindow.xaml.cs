@@ -103,7 +103,6 @@ namespace RitoConnector
 								}
 								if (n == 40 || m == IDList.Length)
 								{
-									MessageBox.Show("hi");
 									var multi = new MultipleIdGrabber(splitIDList, region, key);
 									foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
 									{

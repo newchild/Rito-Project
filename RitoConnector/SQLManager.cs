@@ -65,7 +65,6 @@ namespace RitoConnector
 			if (userInDatabase)
 			{
 				DateTime LastUpdate = Convert.ToDateTime(dbreader["LastUpdate"]);
-				MessageBox.Show("" + LastUpdate);
 				if (LastUpdate.AddMinutes(30) < DateTime.Now)
 				{
 					userInDatabase = false;

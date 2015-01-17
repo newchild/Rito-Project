@@ -198,5 +198,36 @@ namespace RitoConnector
 			dbreader.Close();
 			return division;
 		}
+
+		public int GetLeagueMemberCount(string name, string region)
+		{
+			var division = "";
+			var leagueName = "";
+			var tier = "";
+			DbCommand.CommandText = @"SELECT *
+										FROM Summoner
+										WHERE Name = '" + name.ToLower() + "' AND Region = '" + region + "'";
+			DbCommand.ExecuteNonQuery();
+			var dbreader = DbCommand.ExecuteReader();
+			if (dbreader.Read())
+			{
+				division = "" + dbreader["Division"];
+				tier = "" + dbreader["Tier"];
+				leagueName = "" + dbreader["LeagueName"];
+				leagueName = leagueName.Replace("\'", "\'\'");
+			}
+			dbreader.Close();
+			DbCommand.CommandText =	@"SELECT COUNT(*)
+									FROM Summoner
+									WHERE LeagueName = '" + leagueName + "' AND Division = '" + division + "' AND Tier = '" + tier + "'";
+			DbCommand.ExecuteNonQuery();
+			var dbreader2 = DbCommand.ExecuteScalar();
+			string countAsString = dbreader2.ToString();
+			int count = Convert.ToInt32(countAsString);
+			return count;
+		}
 	}
 }
+
+
+ 

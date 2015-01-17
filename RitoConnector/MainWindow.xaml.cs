@@ -64,6 +64,7 @@ namespace RitoConnector
 		        else
 		        {
 			        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+					db.CloseConnection();
 					return;
 		        }
 		        if (db.GetLevel(username, region) == 30)
@@ -80,8 +81,11 @@ namespace RitoConnector
 							var multi = new MultipleIdGrabber(rawIDList, region, key);
 							foreach (var user in multi.GetUserDtOs().Where(user => user.Id != db.GetUserId(username, region)))
 							{
-								db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
-								db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName(),rankedConnection.GetLpByUser(user.Name), rankedConnection.GetMiniSeriesUserId(user.Name));
+								if (!db.UserInDatabase(user.Name, region))
+								{
+									db.InsertUserinDatabase(user.Id, region, user.Name, user.Name, user.SummonerLevel, user.ProfileIconId);
+									db.UpdateRank(user.Name.ToLower(), region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName(), rankedConnection.GetLpByUser(user.Name), rankedConnection.GetMiniSeriesUserId(user.Name));
+								}
 							}
 						}
 						else
@@ -115,6 +119,7 @@ namespace RitoConnector
 			        else
 			        {
 				        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+						db.CloseConnection();
 						return;
 			        }
 		        }
@@ -141,6 +146,7 @@ namespace RitoConnector
 		    RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
 
 	        db.CloseConnection();
+		}
 	        /*
                     RankedHandler Connection2 = new RankedHandler(db.GetUserId(username,region), region, key);
                     if (Connection2.IsValid())
@@ -195,8 +201,6 @@ namespace RitoConnector
                     MessageBox.Show("An unknown Error has occured. Please try again later");
                 }
 			  */
-				
-        }
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -9,7 +9,7 @@ namespace RitoConnector
 	class CacheManager
 	{
 		private static string roamingFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LoLStats";
-		private static string resourcesFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LoLStats\resources";
+		private static string resourcesFolder = roamingFolder + @"/resources";
 
 		public static void PrepareRoaming()
 		{
@@ -29,6 +29,10 @@ namespace RitoConnector
 			{
 				Directory.CreateDirectory(resourcesFolder + "/RankedIcons");
 			}
+			if (!Directory.Exists(roamingFolder + "/jsonraw"))
+			{
+				Directory.CreateDirectory(roamingFolder + "/jsonraw");
+			}
 		}
 
 		public static void ResetCache()
@@ -37,6 +41,18 @@ namespace RitoConnector
 			{
 				Directory.Delete(resourcesFolder, true);
 			}
+		}
+
+		public void saveJson(string filename, string rawjson)
+		{
+			// Summoner JSON has Form Summoner-SummonerName
+			// Ranked JSON has Form Ranked-SummonerName
+			File.WriteAllText(filename + ".json", rawjson);
+		}
+
+		public void getJson()
+		{
+			//WIP
 		}
 
 		public BitmapImage ProfileIcon(int profileIconId)

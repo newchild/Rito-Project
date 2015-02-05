@@ -54,7 +54,7 @@ namespace RitoConnector
 	        var key = ApiKey.Text == "" ? Keyloader.GetRealKey() : ApiKey.Text;
 
 	        var db = new SqlManager();
-	        if (!db.UserInDatabase(username, region))
+			if (!db.UserInDatabase(username, region))
 	        {
 		        var connection = new Riotconnect(username, region, key);
 		        if (connection.IsValid())

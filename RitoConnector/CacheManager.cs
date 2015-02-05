@@ -43,18 +43,21 @@ namespace RitoConnector
 			}
 		}
 
-		public void saveJson(string filename, string rawjson)
+		public static void saveJson(string filename, string rawjson)
 		{
 			// Summoner JSON has Form Summoner-SummonerName
 			// Ranked JSON has Form Ranked-SummonerName
-			File.WriteAllText(filename + ".json", rawjson);
+			File.WriteAllText(resourcesFolder +"/" + filename + ".json", rawjson);
 		}
 
-		public void getJson()
+		public static string getJson(string filename)
 		{
-			//WIP
+			return File.ReadAllText(resourcesFolder + "/" + filename + ".json");
 		}
-
+		public static string getRessources()
+		{
+			return resourcesFolder + "/";
+		}
 		public BitmapImage ProfileIcon(int profileIconId)
 		{
 			var logo = new BitmapImage();

@@ -34,6 +34,7 @@ namespace RitoConnector
             }
             var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonraw);
             var cleanSummonerJson = tempjson[username.ToLower().Replace(" ",string.Empty)].ToString();
+			
             _user = JsonConvert.DeserializeObject<SummonerDto>(cleanSummonerJson);
         }
         public int GetProfileIcon()

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,6 +41,7 @@ namespace RitoConnector
 
         private void Connect(object sender, RoutedEventArgs e)
         {
+			string playerdivion = "";
 			var cache = new CacheManager();
 			CacheManager.PrepareRoaming();		//Creates Local Files if necessary
 
@@ -145,14 +148,47 @@ namespace RitoConnector
 		    RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
 
 			//WIP
+			var rankjson = "";
+			if(File.Exists(CacheManager.getRessources() + db.GetUserId(username,region) +  ".json")){
+				rankjson = CacheManager.getJson(db.GetUserId(username,region).ToString());
+			}
+			else
+			{
+				MessageBox.Show("Added new user. Please restart to reload");
+				this.Close();
+				return;
+			}
+			var rankedStatus = JsonConvert.DeserializeObject<RankedDto>(rankjson);
 			ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
             Dictionary<string, int> test = new Dictionary<string, int>();
-            foreach (var user in ) // edit
+			
+			foreach (var rank in rankedStatus.RankedId)
+			{
+				if (rank.Queue == "RANKED_SOLO_5x5")
+				{
+					foreach (var person in rank.Entries)
+					{
+						if (username ==person.PlayerOrTeamName)
+						{
+							playerdivion = person.Division;
+						}
+					}
+				}
+
+			}
+            foreach (var rankedID in rankedStatus.RankedId) // edit
             {
-					if (user.Division == Connection2.GetRankedSoloDivision())
-                    {
-						test.Add(user.PlayerOrTeamName, user.LeaguePoints);
-                    }
+				if (rankedID.Queue == "RANKED_SOLO_5x5")
+				{
+					foreach (var user in rankedID.Entries)
+					{
+						if (user.Division == playerdivion)
+						{
+							test.Add(user.PlayerOrTeamName, user.LeaguePoints);
+						}
+						
+					}
+				}
 			}
 			var sortedDict = from entry in test orderby entry.Value descending select entry;
 			foreach (var user in sortedDict)
@@ -160,15 +196,21 @@ namespace RitoConnector
 				if (user.Value == 100)
 				{
 					string HotStreak = "";
-					foreach (Entry user2 in Connection2.GetSoloQueueLeague("s","s"))
-					{
-						if (user2.PlayerOrTeamName == user.Key)
+					
+						foreach (var rankedID in rankedStatus.RankedId) // edit
+						{
+						if (rankedID.Queue == "RANKED_SOLO_5x5")
+						{
+							foreach (var user2 in rankedID.Entries)
 							{
-								HotStreak = user2.MiniSeries.Progress;
-								//NEW: db.GetMiniseries(USERNAME, REGION);
+								if (user2.PlayerOrTeamName == user.Key)
+								{
+									HotStreak = user2.MiniSeries.Progress;
+								}
 							}
+						}
 					}
-					NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP | " + HotStreak.Replace("N","_ ").Replace("L","X").Replace("W","✓"));
+						NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP | " + HotStreak.Replace("N", "_ ").Replace("L", "X").Replace("W", "✓"));
 				}
 				else
 				{

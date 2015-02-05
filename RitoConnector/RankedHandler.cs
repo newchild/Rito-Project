@@ -53,6 +53,7 @@ namespace RitoConnector
             var tempjson = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonraw);
             jsonraw = tempjson[userid.ToString()].ToString();
             jsonraw = "{ \"standard\" : " + jsonraw + "}" ;
+			CacheManager.saveJson(userid + "",jsonraw);
             _rankedStatus = JsonConvert.DeserializeObject<RankedDto>(jsonraw);
         }
         /// <summary>

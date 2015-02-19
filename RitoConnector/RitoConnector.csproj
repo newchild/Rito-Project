@@ -35,7 +35,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueAPI">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.2.1.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueAPI.Champion">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Champion.1.2.3\lib\portable-net45+win+wpa81+wp80\PortableLeagueAPI.Champion.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.Core">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Core.2.2.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.Game">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Game.1.3.9\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.Interfaces">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Interfaces.1.2.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.League">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.League.2.4.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.League.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.Static">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Static.1.3.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Static.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.Stats">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Stats.1.3.3\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Stats.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.Summoner">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Summoner.1.4.3\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Summoner.dll</HintPath>
+    </Reference>
+    <Reference Include="PortableLeagueApi.Team">
+      <HintPath>..\packages\Remake.PortableLeagueAPI.Team.2.3.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Team.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
@@ -43,6 +82,14 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\System.Data.SQLite\2013\bin\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -65,6 +112,7 @@
     <Compile Include="Entry.cs" />
     <Compile Include="FellowPlayer.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="ItemConverter.cs" />
     <Compile Include="Keyloader.cs" />
     <Compile Include="Matchhistory.cs" />
     <Compile Include="MatchhistoryDTO.cs" />
@@ -111,6 +159,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,6 +170,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

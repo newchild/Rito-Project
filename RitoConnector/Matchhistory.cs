@@ -191,7 +191,6 @@ namespace RitoConnector
         }
         private string GetRealMode(string matchmode)
         {
-            MessageBox.Show(matchmode);
             switch (matchmode)
             {
                 case "CUSTOM_GAME":

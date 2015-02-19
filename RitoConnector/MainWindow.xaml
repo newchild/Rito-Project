@@ -89,9 +89,14 @@
 			</TabItem>
 			<TabItem Header="Match History">
 				<Grid>
-                    <ListBox x:Name="Matchhistorybox" HorizontalAlignment="Left" Height="267" Margin="10,25,0,0" VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="White" SelectionChanged="RankedLeague_SelectionChanged"/>
-                </Grid>
-            </TabItem>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="66*"/>
+						<ColumnDefinition Width="433*"/>
+					</Grid.ColumnDefinitions>
+					<ListBox x:Name="Matchhistorybox" HorizontalAlignment="Left" Height="267" Margin="10,25,0,0" VerticalAlignment="Top" Width="150" Background="{x:Null}" BorderBrush="White" SelectionChanged="MatchHistory_SelectionChanged" Grid.ColumnSpan="2"/>
+					<ListBox x:Name="MatchhistoryInfo" HorizontalAlignment="Left" Height="267" Margin="99,25,0,0" VerticalAlignment="Top" Width="324" Background="{x:Null}" BorderBrush="White" Grid.Column="1"/>
+				</Grid>
+			</TabItem>
 			<TabItem Header="Masteries">
 				<Grid/>
 			</TabItem>

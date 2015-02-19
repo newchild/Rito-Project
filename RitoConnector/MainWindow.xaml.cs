@@ -13,6 +13,8 @@ namespace RitoConnector
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+	/// 
+	
     public partial class MainWindow
     {
         public MainWindow()
@@ -21,7 +23,8 @@ namespace RitoConnector
             MouseLeftButtonDown += delegate { this.DragMove();};
             
         }
-
+		ObservableCollection<int> Games = new ObservableCollection<int>();
+		Dictionary<int, string> MatchInfo = new Dictionary<int, string>();
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -39,8 +42,8 @@ namespace RitoConnector
             BeginAnimation(OpacityProperty, anim);
         }
 
-        private void Connect(object sender, RoutedEventArgs e)
-        {
+		private async void  Connect(object sender, RoutedEventArgs e)
+		{
 			string playerdivion = "";
 			var cache = new CacheManager();
 			CacheManager.PrepareRoaming();		//Creates Local Files if necessary
@@ -54,29 +57,29 @@ namespace RitoConnector
 			}
 			var region = RegionBox.SelectedItem.ToString();
 
-	        var key = ApiKey.Text == "" ? Keyloader.GetRealKey() : ApiKey.Text;
+			var key = ApiKey.Text == "" ? Keyloader.GetRealKey() : ApiKey.Text;
 
-	        var db = new SqlManager();
+			var db = new SqlManager();
 			if (!db.UserInDatabase(username, region))
-	        {
-		        var connection = new Riotconnect(username, region, key);
-		        if (connection.IsValid())
-		        {
-			        db.InsertUserinDatabase(connection.GetUserId(), region, username, connection.GetUsername(), connection.GetSummonerLevel(), connection.GetProfileIcon());	
-		        }
-		        else
-		        {
-			        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+			{
+				var connection = new Riotconnect(username, region, key);
+				if (connection.IsValid())
+				{
+					db.InsertUserinDatabase(connection.GetUserId(), region, username, connection.GetUsername(), connection.GetSummonerLevel(), connection.GetProfileIcon());
+				}
+				else
+				{
+					MessageBox.Show("Connection to the Riot Server failed. Please try again later");
 					db.CloseConnection();
 					return;
-		        }
-		        if (db.GetLevel(username, region) == 30)
-		        {
-			        //only starts Ranked Call if Summoner is Level 30
-			        var rankedConnection = new RankedHandler(db.GetUserId(username, region), region, key);
-			        if (rankedConnection.IsValid())
-			        {
-				        db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(),rankedConnection.GetLeagueName(), rankedConnection.GetLpByUser(username), rankedConnection.GetMiniSeriesUserId(username));
+				}
+				if (db.GetLevel(username, region) == 30)
+				{
+					//only starts Ranked Call if Summoner is Level 30
+					var rankedConnection = new RankedHandler(db.GetUserId(username, region), region, key);
+					if (rankedConnection.IsValid())
+					{
+						db.UpdateRank(username, region, rankedConnection.GetRankedSoloTier(), rankedConnection.GetRankedSoloDivision(), rankedConnection.GetLeagueName(), rankedConnection.GetLpByUser(username), rankedConnection.GetMiniSeriesUserId(username));
 						string rawIDList = rankedConnection.GetLeagueIdList(rankedConnection.GetRankedSoloDivision(), region);
 						string[] IDList = rawIDList.Split(',');
 						if (IDList.Length <= 40)
@@ -98,7 +101,7 @@ namespace RitoConnector
 							int n = 0;
 							foreach (string ID in IDList)
 							{
-								if(n < 40)
+								if (n < 40)
 								{
 									splitIDList += ID + ",";
 									m++;
@@ -121,36 +124,37 @@ namespace RitoConnector
 							}
 						}
 					}
-			        else
-			        {
-				        MessageBox.Show("Connection to the Riot Server failed. Please try again later");
+					else
+					{
+						MessageBox.Show("Connection to the Riot Server failed. Please try again later");
 						db.CloseConnection();
 						return;
-			        }
-		        }
-		        else
-		        {
-			        db.UpdateRank(username, region, "Unranked", null,null,null,null);
-		        }
-	        }
-	        //Sets Name
-		    UsernameLabel.Text = db.GetName(username, region);
-	
-		    //Sets Profile Icon
-		    ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId( username, region));
+					}
+				}
+				else
+				{
+					db.UpdateRank(username, region, "Unranked", null, null, null, null);
+				}
+			}
+			//Sets Name
+			UsernameLabel.Text = db.GetName(username, region);
 
-		    //Sets Level
-		    LevelLabel.Text = db.GetLevel(username, region).ToString();
+			//Sets Profile Icon
+			ProfileIcon.Source = cache.ProfileIcon(db.GetProfileIconId(username, region));
 
-		    //Sets Ranked
-		    Rankstatus.Text = db.GetSoloTier(username, region);
-		    Divisionstatus.Text = db.GetSoloDivision(username, region);
-		    RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
+			//Sets Level
+			LevelLabel.Text = db.GetLevel(username, region).ToString();
+
+			//Sets Ranked
+			Rankstatus.Text = db.GetSoloTier(username, region);
+			Divisionstatus.Text = db.GetSoloDivision(username, region);
+			RankedImage.Source = cache.RankedIcon(db.GetSoloTier(username, region), db.GetSoloDivision(username, region));
 
 			//WIP
 			var rankjson = "";
-			if(File.Exists(CacheManager.getRessources() + db.GetUserId(username,region) +  ".json")){
-				rankjson = CacheManager.getJson(db.GetUserId(username,region).ToString());
+			if (File.Exists(CacheManager.getRessources() + db.GetUserId(username, region) + ".json"))
+			{
+				rankjson = CacheManager.getJson(db.GetUserId(username, region).ToString());
 			}
 			else
 			{
@@ -160,15 +164,15 @@ namespace RitoConnector
 			}
 			var rankedStatus = JsonConvert.DeserializeObject<RankedDto>(rankjson);
 			ObservableCollection<string> NameListLeague = new ObservableCollection<string>();
-            Dictionary<string, int> test = new Dictionary<string, int>();
-			
+			Dictionary<string, int> test = new Dictionary<string, int>();
+
 			foreach (var rank in rankedStatus.RankedId)
 			{
 				if (rank.Queue == "RANKED_SOLO_5x5")
 				{
 					foreach (var person in rank.Entries)
 					{
-						if (username ==person.PlayerOrTeamName)
+						if (username == person.PlayerOrTeamName)
 						{
 							playerdivion = person.Division;
 						}
@@ -176,8 +180,8 @@ namespace RitoConnector
 				}
 
 			}
-            foreach (var rankedID in rankedStatus.RankedId) // edit
-            {
+			foreach (var rankedID in rankedStatus.RankedId) // edit
+			{
 				if (rankedID.Queue == "RANKED_SOLO_5x5")
 				{
 					foreach (var user in rankedID.Entries)
@@ -186,7 +190,7 @@ namespace RitoConnector
 						{
 							test.Add(user.PlayerOrTeamName, user.LeaguePoints);
 						}
-						
+
 					}
 				}
 			}
@@ -196,9 +200,9 @@ namespace RitoConnector
 				if (user.Value == 100)
 				{
 					string HotStreak = "";
-					
-						foreach (var rankedID in rankedStatus.RankedId) // edit
-						{
+
+					foreach (var rankedID in rankedStatus.RankedId) // edit
+					{
 						if (rankedID.Queue == "RANKED_SOLO_5x5")
 						{
 							foreach (var user2 in rankedID.Entries)
@@ -210,7 +214,7 @@ namespace RitoConnector
 							}
 						}
 					}
-						NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP | " + HotStreak.Replace("N", "_ ").Replace("L", "X").Replace("W", "✓"));
+					NameListLeague.Add(user.Key + " " + user.Value.ToString() + " LP | " + HotStreak.Replace("N", "_ ").Replace("L", "X").Replace("W", "✓"));
 				}
 				else
 				{
@@ -223,40 +227,67 @@ namespace RitoConnector
 
 
 			//Switches to Profile Tab
-		    Tabs.SelectedIndex = 1;
-	        db.CloseConnection();
-		}
-	        
-		/*
-                    }
-                    Matchhistory matches = new Matchhistory(db.GetUserId(username,region), region, key);
-                    ObservableCollection<string> Games= new ObservableCollection<string>();
-                    if (matches.IsValid())
-                    {
-                        
-                        foreach (var Match in matches.GetGames())
-                        {
-							Games.Add(ChampionTransform.GetChampName(Match.ChampionId) + " " + matches.GetStats(Match.GameId) + " " + matches.GetGameType(Match.GameId) + " " + matches.GetFarm(Match.GameId));
+			Tabs.SelectedIndex = 1;
 
-                        }
-                        Matchhistorybox.ItemsSource = Games;
-                    }
-                
-                else
-                {
-                    MessageBox.Show("An unknown Error has occured. Please try again later");
-                }
-		*/
+
+
+
+			Matchhistory matches = new Matchhistory(db.GetUserId(username, region), region, key);
+			
+			if (matches.IsValid())
+			{
+
+				foreach (var Match in matches.GetGames())
+				{
+					Games.Add(Match.GameId);
+					MatchInfo.Add(Match.GameId, "Gamemode: " + matches.GetGameType(Match.GameId) + "\n" + "IP Earned: " + Match.IpEarned + "\n" + "Items: 1->" + await ItemConverter.getItem(Match.Stats.Item0, region, Keyloader.GetRealKey()) + " 2->" + await ItemConverter.getItem(Match.Stats.Item1, region, Keyloader.GetRealKey()) + " 3->" + await ItemConverter.getItem(Match.Stats.Item2, region, Keyloader.GetRealKey()) + " 4->" + await ItemConverter.getItem(Match.Stats.Item3, region, Keyloader.GetRealKey()) + " 5->" + await ItemConverter.getItem(Match.Stats.Item4, region, Keyloader.GetRealKey()) + " 6->" + await ItemConverter.getItem(Match.Stats.Item5, region, Keyloader.GetRealKey()) + " 7->" + await ItemConverter.getItem(Match.Stats.Item6, region, Keyloader.GetRealKey()) + " 1"); 
+
+				}
+				Matchhistorybox.ItemsSource = Games;
+			}
+
+			else
+			{
+				MessageBox.Show("An unknown Error has occured. Please try again later");
+			}
+			db.CloseConnection();
+		}
 
         private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 			RankedLeague.UnselectAll();
         }
 
+
 		private void Reset(object sender, RoutedEventArgs e)
 		{
 			SqlManager.ResetDb();
 			CacheManager.ResetCache();
+		}
+		private  DateTime ToDateTime(int synonDate)
+		{
+			int day = synonDate % 100;
+			int dateWithoutDay = synonDate / 100;
+			int month = dateWithoutDay % 100;
+			int dateWithoutDayAndMonth = dateWithoutDay / 100;
+			int year = dateWithoutDayAndMonth % 100;
+			int century = dateWithoutDayAndMonth / 100;
+
+			if (0 == day || 0 == month)
+					return new DateTime();
+			else
+					return new DateTime((19 + century) * 100 + year, month, day);
+		}
+		private void MatchHistory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ObservableCollection<string> GamesBuffer = new ObservableCollection<string>();
+			if (Matchhistorybox.SelectedValue != null){
+				
+				GamesBuffer.Add(MatchInfo[(int)Matchhistorybox.SelectedValue]);
+				MatchhistoryInfo.ItemsSource = GamesBuffer;
+			}	
+			else
+				MatchhistoryInfo.ItemsSource = "Meh";
 		}
     }
 }

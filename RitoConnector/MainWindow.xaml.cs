@@ -240,7 +240,7 @@ namespace RitoConnector
 				foreach (var Match in matches.GetGames())
 				{
 					Games.Add(Match.GameId);
-					MatchInfo.Add(Match.GameId, "Gamemode: " + matches.GetGameType(Match.GameId) + "\n" + "IP Earned: " + Match.IpEarned + "\n" + "Items: 1->" + await ItemConverter.getItem(Match.Stats.Item0, region, Keyloader.GetRealKey()) + " 2->" + await ItemConverter.getItem(Match.Stats.Item1, region, Keyloader.GetRealKey()) + " 3->" + await ItemConverter.getItem(Match.Stats.Item2, region, Keyloader.GetRealKey()) + " 4->" + await ItemConverter.getItem(Match.Stats.Item3, region, Keyloader.GetRealKey()) + " 5->" + await ItemConverter.getItem(Match.Stats.Item4, region, Keyloader.GetRealKey()) + " 6->" + await ItemConverter.getItem(Match.Stats.Item5, region, Keyloader.GetRealKey()) + " 7->" + await ItemConverter.getItem(Match.Stats.Item6, region, Keyloader.GetRealKey()) + " 1"); 
+					MatchInfo.Add(Match.GameId, "Gamemode: " + matches.GetGameType(Match.GameId) + "\n" + "IP Earned: " + Match.IpEarned + "\n" + "Items: 1->" + Match.Stats.Item0 + " 2->" +Match.Stats.Item1 + " 3->" + Match.Stats.Item2 + " 4->" + Match.Stats.Item3 + " 5->" + Match.Stats.Item4 + " 6->" + Match.Stats.Item5 + " 7->" + Match.Stats.Item6 + " 1"); 
 
 				}
 				Matchhistorybox.ItemsSource = Games;

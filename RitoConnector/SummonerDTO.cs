@@ -2,10 +2,8 @@
 
 namespace RitoConnector
 {
-
-    public class SummonerDto
+    public abstract class SummonerDto
     {
-
         [JsonProperty("id")]
         public int Id { get; set; }
 
@@ -21,5 +19,4 @@ namespace RitoConnector
         [JsonProperty("summonerLevel")]
         public int SummonerLevel { get; set; }
     }
-
 }

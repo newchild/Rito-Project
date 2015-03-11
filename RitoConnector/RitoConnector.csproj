@@ -45,36 +45,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PortableLeagueAPI">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.2.1.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueAPI.Champion">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Champion.1.2.3\lib\portable-net45+win+wpa81+wp80\PortableLeagueAPI.Champion.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.Core">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Core.2.2.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.Game">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Game.1.3.9\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Game.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.Interfaces">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Interfaces.1.2.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.League">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.League.2.4.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.League.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.Static">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Static.1.3.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Static.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.Stats">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Stats.1.3.3\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Stats.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.Summoner">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Summoner.1.4.3\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Summoner.dll</HintPath>
-    </Reference>
-    <Reference Include="PortableLeagueApi.Team">
-      <HintPath>..\packages\Remake.PortableLeagueAPI.Team.2.3.1\lib\portable-net45+win+wpa81+wp80\PortableLeagueApi.Team.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">

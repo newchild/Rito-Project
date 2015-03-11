@@ -7,8 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using PortableLeagueAPI;
-using PortableLeagueApi.Interfaces.Enums;
+
 
 namespace RitoConnector
 {

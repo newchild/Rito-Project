@@ -15,17 +15,29 @@ namespace RitoConnector
 	class ItemConverter
 	{
 
-		public async static Task<string> getItem(int? id, string region, string key)
-		{
-			var leagueAPI = new LeagueApi(Keyloader.GetRealKey(), RegionEnum.Euw, true);
-			int itemID = id.Value;
-
-			var item = await leagueAPI.Static.GetItemsAsync(
-				itemID,
-				ItemDataEnum.All,
-				languageCode: LanguageEnum.EnglishUS);
-			return item.Name;
-		}
+		public static string getItemName(string ItemID,string region, string key)
+        {
+            if (ItemID == string.Empty || ItemID == "0")
+                return "None";
+	        string jsonraw;
+            WebResponse response;
+            var uri = "https://global.api.pvp.net/api/lol/static-data/" + region.ToLower() + "/v1.2/item/" + ItemID + "?itemData=all&api_key=" + key;
+            var connectionListener = WebRequest.Create(uri);
+            connectionListener.ContentType = "application/json; charset=utf-8";
+            try
+            {
+                response = connectionListener.GetResponse();
+            }
+            catch(WebException e){
+                   return "Error";
+            }
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                jsonraw = sr.ReadToEnd();
+            }
+            var tempjson = JsonConvert.DeserializeObject<ItemConverterDTO.Items>(jsonraw);
+            return tempjson.Name;
+        }
 	}
 }
 

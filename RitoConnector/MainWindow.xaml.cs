@@ -240,7 +240,32 @@ namespace RitoConnector
 				foreach (var Match in matches.GetGames())
 				{
 					Games.Add(Match.GameId);
-					MatchInfo.Add(Match.GameId, "Gamemode: " + matches.GetGameType(Match.GameId) + "\n" + "IP Earned: " + Match.IpEarned + "\n" + "Items: 1->" + Match.Stats.Item0 + " 2->" +Match.Stats.Item1 + " 3->" + Match.Stats.Item2 + " 4->" + Match.Stats.Item3 + " 5->" + Match.Stats.Item4 + " 6->" + Match.Stats.Item5 + " 7->" + Match.Stats.Item6 + " 1"); 
+                    string ItemBuild = "";
+                    int[] items = new int[7];
+                   
+                        items[0] = Match.Stats.Item0;
+                   
+                        items[1] = Match.Stats.Item1;
+                    
+                        items[2] = Match.Stats.Item2;
+                   
+                        items[3] = Match.Stats.Item3;
+                    
+                        items[4] = Match.Stats.Item4;
+                    if (Match.Stats.Item5 != null)
+                        items[5] = Match.Stats.Item5.Value;
+                    else
+                        items[5] = 0;
+                    
+                        items[6] = Match.Stats.Item6;
+                   
+
+
+                    foreach(var element in items){
+                        ItemBuild += " " + ItemConverter.getItemName(element.ToString(),region,Keyloader.GetRealKey()) + " |";
+                    }
+                    ItemBuild = ItemBuild.Remove(0, 1);
+                    MatchInfo.Add(Match.GameId,"Champion: " + ChampionTransform.GetChampName(Match.ChampionId) + "\n" + "Gamemode: " + matches.GetGameType(Match.GameId) + "\n" + "IP Earned: " + Match.IpEarned + "\n" + ItemBuild);
 
 				}
 				Matchhistorybox.ItemsSource = Games;

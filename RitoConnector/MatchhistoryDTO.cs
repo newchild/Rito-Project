@@ -5,15 +5,12 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-
-    public class MatchhistoryDto
+    public abstract class MatchhistoryDto
     {
-
         [JsonProperty("summonerId")]
         public int SummonerId { get; set; }
 
         [JsonProperty("games")]
         public Game[] Games { get; set; }
     }
-
 }

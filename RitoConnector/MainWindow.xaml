@@ -1,109 +1,145 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="RitoConnector.MainWindow"
-        Title="Riot Connector" Height="350" Width="538" Visibility="Visible" BorderThickness="2" Background="#FF3F3F46" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<Grid>
-		<TabControl x:Name="Tabs" HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
-			<TabItem Header="Settings">
-				<Grid>
-					<TextBox x:Name="UsernameTextbox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="427" TextChanged="TextBox_TextChanged">
-						<TextBox.Style>
-							<Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-								<Style.Resources>
-									<VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-										<VisualBrush.Visual>
-											<Label Content="Username" Foreground="LightGray" />
-										</VisualBrush.Visual>
-									</VisualBrush>
-								</Style.Resources>
-								<Style.Triggers>
-									<Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-										<Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-									</Trigger>
-									<Trigger Property="Text" Value="{x:Null}">
-										<Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-									</Trigger>
-									<Trigger Property="IsKeyboardFocused" Value="True">
-										<Setter Property="Background" Value="Transparent" />
-										<Setter Property="Foreground" Value="LightGray" />
-									</Trigger>
-									<Trigger Property="IsKeyboardFocused" Value="false">
-										<Setter Property="Background" Value="Transparent" />
-										<Setter Property="Foreground" Value="LightGray" />
-									</Trigger>
-								</Style.Triggers>
-							</Style>
-						</TextBox.Style>
-					</TextBox>
-					<ComboBox ItemsSource="{DynamicResource Regions}" x:Name="RegionBox" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="103" SelectionChanged="ComboBox_SelectionChanged"/>
-					<TextBox x:Name="ApiKey" HorizontalAlignment="Left" Height="23" Margin="107,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" TextChanged="TextBox_TextChanged">
-						<TextBox.Style>
-							<Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-								<Style.Resources>
-									<VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-										<VisualBrush.Visual>
-											<Label Content="Custom Riot Games API Key [ Leave Empty if none ]" Foreground="LightGray" />
-										</VisualBrush.Visual>
-									</VisualBrush>
-								</Style.Resources>
-								<Style.Triggers>
-									<Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-										<Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-									</Trigger>
-									<Trigger Property="Text" Value="{x:Null}">
-										<Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-									</Trigger>
-									<Trigger Property="IsKeyboardFocused" Value="True">
-										<Setter Property="Background" Value="Transparent" />
-										<Setter Property="Foreground" Value="LightGray" />
-									</Trigger>
-									<Trigger Property="IsKeyboardFocused" Value="false">
-										<Setter Property="Background" Value="Transparent" />
-										<Setter Property="Foreground" Value="LightGray" />
-									</Trigger>
-								</Style.Triggers>
-							</Style>
-						</TextBox.Style>
-					</TextBox>
-					<Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="0,75,0,0" VerticalAlignment="Top" Width="75" Click="Connect"/>
-					<Button x:Name="ConnectButtonCopy" Content="Reset" HorizontalAlignment="Left" Margin="0,276,0,0" VerticalAlignment="Top" Width="75" Click="Reset"/>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Profile">
-				<Grid>
-					<Image x:Name="ProfileIcon" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="10,10,0,0"/>
-					<TextBlock x:Name="UsernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="115,10,0,0" Width="91"/>
-					<TextBlock x:Name="LevelLabel" HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="68"/>
-					<Image Name="RankedImage" HorizontalAlignment="Left" Height="100" Margin="10,115,0,0" VerticalAlignment="Top" Width="100"/>
-					<TextBlock Text="Rank:" x:Name="Ranklabel" HorizontalAlignment="Left" Margin="110,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
-					<TextBlock Text="RANKED" x:Name="Rankstatus" HorizontalAlignment="Left" Margin="178,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
-					<TextBlock Text="DIVISION" x:Name="Divisionstatus" HorizontalAlignment="Left" Margin="178,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
-					<TextBlock Text="Divison:" x:Name="Divisionlabel" HorizontalAlignment="Left" Margin="110,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.529,0.752"/>
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:D="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:Mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Mc:Ignorable="D"
+    x:Class="RitoConnector.MainWindow"
+    Title="Riot Connector" Height="350" Width="538" Visibility="Visible" BorderThickness="2" Background="#FF3F3F46"
+    AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize">
+    <Grid>
+        <TabControl x:Name="_tabs" HorizontalAlignment="Left" Height="330" VerticalAlignment="Top" Width="505"
+                    Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,10,0,0" Grid.RowSpan="2">
+            <TabItem Header="Settings">
+                <Grid>
+                    <TextBox x:Name="_usernameTextbox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"
+                             VerticalAlignment="Top" Width="427" TextChanged="TextBoxTextChanged">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" xmlns:Sys="clr-namespace:System;assembly=mscorlib">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center"
+                                                 Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Username" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static Sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Foreground" Value="LightGray" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="false">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Foreground" Value="LightGray" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <ComboBox ItemsSource="{DynamicResource Regions}" x:Name="_regionBox" HorizontalAlignment="Left"
+                              Margin="0,28,0,0" VerticalAlignment="Top" Width="103"
+                              SelectionChanged="ComboBoxSelectionChanged" />
+                    <TextBox x:Name="_apiKey" HorizontalAlignment="Left" Height="23" Margin="107,28,0,0"
+                             TextWrapping="Wrap" VerticalAlignment="Top" Width="320" TextChanged="TextBoxTextChanged">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" xmlns:Sys="clr-namespace:System;assembly=mscorlib">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center"
+                                                 Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Custom Riot Games API Key [ Leave Empty if none ]"
+                                                   Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static Sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Foreground" Value="LightGray" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="false">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Foreground" Value="LightGray" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Button x:Name="_connectButton" Content="Connect" HorizontalAlignment="Left" Margin="0,75,0,0"
+                            VerticalAlignment="Top" Width="75" Click="Connect" />
+                    <Button x:Name="_connectButtonCopy" Content="Reset" HorizontalAlignment="Left" Margin="0,276,0,0"
+                            VerticalAlignment="Top" Width="75" Click="Reset" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Profile">
+                <Grid>
+                    <Image x:Name="_profileIcon" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top"
+                           Width="100" Margin="10,10,0,0" />
+                    <TextBlock x:Name="_usernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock"
+                               VerticalAlignment="Top" Margin="115,10,0,0" Width="91" />
+                    <TextBlock x:Name="_levelLabel" HorizontalAlignment="Left" Margin="115,31,0,0" TextWrapping="Wrap"
+                               Text="TextBlock" VerticalAlignment="Top" Width="68" />
+                    <Image Name="_rankedImage" HorizontalAlignment="Left" Height="100" Margin="10,115,0,0"
+                           VerticalAlignment="Top" Width="100" />
+                    <TextBlock Text="Rank:" x:Name="_ranklabel" HorizontalAlignment="Left" Margin="110,115,0,0"
+                               TextWrapping="Wrap" VerticalAlignment="Top" Width="68"
+                               RenderTransformOrigin="0.529,0.752" />
+                    <TextBlock Text="RANKED" x:Name="_rankstatus" HorizontalAlignment="Left" Margin="178,115,0,0"
+                               TextWrapping="Wrap" VerticalAlignment="Top" Width="68"
+                               RenderTransformOrigin="0.529,0.752" />
+                    <TextBlock Text="DIVISION" x:Name="_divisionstatus" HorizontalAlignment="Left" Margin="178,148,0,0"
+                               TextWrapping="Wrap" VerticalAlignment="Top" Width="68"
+                               RenderTransformOrigin="0.529,0.752" />
+                    <TextBlock Text="Divison:" x:Name="_divisionlabel" HorizontalAlignment="Left" Margin="110,148,0,0"
+                               TextWrapping="Wrap" VerticalAlignment="Top" Width="68"
+                               RenderTransformOrigin="0.529,0.752" />
 
-					<Label Content="Last Update:" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top"/>
-					<Label Name="UpdateLaper" Content="NEVER" HorizontalAlignment="Left" Margin="91,273,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.868,0.269"/>
-					<TextBlock  HorizontalAlignment="Left" Margin="307,10,0,0" TextWrapping="Wrap" Text="League:" VerticalAlignment="Top"/>
-					<ListBox Name="RankedLeague" HorizontalAlignment="Left" Height="267" Margin="307,31,0,0" VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="White" SelectionChanged="RankedLeague_SelectionChanged"/>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Match History">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="66*"/>
-						<ColumnDefinition Width="433*"/>
-					</Grid.ColumnDefinitions>
-					<ListBox x:Name="Matchhistorybox" HorizontalAlignment="Left" Height="267" Margin="10,25,0,0" VerticalAlignment="Top" Width="150" Background="{x:Null}" BorderBrush="White" SelectionChanged="MatchHistory_SelectionChanged" Grid.ColumnSpan="2"/>
-					<ListBox x:Name="MatchhistoryInfo" HorizontalAlignment="Left" Height="267" Margin="99,25,0,0" VerticalAlignment="Top" Width="324" Background="{x:Null}" BorderBrush="White" Grid.Column="1"/>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Masteries">
-				<Grid/>
-			</TabItem>
-			<TabItem Header="Runes">
-				<Grid/>
-			</TabItem>
-		</TabControl>
-		<Button Margin="519,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="Button_Click" Width="15"/>
-	</Grid>
+                    <Label Content="Last Update:" HorizontalAlignment="Left" Margin="10,273,0,0"
+                           VerticalAlignment="Top" />
+                    <Label Name="_updateLaper" Content="NEVER" HorizontalAlignment="Left" Margin="91,273,0,0"
+                           VerticalAlignment="Top" RenderTransformOrigin="1.868,0.269" />
+                    <TextBlock HorizontalAlignment="Left" Margin="307,10,0,0" TextWrapping="Wrap" Text="League:"
+                               VerticalAlignment="Top" />
+                    <ListBox Name="_rankedLeague" HorizontalAlignment="Left" Height="267" Margin="307,31,0,0"
+                             VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="White"
+                             SelectionChanged="RankedLeagueSelectionChanged" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Match History">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="66*" />
+                        <ColumnDefinition Width="433*" />
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="_matchhistorybox" HorizontalAlignment="Left" Height="267" Margin="10,25,0,0"
+                             VerticalAlignment="Top" Width="150" Background="{x:Null}" BorderBrush="White"
+                             SelectionChanged="MatchHistorySelectionChanged" Grid.ColumnSpan="2" />
+                    <ListBox x:Name="_matchhistoryInfo" HorizontalAlignment="Left" Height="267" Margin="99,25,0,0"
+                             VerticalAlignment="Top" Width="324" Background="{x:Null}" BorderBrush="White"
+                             Grid.Column="1" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Masteries">
+                <Grid />
+            </TabItem>
+            <TabItem Header="Runes">
+                <Grid />
+            </TabItem>
+        </TabControl>
+        <Button Margin="519,0,0,0" VerticalAlignment="Top" Height="15" Background="#FFD11B1B" Click="ButtonClick"
+                Width="15" />
+    </Grid>
 </Window>

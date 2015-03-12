@@ -5,10 +5,8 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-
-    public class MiniSeries
+    public abstract class MiniSeries
     {
-
         [JsonProperty("progress")]
         public string Progress { get; set; }
 
@@ -21,5 +19,4 @@ namespace RitoConnector
         [JsonProperty("wins")]
         public int Wins { get; set; }
     }
-
 }

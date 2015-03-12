@@ -1,11 +1,10 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-    class MultiIDclass
+    internal class MultiIDclass
     {
-         [JsonProperty("user")]
+        [JsonProperty("user")]
         public User User { get; set; }
     }
 }

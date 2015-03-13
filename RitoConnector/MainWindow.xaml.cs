@@ -25,24 +25,24 @@ namespace RitoConnector
         }
 		ObservableCollection<int> Games = new ObservableCollection<int>();
 		Dictionary<int, string> MatchInfo = new Dictionary<int, string>();
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonClick(object sender, RoutedEventArgs e)
         {
             var anim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
             anim.Completed += (s, _) => Close();
             BeginAnimation(OpacityProperty, anim);
         }
 
-		private async void  Connect(object sender, RoutedEventArgs e)
+		private void  Connect(object sender, RoutedEventArgs e)
 		{
 			string playerdivion = "";
 			var cache = new CacheManager();
@@ -278,7 +278,7 @@ namespace RitoConnector
 			db.CloseConnection();
 		}
 
-        private void RankedLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RankedLeagueSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 			RankedLeague.UnselectAll();
         }
@@ -303,7 +303,7 @@ namespace RitoConnector
 			else
 					return new DateTime((19 + century) * 100 + year, month, day);
 		}
-		private void MatchHistory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void MatchHistorySelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ObservableCollection<string> GamesBuffer = new ObservableCollection<string>();
 			if (Matchhistorybox.SelectedValue != null){

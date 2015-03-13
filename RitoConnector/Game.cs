@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-    public abstract class Game
+
+    public class Game
     {
+
         [JsonProperty("gameId")]
         public int GameId { get; set; }
 
@@ -52,4 +54,5 @@ namespace RitoConnector
         [JsonProperty("stats")]
         public Stats Stats { get; set; }
     }
+
 }

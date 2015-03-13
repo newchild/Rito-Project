@@ -5,67 +5,69 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-    internal class Matchhistory
+    class Matchhistory
     {
         private readonly MatchhistoryDto _matches;
-
         public Matchhistory(int userid, string region, string key)
         {
             string jsonraw;
             WebResponse response;
-            var uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() +
-                      "/v1.3/game/by-summoner/" + userid + "/recent" + "?api_key=" + key;
+            var uri = "https://" + region.ToLower() + ".api.pvp.net/api/lol/" + region.ToLower() + "/v1.3/game/by-summoner/" + userid +"/recent" + "?api_key=" + key;
             var connectionListener = WebRequest.Create(uri);
             connectionListener.ContentType = "application/json; charset=utf-8";
             try
             {
                 response = connectionListener.GetResponse();
             }
-            catch (WebException e)
-            {
-                MessageBox.Show(e.Message);
-                response = null;
-                _matches = null;
-                return;
+            catch(WebException e){
+                   MessageBox.Show(e.Message);
+                   response = null;
+                   _matches = null;
+                   return;
             }
             using (var sr = new StreamReader(response.GetResponseStream()))
             {
                 jsonraw = sr.ReadToEnd();
             }
             _matches = JsonConvert.DeserializeObject<MatchhistoryDto>(jsonraw);
+            
+            
         }
-
+        
         public bool IsValid()
         {
-            if (_matches != null)
-            {
+            if(_matches != null){
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
-
         public Game[] GetGames()
         {
             return _matches.Games;
         }
-
         public string GetChampionName(int matchId)
         {
             Game matchingGame = null;
-            foreach (var match in _matches.Games)
+            foreach(var match in _matches.Games)
             {
                 if (match.GameId == matchId)
                 {
                     matchingGame = match;
                 }
+          
             }
             if (matchingGame != null)
             {
                 return ChampionTransform.GetChampName(matchingGame.ChampionId);
             }
-            return "INVALID";
+            else
+            {
+                return "INVALID";
+            }
         }
-
         public int[] GetMatchhistoryIDs()
         {
             var i = 0;
@@ -77,7 +79,6 @@ namespace RitoConnector
             }
             return test;
         }
-
         public string GetGameType(int matchId)
         {
             Game matchingGame = null;
@@ -87,14 +88,18 @@ namespace RitoConnector
                 {
                     matchingGame = match;
                 }
+
             }
             if (matchingGame != null)
             {
                 return GetRealMode(matchingGame.GameType);
             }
-            return "INVALID";
-        }
+            else
+            {
+                return "INVALID";
+            }
 
+        }
         public string GetGameMap(int matchId)
         {
             Game matchingGame = null;
@@ -104,14 +109,18 @@ namespace RitoConnector
                 {
                     matchingGame = match;
                 }
+
             }
             if (matchingGame != null)
             {
                 return GetRealType(matchingGame.GameMode);
             }
-            return "INVALID";
-        }
+            else
+            {
+                return "INVALID";
+            }
 
+        }
         public string GetStats(int matchId)
         {
             Game matchingGame = null;
@@ -121,15 +130,18 @@ namespace RitoConnector
                 {
                     matchingGame = match;
                 }
+
             }
             if (matchingGame != null)
             {
-                return matchingGame.Stats.ChampionsKilled + "/" + matchingGame.Stats.NumDeaths + "/" +
-                       matchingGame.Stats.Assists;
+                return matchingGame.Stats.ChampionsKilled + "/" + matchingGame.Stats.NumDeaths + "/" + matchingGame.Stats.Assists;
             }
-            return "INVALID";
-        }
+            else
+            {
+                return "INVALID";
+            }
 
+        }
         public int GetFarm(int matchId)
         {
             Game matchingGame = null;
@@ -139,14 +151,18 @@ namespace RitoConnector
                 {
                     matchingGame = match;
                 }
+
             }
             if (matchingGame != null)
             {
                 return matchingGame.Stats.MinionsKilled;
             }
-            return -1;
-        }
+            else
+            {
+                return -1;
+            }
 
+        }
         private string GetRealType(string matchtype)
         {
             MessageBox.Show(matchtype);
@@ -168,10 +184,11 @@ namespace RitoConnector
                     return "Snowdown Showdown";
                 case "KINGPORO":
                     return "Poroking";
+          
+                    
             }
             return "Unknown";
         }
-
         private string GetRealMode(string matchmode)
         {
             switch (matchmode)
@@ -185,5 +202,7 @@ namespace RitoConnector
             }
             return "Unknown";
         }
+
+        
     }
 }

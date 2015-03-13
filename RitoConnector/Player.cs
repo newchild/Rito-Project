@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
+
     public class Player
     {
+
         [JsonProperty("summonerId")]
         public int SummonerId { get; set; }
 
@@ -19,4 +21,5 @@ namespace RitoConnector
         [JsonProperty("profileIcon")]
         public int ProfileIcon { get; set; }
     }
+
 }

@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿
+
+using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-    public abstract class User
+
+    public class User
     {
+
         [JsonProperty("id")]
         public int Id { get; set; }
 
@@ -19,4 +23,5 @@ namespace RitoConnector
         [JsonProperty("summonerLevel")]
         public int SummonerLevel { get; set; }
     }
+
 }

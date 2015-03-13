@@ -5,9 +5,13 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-    public abstract class RankedDto
+
+    public class RankedDto
     {
         [JsonProperty("standard")]
         public RankedId[] RankedId { get; set; }
+
+
     }
+
 }

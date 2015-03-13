@@ -1,37 +1,42 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
-using Newtonsoft.Json;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
 
 namespace RitoConnector
 {
-    internal static class ItemConverter
-    {
-        public static string GetItemName(string itemId, string region, string key)
+	class ItemConverter
+	{
+
+		public static string getItemName(string ItemID,string region, string key)
         {
-            if (itemId == string.Empty || itemId == "0")
-            {
+            if (ItemID == string.Empty || ItemID == "0")
                 return "None";
-            }
-            string jsonraw;
+	        string jsonraw;
             WebResponse response;
-            var uri = "https://global.api.pvp.net/api/lol/static-data/" + region.ToLower() + "/v1.2/item/" + itemId +
-                      "?itemData=all&api_key=" + key;
+            var uri = "https://global.api.pvp.net/api/lol/static-data/" + region.ToLower() + "/v1.2/item/" + ItemID + "?itemData=all&api_key=" + key;
             var connectionListener = WebRequest.Create(uri);
             connectionListener.ContentType = "application/json; charset=utf-8";
             try
             {
                 response = connectionListener.GetResponse();
             }
-            catch (WebException)
-            {
-                return "Error";
+            catch(WebException e){
+                   return "Error";
             }
             using (var sr = new StreamReader(response.GetResponseStream()))
             {
                 jsonraw = sr.ReadToEnd();
             }
-            var tempjson = JsonConvert.DeserializeObject<Items>(jsonraw);
+            var tempjson = JsonConvert.DeserializeObject<ItemConverterDTO.Items>(jsonraw);
             return tempjson.Name;
         }
-    }
+	}
 }
+

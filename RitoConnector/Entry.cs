@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-    public abstract class Entry
+
+    public class Entry
     {
+
         [JsonProperty("leaguePoints")]
         public int LeaguePoints { get; set; }
 
@@ -37,4 +39,5 @@ namespace RitoConnector
         [JsonProperty("miniSeries")]
         public MiniSeries MiniSeries { get; set; }
     }
+
 }

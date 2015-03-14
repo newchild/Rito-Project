@@ -5,10 +5,8 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-
     public class FellowPlayer
     {
-
         [JsonProperty("summonerId")]
         public int SummonerId { get; set; }
 
@@ -18,5 +16,4 @@ namespace RitoConnector
         [JsonProperty("championId")]
         public int ChampionId { get; set; }
     }
-
 }

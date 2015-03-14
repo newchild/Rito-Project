@@ -1,111 +1,99 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using System;
 
 namespace RitoConnector
 {
-	class CacheManager
-	{
-		private static string roamingFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LoLStats";
-		private static string resourcesFolder = roamingFolder + @"/resources";
+    internal class CacheManager
+    {
+        public static void PrepareRoaming()
+        {
+            if (!Directory.Exists(RoamingFolder))
+            {
+                Directory.CreateDirectory(RoamingFolder);
+            }
 
-		public static void PrepareRoaming()
-		{
-			if (!Directory.Exists(roamingFolder))
-			{
-				Directory.CreateDirectory(roamingFolder);
-			}
-			if (!Directory.Exists(resourcesFolder))
-			{
-				Directory.CreateDirectory(resourcesFolder);
-			}
-			if (!Directory.Exists(resourcesFolder + "/ProfileIcons"))
-			{
-				Directory.CreateDirectory(resourcesFolder + "/ProfileIcons");
-			}
-			if (!Directory.Exists(resourcesFolder + "/RankedIcons"))
-			{
-				Directory.CreateDirectory(resourcesFolder + "/RankedIcons");
-			}
-			if (!Directory.Exists(roamingFolder + "/jsonraw"))
-			{
-				Directory.CreateDirectory(roamingFolder + "/jsonraw");
-			}
-		}
+            if (!Directory.Exists(ResourcesFolder))
+            {
+                Directory.CreateDirectory(ResourcesFolder);
+            }
 
-		public static void ResetCache()
-		{
-			if (Directory.Exists(resourcesFolder))
-			{
-				Directory.Delete(resourcesFolder, true);
-			}
-		}
+            if (!Directory.Exists(ResourcesFolder + "/ProfileIcons"))
+            {
+                Directory.CreateDirectory(ResourcesFolder + "/ProfileIcons");
+            }
 
-		public static void saveJson(string filename, string rawjson)
-		{
-			// Summoner JSON has Form Summoner-SummonerName
-			// Ranked JSON has Form Ranked-SummonerName
-			File.WriteAllText(resourcesFolder +"/" + filename + ".json", rawjson);
-		}
+            if (!Directory.Exists(ResourcesFolder + "/RankedIcons"))
+            {
+                Directory.CreateDirectory(ResourcesFolder + "/RankedIcons");
+            }
 
-		public static string getJson(string filename)
-		{
-			return File.ReadAllText(resourcesFolder + "/" + filename + ".json");
-		}
-		public static string getRessources()
-		{
-			return resourcesFolder + "/";
-		}
-		public BitmapImage ProfileIcon(int profileIconId)
-		{
-			var logo = new BitmapImage();
-			logo.BeginInit();
-			if (!File.Exists(resourcesFolder + "/ProfileIcons/" + profileIconId + ".png"))
-			{
-				try
-				{
-					byte[] data;
-					using (var webclient = new WebClient())
-					{
-						data = webclient.DownloadData("http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + profileIconId + ".png");
-					}
-					File.WriteAllBytes(resourcesFolder +"/ProfileIcons/" + profileIconId + ".png", data);
-				}
-				catch (WebException e)
-				{
-					MessageBox.Show(e.Message);
-				}
-			}
-			logo.StreamSource = new FileStream(resourcesFolder +"/ProfileIcons/" + profileIconId + ".png", FileMode.Open, FileAccess.Read);
-			logo.EndInit();
-			return logo;
-		}
+            if (!Directory.Exists(RoamingFolder + "/jsonraw"))
+            {
+                Directory.CreateDirectory(RoamingFolder + "/jsonraw");
+            }
+        }
 
-		public BitmapImage RankedIcon(string tier, string division)
-		{
-			var logo = new BitmapImage();
-			logo.BeginInit();
-			if (!File.Exists(resourcesFolder + "/RankedIcons/" + tier + "_" + division + ".png"))
-			{
-				try
-				{
-					byte[] data;
-					using (var webclient = new WebClient())
-					{
-						data = webclient.DownloadData("https://raw.githubusercontent.com/newchild/Rito-Project/master/RitoConnector/Ressources/" + tier + "_" + division + ".png");
-					}
-					File.WriteAllBytes(resourcesFolder + "/RankedIcons/" + tier + "_" + division + ".png", data);
-				}
-				catch (WebException e)
-				{
-					MessageBox.Show(e.Message);
-				}
-			}
-			logo.StreamSource = new FileStream(resourcesFolder + "/RankedIcons/" + tier + "_" + division + ".png", FileMode.Open, FileAccess.Read);
-			logo.EndInit();
-			return logo;
-		}
-	}
+        public static void ResetCache()
+        {
+            if (Directory.Exists(ResourcesFolder))
+            {
+                Directory.Delete(ResourcesFolder, true);
+            }
+        }
+
+        public static void SaveJson(string filename, string rawjson)
+        {
+            // Summoner JSON has Form Summoner-SummonerName
+            // Ranked JSON has Form Ranked-SummonerName
+            File.WriteAllText(ResourcesFolder + "/" + filename + ".json", rawjson);
+        }
+
+        public static string GetJson(string filename)
+        {
+            return File.ReadAllText(ResourcesFolder + "/" + filename + ".json");
+        }
+
+        public static string GetRessources()
+        {
+            return ResourcesFolder + "/";
+        }
+
+        public BitmapImage ProfileIcon(int profileIconId)
+        {
+            var logo = new BitmapImage();
+            logo.BeginInit();
+            if (!File.Exists(ResourcesFolder + "/ProfileIcons/" + profileIconId + ".png"))
+            {
+                try
+                {
+                    byte[] data;
+                    using (var webclient = new WebClient())
+                    {
+                        data =
+                            webclient.DownloadData("http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" +
+                                                   profileIconId + ".png");
+                    }
+
+                    File.WriteAllBytes(ResourcesFolder + "/ProfileIcons/" + profileIconId + ".png", data);
+                }
+                catch (WebException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+
+            logo.StreamSource = new FileStream(ResourcesFolder + "/ProfileIcons/" + profileIconId + ".png",
+                FileMode.Open, FileAccess.Read);
+            logo.EndInit();
+            return logo;
+        }
+
+        private static readonly string RoamingFolder =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LoLStats";
+
+        private static readonly string ResourcesFolder = RoamingFolder + @"/resources";
+    }
 }

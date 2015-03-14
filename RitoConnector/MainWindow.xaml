@@ -78,10 +78,10 @@
                     </TextBox>
                     <Button x:Name="ConnectButton" Content="Connect" FontFamily="Segoe UI" HorizontalAlignment="Left"
                             Margin="0,224,0,0" VerticalAlignment="Top" Width="499" Click="Connect" Foreground="White"
-                            Background="Gray" Style="{StaticResource FlatPurpleButton}" Height="29" />
+                            Background="Gray" Style="{StaticResource FlatButton}" Height="29" />
                     <Button x:Name="ConnectButtonCopy" Content="Reset" FontFamily="Segoe UI" Foreground="White"
                             Background="Gray" HorizontalAlignment="Left" Margin="0,258,0,0" VerticalAlignment="Top"
-                            Width="499" Click="Reset" Style="{StaticResource FlatPurpleButton}" Height="29" />
+                            Width="499" Click="Reset" Style="{StaticResource FlatButton}" Height="29" />
                     <Label Content="Username:" FontFamily="Segoe UI" Foreground="White" HorizontalAlignment="Left"
                            Margin="7,19,0,0" VerticalAlignment="Top" />
                     <Label Content="API Key:" FontFamily="Segoe UI" Foreground="White" HorizontalAlignment="Left"
@@ -97,26 +97,21 @@
                         <ColumnDefinition Width="480*" />
                     </Grid.ColumnDefinitions>
                     <Image x:Name="ProfileIcon" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top"
-                           Width="100" Margin="10,10,0,0" Grid.ColumnSpan="2" />
-                    <TextBlock x:Name="UsernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock"
-                               FontFamily="Segoe UI" Foreground="White" VerticalAlignment="Top" Margin="95.714,10,0,0"
-                               Width="91" Grid.Column="1" />
+                           Width="100" Margin="0,10,0,0" Grid.ColumnSpan="2" ToolTip="Summoner Image" />
+                    <TextBlock x:Name="UsernameLabel" HorizontalAlignment="Left" TextWrapping="Wrap"
+                               Text="Summoner Name" FontFamily="Segoe UI" Foreground="White" VerticalAlignment="Top"
+                               Margin="96,10,0,0" Width="118" Grid.Column="1" />
                     <TextBlock x:Name="LevelLabel" HorizontalAlignment="Left" Margin="95.714,31,0,0"
-                               FontFamily="Segoe UI" Foreground="White" TextWrapping="Wrap" Text="TextBlock"
+                               FontFamily="Segoe UI" Foreground="White" TextWrapping="Wrap" Text="Level"
                                VerticalAlignment="Top" Width="68" Grid.Column="1" />
-                    <Image Name="RankedImage" HorizontalAlignment="Left" Height="100" Margin="10,115,0,0"
-                           VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2" Grid.Column="0" />
-                    <TextBlock Text="Rank:" x:Name="Ranklabel" HorizontalAlignment="Left" Margin="90.714,115,0,0"
+                    <Image Name="RankedImage" HorizontalAlignment="Left" Height="100" Margin="0,128,0,0"
+                           VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2" Grid.Column="0"
+                           ToolTip="Division Image" Source="Resources/Leagues/Unranked_.png" />
+                    <TextBlock Text="Unknown" x:Name="Rankstatus" HorizontalAlignment="Left" Margin="96,163,0,0"
                                FontFamily="Segoe UI" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top"
                                Width="68" RenderTransformOrigin="0.529,0.752" Grid.Column="1" />
-                    <TextBlock Text="RANKED" x:Name="Rankstatus" HorizontalAlignment="Left" Margin="158.714,115,0,0"
-                               FontFamily="Segoe UI" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top"
-                               Width="68" RenderTransformOrigin="0.529,0.752" Grid.Column="1" />
-                    <TextBlock Text="DIVISION" x:Name="Divisionstatus" HorizontalAlignment="Left" FontFamily="Segoe UI"
-                               Foreground="White" Margin="158.714,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
-                               Width="68" RenderTransformOrigin="0.529,0.752" Grid.Column="1" />
-                    <TextBlock Text="Divison:" x:Name="Divisionlabel" HorizontalAlignment="Left" FontFamily="Segoe UI"
-                               Foreground="White" Margin="90.714,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                    <TextBlock Text="Unknown" x:Name="Divisionstatus" HorizontalAlignment="Left" FontFamily="Segoe UI"
+                               Foreground="White" Margin="96,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                Width="68" RenderTransformOrigin="0.529,0.752" Grid.Column="1" />
                     <Label Content="Last Update:" HorizontalAlignment="Left" Margin="10,273,0,0" FontFamily="Segoe UI"
                            Foreground="White" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="0" />
@@ -126,8 +121,9 @@
                     <TextBlock HorizontalAlignment="Left" Margin="287.714,10,0,0" TextWrapping="Wrap" Text="League:"
                                FontFamily="Segoe UI" Foreground="White" VerticalAlignment="Top" Grid.Column="1" />
                     <ListBox Name="RankedLeague" HorizontalAlignment="Left" Height="267" Margin="287.714,31,0,0"
-                             VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="White"
-                             SelectionChanged="RankedLeagueSelectionChanged" Grid.Column="1" />
+                             VerticalAlignment="Top" Width="188" Background="Gray" BorderBrush="Transparent"
+                             FontFamily="Segoe UI" Foreground="White" SelectionChanged="RankedLeagueSelectionChanged"
+                             Grid.Column="1" />
                 </Grid>
             </TabItem>
             <TabItem Header="Match History" FontFamily="Segoe UI">
@@ -137,11 +133,12 @@
                         <ColumnDefinition Width="433*" />
                     </Grid.ColumnDefinitions>
                     <ListBox x:Name="Matchhistorybox" HorizontalAlignment="Left" Height="267" Margin="10,25,0,0"
-                             VerticalAlignment="Top" Width="150" Background="{x:Null}" BorderBrush="White"
+                             VerticalAlignment="Top" Width="150" Background="Gray" Foreground="White"
+                             FontFamily="Segoe UI" BorderBrush="Transparent"
                              SelectionChanged="MatchHistorySelectionChanged" Grid.ColumnSpan="2" />
                     <ListBox x:Name="MatchhistoryInfo" HorizontalAlignment="Left" Height="267" Margin="99,25,0,0"
-                             VerticalAlignment="Top" Width="324" Background="{x:Null}" BorderBrush="White"
-                             Grid.Column="1" />
+                             VerticalAlignment="Top" Width="324" Background="Gray" Foreground="White"
+                             FontFamily="Segoe UI" BorderBrush="Transparent" Grid.Column="1" />
                 </Grid>
             </TabItem>
             <TabItem Header="Masteries" FontFamily="Segoe UI">
@@ -152,7 +149,8 @@
             </TabItem>
         </TabControl>
         <Button Margin="514,0,0,326" Content="🗙" Foreground="White" Background="Gray"
-                Style="{StaticResource FlatPurpleButton}" VerticalAlignment="Center" Height="22" Click="ButtonClick"
-                Width="22" BorderBrush="Transparent" HorizontalAlignment="Center" FontFamily="Resources/#SYMBOLA" />
+                Style="{StaticResource FlatButton}" VerticalAlignment="Center" Height="22" Click="ButtonClick"
+                Width="22" BorderBrush="Transparent" HorizontalAlignment="Center" FontFamily="Resources/#SYMBOLA"
+                ToolTip="Close." />
     </Grid>
 </Window>

@@ -5,10 +5,8 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-
     public class RankedId
     {
-
         [JsonProperty("queue")]
         public string Queue { get; set; }
 
@@ -24,5 +22,4 @@ namespace RitoConnector
         [JsonProperty("tier")]
         public string Tier { get; set; }
     }
-
 }

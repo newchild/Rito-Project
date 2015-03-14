@@ -6,14 +6,14 @@ using Newtonsoft.Json;
 
 namespace RitoConnector
 {
-    class ChampionTransform
+    internal class ChampionTransform
     {
         public static string GetChampName(int champId)
         {
-            string jsonraw = null;
+            string jsonraw;
             WebResponse response;
-            var uri = "https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/" + champId + "?api_key=" + Keyloader.GetRealKey();
-            
+            var uri = "https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/" + champId + "?api_key=" +
+                      Keyloader.GetRealKey();
             var connectionListener = WebRequest.Create(uri);
             connectionListener.ContentType = "application/json; charset=utf-8";
             try
@@ -26,13 +26,13 @@ namespace RitoConnector
                 MessageBox.Show(uri);
                 response = null;
             }
-	        
-		    using (var sr = new StreamReader(response.GetResponseStream()))
-		    {
-			    jsonraw = sr.ReadToEnd();
-		    }
+            // ReSharper disable once AssignNullToNotNullAttribute
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                jsonraw = sr.ReadToEnd();
+            }
 
-	        var tempjson = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonraw);
+            var tempjson = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonraw);
             return tempjson["name"];
         }
     }
